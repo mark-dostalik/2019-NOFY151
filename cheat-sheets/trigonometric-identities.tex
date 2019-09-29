@@ -1,0 +1,189 @@
+\documentclass[columns=2]{cheatsheet}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% custom macros
+\usepackage{../macros}
+
+% title
+\title{Goniometrické vzorce\footnotemark}
+\author{Mark Dostal\'{i}k \\ \href{mailto:mark.dostalik@gmail.com}{mark.dostalik@gmail.com}}
+\date{\today}
+
+\begin{document}
+\maketitle
+\footnotetext{Toto není povolená pomůcka při testu!}
+\subsection{Sudost/lichost}
+\begin{align*}
+  \sin x 
+  &= 
+  - \sin \parens{-x},
+  \\
+  \cos x
+  &=
+  \cos \parens{-x},
+  \\
+  \tan x
+  &=
+  - \tan \parens{-x},
+  \\
+  \cot x
+  &=
+  - \cot \parens{-x}.
+\end{align*}
+
+\subsection{Posunutí argumentu}
+\begin{align*}
+  \sin x 
+  &= 
+  - \sin \parens{-x},
+  \\
+  \cos x
+  &=
+  \cos \parens{-x},
+  \\
+  \tan x
+  &=
+  - \tan \parens{-x},
+  \\
+  \cot x
+  &=
+  - \cot \parens{-x}.
+\end{align*}
+
+\subsection{Součtové vzorce}
+\setlength{\jot}{4.25pt}  % increase vertical spacing between equations
+\setlength{\belowdisplayskip}{9pt}  % increase vertical skip after align environment
+\begin{align*}
+  \sin \parens{x \pm y} 
+  &= 
+  \sin x \cos y \pm \cos x \sin y,
+  \\
+  \cos \parens{x \pm y} 
+  &=
+  \cos x \cos y \mp \sin x \sin y,
+  \\
+  \tan \parens{x \pm y} 
+  &=
+  \frac{\tan x \pm \tan y}{1 \mp \tan x \tan y},
+  \\
+  \cot \parens{x \pm y} 
+  &=
+  \frac{\cot x \cot y \mp 1}{\cot x \pm \cot y}.
+\end{align*}
+Speciálně, pro \emph{dvojnásobný úhel} platí
+\begin{align*}
+  \sin \parens{2x}
+  &= 
+  2 \sin x \cos x,
+  \\
+  \cos \parens{2x}
+  &= 
+  \cos^2 x - \sin^2 x,
+  \\
+  \tan \parens{2x}
+  &= 
+  \frac{2 \tan x}{1 - \tan^2 x},
+  \\
+  \cot \parens{2x}
+  &=
+  \frac{\cot^2 x - 1}{2 \cot x}.
+\end{align*}
+Pro \emph{poloviční úhel} pak odsud dále dostáváme
+\begin{align*}
+  \abs{\sin \parens{\frac{x}{2}}}
+  &= 
+  \sqrt{\frac{1 - \cos x}{2}},
+  \\
+  \abs{\cos \parens{\frac{x}{2}}}
+  &= 
+  \sqrt{\frac{1 + \cos x}{2}},
+  \\
+  \abs{\tan \parens{\frac{x}{2}}}
+  &= 
+  \sqrt{\frac{1 - \cos x}{1 + \cos x}},
+  \\
+  \abs{\cot \parens{\frac{x}{2}}}
+  &= 
+  \sqrt{\frac{1 + \cos x}{1 - \cos x}}.
+\end{align*}
+
+\vfill\null\columnbreak
+
+\subsection{Součty a rozdíly goniometrických funkcí}
+\setlength{\abovedisplayskip}{6pt}  % increase vertical skip after align environment
+\begin{align*}
+  \sin x \pm \sin y 
+  &= 
+  2 \sin \parens{\frac{x \pm y}{2}} \cos \parens{\frac{x \mp y}{2}},
+  \\
+  \cos x + \cos y 
+  &= 
+  2 \cos \parens{\frac{x + y}{2}} \cos \parens{\frac{x - y}{2}},
+  \\
+  \cos x - \cos y 
+  &= 
+  - 2 \sin \parens{\frac{x + y}{2}} \sin \parens{\frac{x - y}{2}},
+  \\
+  \tan x \pm \tan y 
+  &=
+  \frac{\sin \parens{x \pm y}}{\cos x \cos y},
+  \\
+  \cot x \pm \cot y
+  &=
+  \frac{\sin \parens{y \pm x}}{\sin x \sin y},
+  \\
+  \tan x \pm \cot y
+  &=
+  \pm \frac{\cos \parens{x \mp y}}{\cos x \sin y}.
+\end{align*}
+
+\subsection{Součiny goniometrických funkcí}
+\begin{align*}
+  \sin x \sin y 
+  &= 
+  \frac{1}{2} \brackets{\cos \parens{x - y} - \cos \parens{x + y}},
+  \\
+  \cos x \cos y 
+  &= 
+  \frac{1}{2} \brackets{\cos \parens{x - y} + \cos \parens{x + y}},
+  \\
+  \sin x \cos y 
+  &= 
+  \frac{1}{2} \brackets{\sin \parens{x - y} + \sin \parens{x + y}},
+  \\
+  \tan x \tan y 
+  &=
+  \frac{\tan x + \tan y}{\cot x + \cot y},
+  \\
+  \cot x \cot y
+  &=
+  \frac{\cot x + \cot y}{\tan x + \tan y},
+  \\
+  \tan x \cot y
+  &=
+  \frac{\tan x + \cot y}{\cot x + \tan y}.
+\end{align*}
+Speciálně, pro \emph{mocniny goniometrických funkcí} máme
+\begin{align*}
+  \sin^2 x
+  &= 
+  \frac{1}{2} \brackets{1 - \cos \parens{2x}},
+  \\
+  \cos^2 x
+  &= 
+  \frac{1}{2} \brackets{1 + \cos \parens{2x}},
+  \\
+  \sin^3 x
+  &= 
+  \frac{1}{4} \brackets{3 \sin x - \sin \parens{3x}},
+  \\
+  \cos^3 x
+  &= 
+  \frac{1}{4} \brackets{3 \cos x + \cos \parens{3x}}.
+\end{align*}
+
+\end{document}
