@@ -24,14 +24,21 @@
 \newcommand*{\inverse}[1]{#1^{-1}}
 \newcommand*{\realpart}[1]{\mathrm{Re} \parens{#1}}
 \newcommand*{\imagpart}[1]{\mathrm{Im} \parens{#1}}
+\newcommand{\exponential}[1]{\mathrm{e}^{#1}}
 
 % sets
 \newcommand*{\set}[2]{\braces{\, #1 \mid #2 \,}}
-\newcommand*{\N}{\ensuremath{{\mathbb{N}}}}
-\newcommand*{\R}{\ensuremath{{\mathbb{R}}}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
 
-% definition sign
-\newcommand*{\defeq}{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+% text above signs
+\newcommand*{\texteq}[1]{\stackrel{\text{#1}}{=}}
+\newcommand*{\defeq}{\texteq{def}}
+\newcommand*{\textl}[1]{\stackrel{\text{#1}}{<}}
+\newcommand*{\textle}[1]{\stackrel{\text{#1}}{\le}}
+\newcommand*{\textg}[1]{\stackrel{\text{#1}}{>}}
+\newcommand*{\textge}[1]{\stackrel{\text{#1}}{\ge}}
 
 % parens, brackets, braces, angles
 \newcommand*{\parens}[1]{\left( #1 \right)}

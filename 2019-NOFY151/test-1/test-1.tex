@@ -1,0 +1,247 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\usepackage{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza I (NOFY151) – 1. zápočtový test\vspace{-1ex}}
+\author{\vspace{-2ex}}
+\date{\vspace{-2ex}22. října 2019}
+
+\begin{document}
+\maketitle
+
+\begin{questions}
+  \question[2] Ukažte, že pro všechna $n \in \N$ platí rovnost
+  \begin{equation*}
+    \sum_{k=1}^{n} \frac{1}{\parens{2k - 1} \parens{2k + 1}}
+    =
+    \frac{n}{2n + 1}.
+  \end{equation*}
+  Pro důkaz použijte matematickou indukci.
+  
+  \begin{solution}
+    Pro $n = 1$ máme
+    \begin{equation*}
+      \frac{1}{1 \cdot 3} = \frac{1}{2 + 1}
+    \end{equation*}
+    a rovnost je tedy splněna. Ukažme, že pokud rovnost platí pro $n \in \N$ platí i pro $n + 1$. 
+    \begin{align*}
+      \sum_{k=1}^{n + 1} \frac{1}{\parens{2k - 1} \parens{2k + 1}}
+      &=
+      \frac{1}{\parens{2n + 1} \parens{2n + 3}} 
+      + 
+      \sum_{k=1}^{n} \frac{1}{\parens{2k - 1} \parens{2k + 1}}
+      \\
+      &\texteq{IP}
+      \frac{1}{\parens{2n + 1} \parens{2n + 3}} 
+      +
+      \frac{n}{2n + 1}
+      =
+      \frac{1 + 2n^2 + 3 n}{\parens{2n + 1} \parens{2n + 3}}
+      \\
+      &=
+      \frac{\parens{2n + 1} \parens{n + 1}}{\parens{2n + 1} \parens{2n + 3}}
+      =
+      \frac{n + 1}{2n + 3}.
+    \end{align*}
+  \end{solution}
+  
+  \question[2] Ukažte, že pro všechna $n \in \N$ platí nerovnost
+  \begin{equation*}
+    \sum_{k=1}^{n} \frac{1}{k}
+    \le
+    2 \sqrt{n}.
+  \end{equation*}
+  Pro důkaz použijte matematickou indukci.
+  
+  \begin{solution}
+    Pro $n = 1$ je máme
+    \begin{equation*}
+      \frac{1}{1} \le 2 \sqrt{1},
+    \end{equation*}
+    a nerovnost je tedy splněna. Ukažme, že pokud rovnost platí pro $n \in \N$ platí i pro $n + 1$. Podle indukčního předpokladu máme
+    \begin{equation*}
+      \sum_{k=1}^{n + 1} \frac{1}{k}
+      =
+      \frac{1}{n + 1} + \sum_{k=1}^{n} \frac{1}{k}
+      \textle{IP}
+      \frac{1}{n + 1} + 2 \sqrt{n}.
+    \end{equation*}
+    Stačí tedy dokázat nerovnost
+    \begin{equation*}
+      \frac{1}{n + 1} + 2 \sqrt{n}
+      \le
+      2 \sqrt{n + 1}.
+    \end{equation*}
+    Odečtením $2 \sqrt{n}$ a rozšířením pravé strany o $\sqrt{n + 1} + \sqrt{n}$ dostaneme
+    \begin{equation*}
+      \frac{1}{n + 1}
+      \le
+      \frac{2}{\sqrt{n + 1} + \sqrt{n}},
+    \end{equation*}
+    což po jednoduché úpravě vede na
+    \begin{equation*}
+      \sqrt{n + 1} + \sqrt{n}
+      \le
+      2 \parens{n + 1}.
+    \end{equation*}
+    Poslední nerovnost už však platí, neboť
+    \begin{equation*}
+      \sqrt{n + 1} + \sqrt{n} 
+      \le 
+      \sqrt{n + 1} + \sqrt{n + 1}
+      =
+      2 \sqrt{n + 1}
+      \le
+      2 \parens{n + 1}.
+    \end{equation*}
+  \end{solution}
+  
+  \question[2] Podmnožina reálných čísel $P$ je definována předpisem
+  \begin{equation*}
+    P \defeq \set{\frac{1 - x}{x}}{x > 0}.
+  \end{equation*}
+  Nalezněte její minimum, maximum, infimum a supremum (pokud existují). Ověřte z definice příslušných pojmů.
+  
+  \begin{solution}
+    Platí $P = (-1, +\infty)$. (Nakreslete si graf funkce $(1 - x) / x$.)
+    
+    \begin{itemize}
+      \item $\nexists \min P$:
+      \begin{equation*}
+        \forall m \in P \quad \exists x \in P \quad x < m. \quad \parens{\text{Volme např. $x := \frac{m - 1}{2} \in P$.}}
+      \end{equation*}
+      \item $\inf P = -1$:
+      \begin{equation*}
+        \forall x \in P \quad -1 \le x \quad \wedge \quad \forall i > -1 \quad \exists x \in P \quad x < i. \quad \parens{\text{Volme např. $x := \frac{i - 1}{2} \in P$.}}
+      \end{equation*}
+      \item $\nexists \max P$:
+      \begin{equation*}
+        \forall M \in P \quad \exists x \in P \quad x > M. \quad \parens{\text{Volme např. $x := 2 M \in P$.}}
+      \end{equation*}
+      \item $\nexists \sup P$: (stačí ověřit, že neexistuje horní závora)
+    \end{itemize}
+      \begin{equation*}
+        \forall s \in \R \quad \exists x \in P \quad x > s. \quad \parens{\text{Volme např. $x := 2 s \in P$.}}
+      \end{equation*}        
+  \end{solution}
+  
+  \question[2] Spočtěte (bez použití l'Hôpitalova pravidla nebo Taylorova rozvoje)
+  \begin{equation*}
+    \lim_{x \to 0} \frac{x^2}{\sqrt{1 + x \sin x} - \sqrt{\cos x}}.
+  \end{equation*}
+  
+  \begin{solution}
+  \begin{align*}
+    \lim_{x \to 0} \frac{x^2}{\sqrt{1 + x \sin x} - \sqrt{\cos x}}
+    &=
+    \lim_{x \to 0} \frac{x^2}{\sqrt{1 + x \sin x} - \sqrt{\cos x}} \cdot \frac{\sqrt{1 + x \sin x} + \sqrt{\cos x}}{\sqrt{1 + x \sin x} + \sqrt{\cos x}}
+    \\
+    &=
+    \lim_{x \to 0} \frac{x^2}{1 + x \sin x - \cos x} \cdot \lim_{x \to 0} \parens{\sqrt{1 + x \sin x} + \sqrt{\cos x}}
+    \\
+    &=
+    \lim_{x \to 0} \frac{1}{\frac{\sin x}{x} + \frac{1 - \cos x}{x^2}} \cdot 2
+    =
+    \frac{1}{1+\frac{1}{2}} \cdot 2 = \frac{4}{3},
+  \end{align*}
+  kde jsme využili znalost limit
+  \begin{equation*}
+    \lim_{x \to 0} \frac{\sin x}{x} = 1, \qquad \lim_{x \to 0} \frac{1 - \cos x}{x^2} = \frac{1}{2}.
+  \end{equation*}
+  \end{solution}
+  
+  \question[2] Pro $n \in \N$ spočtěte (bez použití l'Hôpitalova pravidla nebo Taylorova rozvoje)
+  \begin{equation*}
+    \lim_{x \to 1} 
+    \frac{
+      \parens{1 - \sqrt{x}} \parens{1 - \sqrt[3]{x}} \cdots \parens{1 - \sqrt[n]{x}}
+    }{
+      \parens{1 - x}^{n - 1}
+    }.
+  \end{equation*}
+  
+  \begin{solution}
+    \begin{align*}
+      \lim_{x \to 1} 
+      \frac{
+        \parens{1 - \sqrt{x}} \parens{1 - \sqrt[3]{x}} \cdot \ldots \cdot \parens{1 - \sqrt[n]{x}}
+      }{
+        \parens{1 - x}^{n - 1}
+      }
+      &=
+      \lim_{x \to 1} \frac{1 - \sqrt{x}}{1 - x} \cdots \lim_{x \to 1} \frac{1 - \sqrt[n]{x}}{1 - x}
+      \\
+      &=
+      \lim_{x \to 1} \frac{\sqrt{x} - 1}{x - 1} \cdots \lim_{x \to 1} \frac{\sqrt[n]{x} - 1}{x - 1}
+      \\
+      &=
+      \frac{1}{2} \cdots \frac{1}{n} = \frac{1}{n!},
+    \end{align*}
+    kde jsme v poslední rovnosti využili znalost limity
+    \begin{equation*}
+      \lim_{y \to 0} \frac{\sqrt[n]{1 + y} - 1}{y} = \frac{1}{n},
+    \end{equation*}
+    a substituci $y = x - 1$.
+    
+  \end{solution}
+   
+\end{questions}
+
+\end{document}

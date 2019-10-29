@@ -1,0 +1,290 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\usepackage{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza I (NOFY151) – 1. zápočtový test (opravný)\vspace{-1ex}}
+\author{\vspace{-2ex}}
+\date{\vspace{-2ex}29. října 2019}
+
+\begin{document}
+\maketitle
+
+\begin{questions}
+  \question[2] Dokažte pro $n \in \N$ a $x \in \R$ matematickou indukcí Moivreovu větu
+  \begin{equation*}
+    \parens{\cos x + \iunit \sin x}^n
+    =
+    \cos (nx) + \iunit \sin (nx).
+  \end{equation*}
+  
+  \begin{solution}
+    Pro $n = 1$ máme
+    \begin{equation*}
+      \cos x + \iunit \sin x
+      =
+      \cos x + \iunit \sin x,
+    \end{equation*}
+    a rovnost je tedy splněna. Ukažme, že pokud rovnost platí pro $n \in \N$ platí i pro $n + 1$. 
+    \begin{align*}
+      \parens{\cos x + \iunit \sin x}^{n + 1}
+      &=
+      \parens{\cos x + \iunit \sin x} \parens{\cos x + \iunit \sin x}^n
+      \texteq{IP}
+      \parens{\cos x + \iunit \sin x}
+      \parens{\cos (nx) + \iunit \sin (nx)}
+      \\
+      &=
+      \cos x \cos (nx) - \sin x \sin (nx)
+      +
+      \iunit
+      \parens{ \sin x \cos (nx) + \cos x \sin (nx) }
+      \\
+      &=
+      \cos \parens{(n + 1) x} + \iunit \sin \parens{(n + 1) x},
+    \end{align*}
+    kde jsme v poslední rovnosti využili goniometrické vzorce
+    \begin{align*}
+      \sin (x + y) &= \sin x \cos y + \cos x \sin y,
+      \\
+      \cos (x + y) &= \cos x \cos y - \sin x \sin y.
+    \end{align*}
+    
+  \end{solution}
+  
+  \question[2] Ukažte, že pro $n \in \N$ platí nerovnost
+  \begin{equation*}
+    4^{n - 1}
+    \ge
+    n^2.
+  \end{equation*}
+  Pro důkaz použijte matematickou indukci.
+  
+  \begin{solution}
+    Pro $n = 1, 2, 3$ pořadě dostaváme
+    \begin{align*}
+      1 &\ge 1,
+      \\
+      4 &\ge 4,
+      \\
+      16 &\ge 9,
+    \end{align*}
+    a pro tato $n$ je tedy nerovnost splněna. Ukažme, že pokud rovnost platí pro $n \ge 3$ platí i pro $n + 1$. Podle indukčního předpokladu máme
+    \begin{equation*}
+      4^n = 4 \cdot 4^{n - 1} \textge{IP} 4n^2.
+    \end{equation*}
+    Stačí tedy dokázat nerovnost
+    \begin{equation*}
+      4 n^2
+      \ge
+      (n + 1)^2,
+    \end{equation*}
+    která je ekvivalentní s
+    \begin{equation*}
+      2n^2 - 2n - 1 \ge 0.
+    \end{equation*}
+    Snadno zjistíme, že kořeny funkce $f(x) \defeq 2 x^2 - 2x - 1$ jsou $1 \pm \sqrt{3}$. Pro $x > 0$ je $f$ nezáporná na intervalu $[1 + \sqrt{3}, +\infty)$. Protože ale $1 + \sqrt{3} < 3 \le n$, poslední nerovnost je splněna.
+   
+  \end{solution}
+  
+  \question[2] Podmnožina reálných čísel $P$ je definována předpisem 
+  \begin{equation*}
+    P \defeq \set{(-1)^n \frac{n^2 + 1}{n^2 - 1}}{n \in \N \setminus \{1\}}.
+  \end{equation*}
+  Nalezněte její minimum, maximum, infimum a supremum (pokud existují). Ověřte z definice příslušných pojmů.
+  
+  \begin{solution}   
+    \begin{itemize}
+      \item $\min P = - \frac{5}{4}$: 
+      
+        Chceme ukázat, že pro $n \in \N \setminus \{1\}$ platí 
+        \begin{equation*}
+          - \frac{5}{4}
+          \le
+          (-1)^n \frac{n^2 + 1}{n^2 - 1}.
+        \end{equation*}
+        Pro sudá $n$ nerovnost zřejmě platí. Stačí tedy dokázat, že pro $n = \{3, 5, \dots\}$ platí
+        \begin{equation*}
+          - \frac{5}{4}
+          \le
+          -
+          \frac{n^2 + 1}{n^2 - 1}.
+        \end{equation*}
+        Snadnou úpravou se ale ukáže, že to je ekvivalentní s $n \ge 3$.
+      
+      \item $\inf P = - \frac{5}{4}$:
+      
+        Protože existuje $\min P$, existuje i $\inf P$ a jejich hodnoty se rovnají.
+      
+      \item $\max P = \frac{5}{3}$:
+      
+        Chceme ukázat, že pro $n \in \N \setminus \{1\}$ platí 
+        \begin{equation*}
+          (-1)^n \frac{n^2 + 1}{n^2 - 1}
+          \le
+          \frac{5}{3}.
+        \end{equation*}
+        Pro $n = \{3, 5, \dots\}$ nerovnost zřejmě platí. Stačí tedy dokázat, že pro sudá $n$ platí
+        \begin{equation*}
+          \frac{n^2 + 1}{n^2 - 1}
+          \le
+          \frac{5}{3}.
+        \end{equation*}
+        Snadnou úpravou se ale ukáže, že to je ekvivalentní s $n \ge 2$.
+        
+      \item $\sup P = \frac{5}{3}$:
+      
+        Protože existuje $\max P$, existuje i $\sup P$ a jejich hodnoty se rovnají.
+
+    \end{itemize}
+  \end{solution}
+  
+  \question[2] Spočtěte (bez použití l'Hôpitalova pravidla nebo Taylorova rozvoje)
+  \begin{equation*}
+    \lim_{x \to 0} \parens{x + \exponential{x}}^{\frac{1}{x}}.
+  \end{equation*}
+  
+  \begin{solution}
+  Platí 
+  \begin{align*}
+    \lim_{x \to 0} \frac{1}{x} \ln \parens{x + \exponential{x}}
+    &=
+    \lim_{x \to 0} 
+    \frac{1}{x} \ln \parens{x + \exponential{x}}
+    \cdot
+    \frac{x + \exponential{x} - 1}{x + \exponential{x} - 1}
+    \\
+    &=
+    \lim_{x \to 0} \parens{1 + \frac{\exponential{x} - 1}{x}}
+    \cdot
+    \lim_{x \to 0} \frac{\ln \parens{x + \exponential{x}}}{x + \exponential{x} - 1}
+    \\
+    &=
+    \parens{1 + 1} \cdot 1
+    =
+    2,
+  \end{align*}
+  kde v předposlední rovnosti jsme využili znalost limit
+  \begin{equation*}
+    \lim_{x \to 0} \frac{\exponential{x} - 1}{x} = 1,
+    \qquad
+    \lim_{y \to 0} \frac{\ln(1 + y)}{y} = 1,
+  \end{equation*}
+  a substituci $y = x + \exponential{x} - 1$.
+  
+  Konečně dostáváme
+  \begin{equation*}
+    \lim_{x \to 0} \parens{x + \exponential{x}}^{\frac{1}{x}}
+    =
+    \exponential{\lim_{x \to 0} \frac{1}{x} \ln \parens{x + \exponential{x}}}
+    =
+    \exponential{2}.
+  \end{equation*}
+  \end{solution}
+  
+  \question[2] Pro $n, m \in \N$ spočtěte (bez použití l'Hôpitalova pravidla nebo Taylorova rozvoje)
+  \begin{equation*}
+    \lim_{x \to 0} 
+    \frac{
+      \sqrt[n]{1 + x^2} - \sqrt[m]{1 - x^2}
+    }{
+      \sin(x^2)
+    }.
+  \end{equation*}
+  
+  \begin{solution}
+    \begin{align*}
+      \lim_{x \to 0} 
+      \frac{
+        \sqrt[n]{1 + x^2} - \sqrt[m]{1 - x^2}
+      }{
+        \sin(x^2)
+      }
+      &=
+      \lim_{x \to 0}
+      \frac{\sqrt[n]{1 + x^2} - \sqrt[m]{1 - x^2}}{x^2}
+      \cdot
+      \lim_{x \to 0}
+      \frac{x^2}{\sin(x^2)} 
+      \\
+      &=
+      \lim_{x \to 0}
+      \parens{\frac{\sqrt[n]{1 + x^2} - 1}{x^2} - \frac{\sqrt[m]{1 - x^2} - 1}{x^2}}
+      \cdot
+      \lim_{x \to 0}
+      \frac{x^2}{\sin(x^2)} 
+      \\
+      &=
+      \parens{\frac{1}{n} + \frac{1}{m}} \cdot 1
+      =
+      \frac{m + n}{mn},
+    \end{align*}
+    kde v předposlední rovnosti jsme využili znalost limit
+    \begin{equation*}
+      \lim_{y \to 0} \frac{\sin y}{y} = 1,
+      \qquad
+      \lim_{y \to 0} \frac{\sqrt[n]{1 \pm y} - 1}{y} = \pm \frac{1}{n},
+    \end{equation*}
+    a substituci $y = x^2$.
+    
+  \end{solution}
+   
+\end{questions}
+
+\end{document}

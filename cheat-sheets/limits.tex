@@ -1,0 +1,141 @@
+\documentclass[columns=2]{cheatsheet}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% custom macros
+\usepackage{../macros}
+
+% title
+\title{Počítání limit funkcí}
+\author{Mark Dostal\'{i}k \\ \href{mailto:mark.dostalik@gmail.com}{mark.dostalik@gmail.com}}
+\date{\today}
+
+\begin{document}
+\maketitle
+\subsection{Binomická věta}
+\begin{equation*}
+  \parens{x + y}^n = \sum_{k=0}^{n} \binom{n}{k} x^{n - k} y^k.
+\end{equation*}
+Speciálně, pro $n = 2, 3$
+\begin{align*}
+  \parens{x + y}^2 
+  &= 
+  x^2 + 2xy + y^2,
+  \\
+  \parens{x - y}^2 
+  &= 
+  x^2 - 2xy + y^2,
+  \\  
+  \parens{x + y}^3 
+  &= 
+  x^3 + 3 x^2 y + 3 x y^2 + y^3,
+  \\
+  \parens{x - y}^3 
+  &= 
+  x^3 - 3 x^2 y + 3 x y^2 - y^3.
+\end{align*}
+
+\subsection{Faktorizace $x^n - y^n$}
+\begin{equation*}
+  x^n - y^n = \parens{x - y} \parens{\sum_{k=0}^{n} x^{n -1 -k} y^k}.
+\end{equation*}
+Speciálně, pro $n = 2, 3$
+\begin{align*}
+  x^2 - y^2 
+  &= 
+  \parens{x - y} \parens{x + y},
+  \\
+  x^3 - y^3 
+  &= 
+  \parens{x - y} \parens{x^2 + xy + y^2}.
+\end{align*}
+
+\vfill\null\columnbreak
+
+\subsection{Aritmetika limit}
+Pro $x_0 \in \R^*$ platí
+\begin{align*}
+  \lim_{x \to x_0} \brackets{f(x) + g(x)}
+  &=
+  \lim_{x \to x_0} f(x) + \lim_{x \to x_0} g(x),
+  \\
+  \lim_{x \to x_0} f(x) g(x)
+  &=
+  \lim_{x \to x_0} f(x) \lim_{x \to x_0} g(x),
+  \\
+  \lim_{x \to x_0} \frac{f(x)}{g(x)}
+  &=
+  \frac{\lim_{x \to x_0} f(x)}{\lim_{x \to x_0} g(x)},
+\end{align*}
+pokud pravé strany mají smysl v $\R^*$. Výrazy
+\begin{equation*}
+  \pm \parens{+ \infty - \infty}, 
+  \qquad 
+  \frac{\pm \infty}{\pm \infty},
+  \qquad
+  \pm \infty \cdot 0,
+  \qquad
+  \frac{a}{0}.
+\end{equation*}
+kde $a \in \R^*$, nemají smysl v $\R^*$.
+
+%\subsection{Limita racionální funkce}
+%\begin{equation*}
+%  \lim_{x \to \pm \infty} \frac{\sum_{i=0}^{n} a_i x^i}{\sum_{j=0}^{m} b_j x^j}
+%  =
+%  \begin{cases}
+%    1,
+%    \\
+%    2.
+%  \end{cases}
+%\end{equation*}
+
+\subsection{Důležité limity}
+\setlength{\jot}{6pt}
+\begin{align*}
+  \lim_{x \to 0} \frac{\sqrt[n]{1 + x} - 1}{x} 
+  &=
+  \frac{1}{n},
+  \\
+  \lim_{x \to 0} \frac{\sin x}{x} 
+  &= 
+  1,
+  \\
+  \lim_{x \to 0} \frac{1 - \cos x}{x^2} 
+  &= 
+  \frac{1}{2},
+  \\
+  \lim_{x \to 0} \frac{\exponential{x} - 1}{x}
+  &=
+  1,
+  \\
+  \lim_{x \to 0} \frac{\ln\parens{1 + x}}{x}
+  &=
+  1.
+\end{align*}
+
+\subsection{Limita funkce tvaru $f(x)^{g(x)}$}
+\begin{equation*}
+  \lim_{x \to x_0} \brackets{f(x)}^{g(x)}
+  =
+  \exponential{\lim_{x \to x_0} g(x) \ln \brackets{f(x)}}
+\end{equation*}
+
+%\subsection{L'Hospitalovo pravidlo}
+%\begin{equation*}
+%  \lim_{x \to x_0} \frac{f(x)}{g(x)}
+%  =
+%  \lim_{x \to x_0} \frac{f'(x)}{g'(x)},
+%\end{equation*}
+%pokud nastává jedna z následujících možností
+%\begin{enumerate}
+%  \item $\lim_{x \to x_0} f(x) = \lim_{x \to x_0} g(x) = 0$,
+%  \item $\lim_{x \to x_0} g(x) = \pm \infty$.
+%\end{enumerate}
+%
+%\subsection{Taylorův rozvoj}
+
+\end{document}
