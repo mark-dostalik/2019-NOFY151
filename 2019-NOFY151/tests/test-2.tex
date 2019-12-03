@@ -1,0 +1,258 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\usepackage{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza I (NOFY151) – 2. zápočtový test\vspace{-1ex}}
+\author{\vspace{-2ex}}
+\date{\vspace{-2ex}3. prosince 2019}
+
+\begin{document}
+\maketitle
+
+\begin{questions}
+  \question[2] Určete definiční obor funkce
+  \begin{equation*}
+    f(x) \defeq \parens{\ln x}^x,
+  \end{equation*}
+  a v jeho vnitřních bodech spočtěte derivaci $f$.
+  
+  \begin{solution}
+    Přepišme si funkci do tvaru
+    \begin{equation*}
+      f(x) = \exponential{x \ln \parens{\ln x}}.
+    \end{equation*}
+    Odsud vidíme, že funkce je definovaná pro $x > 1$, neboť \uv{vnější} přirozený logaritmus musí brát kladné hodnoty a \uv{vnitřní} přirozený logaritmus je kladný pro $x > 1$. Tedy $D_f = \parens{1, +\infty}$.
+    
+    Derivaci ve všech bodech definičního oboru (všechny jsou vnitřní) pak spočítáme pomocí vět o derivaci složené funkce a derivace součinu dvou funkcí
+    \begin{align*}
+      \dd{f}{x}(x) 
+      &= 
+      \dd{}{x} \parens{\exponential{x \ln \parens{\ln x}}} 
+      =
+      \exponential{x \ln \parens{\ln x}} \dd{}{x} \parens{x \ln \parens{\ln x}}
+      \\
+      &=
+      \exponential{x \ln \parens{\ln x}} \parens{\ln \parens{\ln x} + x \frac{1}{\ln x} \cdot \frac{1}{x}}
+      =
+      \parens{\ln x}^x \parens{\ln \parens{\ln x} + \frac{1}{\ln x}}.
+    \end{align*}
+  \end{solution}
+  
+  \question[4] Spočtěte
+  \begin{equation*}
+    \int \frac{1}{\cos^3 x} \diff x,
+  \end{equation*}
+  na maximálních možných intervalech (a ty určete).
+  
+  \begin{solution}
+    Integrand je definovaný a spojitý na intervalech, kde je kosinus vždy kladný nebo vždy záporný, tj. $\parens{(2k - 1)\pi/2, (2k + 1)\pi/2}$. Na těchto intervalech bude mít tedy primitivní funkci, kterou nyní najdeme. 
+    
+    Nejprve integrand rozšíříme funkcí $\cos x$, využijeme identity $\sin^2 x + \cos^2 x = 1$, a pomocí první substituční metody ($u = \sin x$) dostaneme
+    \begin{equation*}
+      \int \frac{1}{\cos^3 x} \diff x
+      =
+      \int \frac{\cos x}{(1 - \sin^2 x)^2} \diff x
+      =
+      \left| 
+        \begin{aligned}
+          u &= \sin x
+          \\
+          \diff u &= \cos x \, \diff x
+        \end{aligned}
+      \right|
+      =
+      \int \frac{1}{\parens{1-u^2}^2} \diff u
+      =
+      \int \frac{1}{\parens{1-u}^2 \parens{1+u}^2} \diff u.    
+    \end{equation*}
+    Integrand posledního integrálu můžeme rozložit na parciální zlomky
+    \begin{equation*}
+      \int \frac{1}{\parens{1-u}^2 \parens{1+u}^2} \diff u
+      =
+      \int
+        \left(
+          \frac{A}{1 - u} + \frac{B}{(1 - u)^2} + \frac{C}{1 + u} + \frac{D}{(1 + u)^2}
+        \right)
+      \diff u,
+    \end{equation*}
+    kde pro reálné konstanty $A, B, C, D$ musí platit
+    \begin{equation*}
+      1 = A (1 - u)(1 + u)^2 + B (1 + u)^2 + C (1 - u)^2 (1 + u) + D (1 - u)^2.
+    \end{equation*}
+    Dosazením $u = 1$ dostaneme $B = 1/4$, dosazením $u = -1$ potom $D = 1/4$. Srovnání absolutních členů ($u^0$) dává
+    \begin{equation*}
+      1 = A + B + C + D.
+    \end{equation*}
+    Pro koeficienty členů $u^3$ dále musí platit
+    \begin{equation*}
+      0 = -A + C.
+    \end{equation*}
+    Z posledních dvou rovnic pak už po dosazení za $B$ a $D$ dostáváme $A = 1/4$, $C = 1/4$.
+    
+    Rozklad na parciální zlomky nám tedy dává
+    \begin{align*}
+      \int \frac{1}{\parens{1-u}^2 \parens{1+u}^2} \diff u
+      &=
+      \frac{1}{4}
+      \int
+        \left(
+          \frac{1}{1 - u} + \frac{1}{(1 - u)^2} + \frac{1}{1 + u} + \frac{1}{(1 + u)^2}
+        \right)
+      \diff u
+      \\
+      &=
+      \frac{1}{4}
+      \parens{
+        - \ln \abs{1 - u} + \frac{1}{1 - u} + \ln \abs{1 + u} - \frac{1}{1 + u}
+      }
+      +
+      c,
+    \end{align*}
+    a pro původní integrál tak po dosazení za $u$ dostáváme
+    \begin{equation*}
+      \int \frac{1}{\cos^3 x} \diff x
+      =
+      \frac{1}{4}
+      \parens{
+        - \ln \abs{1 - \sin x} + \frac{1}{1 - \sin x} + \ln \abs{1 + \sin x} - \frac{1}{1 + \sin x}
+      }
+      +
+      c.
+    \end{equation*}
+    Absolutní hodnoty nejsou nutné, $\sin x$ na příslušných intervalech nabývá hodnot (-1,1). Výsledek se dá navíc ještě dále upravit do tvaru
+    \begin{equation*}
+      \int \frac{1}{\cos^3 x} \diff x
+      =
+      \frac{1}{4}
+      \parens{
+        \frac{2 \sin x}{\cos^2 x} + \ln \parens{\frac{1 + \sin x}{1 - \sin x}}
+      }
+      +
+      c.
+    \end{equation*}    
+  \end{solution}
+  
+  \question[2] Spočtěte limitu funkce
+  \begin{equation*}
+    \lim_{x \to 0} \parens{\frac{1}{x} - \frac{1}{\exponential{x} - 1}}.
+  \end{equation*}
+  
+  \begin{solution}
+  Členy v závorce převedeme na společného jmenovatele a počítáme
+  \begin{equation*}
+    \lim_{x \to 0} \parens{\frac{1}{x} - \frac{1}{\exponential{x} - 1}}
+    =
+    \lim_{x \to 0} \frac{\exponential{x} - 1 - x}{x \parens{\exponential{x} - 1}}
+    \texteq{l'H}
+    \lim_{x \to 0} \frac{\exponential{x} - 1}{\exponential{x} - 1 + x \exponential{x}}
+    \texteq{l'H}
+    \lim_{x \to 1} \frac{\exponential{x}}{\exponential{x} + \exponential{x} + x\exponential{x}}
+    =
+    \frac{1}{2},
+  \end{equation*}
+  kde jsme v prvních dvou rovnostech využili l'Hôpitalova pravidla pro výpočet limity typu ``$\frac{0}{0}$''.
+  
+  Výraz za druhou rovností lze alternativně před aplikací l'Hôpitalova pravidla upravit do tvaru
+  \begin{equation*}
+  \lim_{x \to 0} \frac{\exponential{x} - 1 - x}{x \parens{\exponential{x} - 1}}
+  =
+  \lim_{x \to 0} \frac{x}{\exponential{x} - 1} \frac{\exponential{x} - 1 - x}{x^2}
+  =
+  \lim_{x \to 0} \frac{\exponential{x} - 1 - x}{x^2},
+  \end{equation*}
+  kde jsme využili aritmetiku limit a znalost limity
+  \begin{equation*}
+    \lim_{x \to 0} \frac{\exponential{x} - 1}{x} = 1.
+  \end{equation*}
+  \end{solution}
+  
+  \question[2] Spočtěte limitu posloupnosti
+  \begin{equation*}
+    \lim_{n \to +\infty} n \parens{\sqrt[n]{7} - 1}.
+  \end{equation*}
+  
+  \begin{solution}
+  Vypočítejme nejprve limitu funkce
+  \begin{equation*}
+    \lim_{x \to 0} \frac{7^x - 1}{x}
+    \texteq{l'H}
+    \lim_{x \to 0} \frac{7^x \ln 7}{1}
+    =
+    \ln 7,
+  \end{equation*}
+  kde jsme v první rovnosti využili l'Hôpitalova pravidla pro výpočet limity typu ``$\frac{0}{0}$''. Použijeme-li nyní Heineho větu s volbou $x_n \defeq \frac{1}{n}$, dostáváme, že limita zadané posloupnosti je taktéž rovna $\ln 7$.  
+  
+  Limita výše se dá samozřejmě spočítat i bez použití l'Hôpitalova pravidla následovně
+  \begin{equation*}
+    \lim_{x \to 0} \frac{7^x - 1}{x}
+    =
+    \lim_{x \to 0} \frac{\exponential{x \ln 7} - 1}{x \ln 7} \ln 7
+    =
+    \ln 7,
+  \end{equation*}
+  kde jsme využili větu o limitě složené funkce a znalost limity
+  \begin{equation*}
+    \lim_{x \to 0} \frac{\exponential{x} - 1}{x} = 1.
+  \end{equation*}
+  \end{solution}
+   
+\end{questions}
+
+\end{document}
