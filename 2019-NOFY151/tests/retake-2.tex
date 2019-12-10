@@ -1,0 +1,315 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+\definecolor{MarkColor}{HTML}{1d7ad1}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\usepackage{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza I (NOFY151) – 2. zápočtový test (opravný)\vspace{-1ex}}
+\author{\vspace{-2ex}}
+\date{\vspace{-2ex}10. prosince 2019}
+
+\begin{document}
+\maketitle
+
+\begin{questions}
+  \question[2] Určete definiční obor funkce
+  \begin{equation*}
+    f(x) \defeq \sqrt{x - \sqrt{x}},
+  \end{equation*}
+  a v jeho vnitřních bodech spočtěte derivaci $f$.
+  
+  \begin{solution}
+    Kvůli \uv{vnitřní} odmocnině musí být nutně $x \ge 0$. Dále argument \uv{vnější} odmocniny musí být nezáporný, tj.
+    \begin{equation*}
+      x - \sqrt{x} \ge 0.
+    \end{equation*}
+    Po přehození $\sqrt{x}$ na pravou stranu a umocnění nerovnosti dostáváme
+    \begin{equation*}
+      x^2 \ge x,
+    \end{equation*}
+    což je ekvivaletní s
+    \begin{equation*}
+      x \parens{x - 1} \ge 0.
+    \end{equation*}
+    Z poslední nerovnosti pak plyne, že $D_f = \left[ 1, +\infty \right)$.
+    
+    Ve vnitřních bodech definičního oboru, tj. na intervalu $(1, +\infty)$, najdeme derivaci funkce $f$ pomocí věty o derivaci složené funkce
+    \begin{equation*}
+      \dd{f}{x}(x) 
+      = 
+      \dd{}{x} \parens{\parens{x - x^{\frac{1}{2}}}^{\frac{1}{2}}}
+      =
+      \frac{1}{2} \parens{x - x^{\frac{1}{2}}}^{-\frac{1}{2}} \cdot \parens{1 - \frac{1}{2} x^{-\frac{1}{2}}}
+      =
+      \frac{1}{2\sqrt{x - \sqrt{x}}} \cdot \parens{1 - \frac{1}{2 \sqrt{x}}}
+      =
+      \frac{2 \sqrt{x} - 1}{4 \sqrt{x\parens{x - \sqrt{x}}}}.
+    \end{equation*}
+  \end{solution}
+  
+  \question[4] Spočtěte
+  \begin{equation*}
+    \int \ln \parens{\sqrt{x + 1} - \sqrt{x - 1}} \diff x
+  \end{equation*}
+  na maximálním možném intervalu (a ten určete).
+  
+  \begin{solution}
+    Předně argument logaritmu musí být kladný, tj.    
+    \begin{equation*}
+      \sqrt{x + 1} - \sqrt{x - 1} > 0.
+    \end{equation*}
+    Po přehození členu $\sqrt{x - 1}$ na pravou stranu a umocnění nerovnosti dostáváme
+    \begin{equation*}
+      x + 1 > x - 1.
+    \end{equation*}
+    To je ovšem splněno pro všechna $x \in \R$. Další omezení plyne z požadavku nezáporného argumentu odmocnin, které dává $x \ge -1$ a $x \ge 1$. Definiční obor integrandu je tedy $[1, +\infty)$, což je interval, na kterém je integrand spojitý a bude na něm tedy mít primitivní funkci.
+    
+    Protože budeme chtít pro výpočet integrálu použít metodu per partes, spočtěme si nejdřív derivaci integrandu
+    \begin{align*}
+      \dd{}{x} \ln \parens{\sqrt{x + 1} - \sqrt{x - 1}}
+      &=
+      \frac{1}{\sqrt{x + 1} - \sqrt{x - 1}}
+      \cdot
+      \left( \frac{1}{2 \sqrt{x + 1}} - \frac{1}{2 \sqrt{x - 1}} \right)
+      \\
+      &=
+      \frac{1}{\sqrt{x + 1} - \sqrt{x - 1}}
+      \cdot
+      \frac{\sqrt{x - 1} - \sqrt{x + 1}}{2 \sqrt{x + 1} \sqrt{x - 1}}
+      \\
+      &=
+      -\frac{1}{2\sqrt{x^2 - 1}}.
+    \end{align*}
+    Nyní již můžeme počítat
+    \begin{align*}
+      \int \ln \parens{\sqrt{x + 1} - \sqrt{x - 1}} \diff x
+      &=
+      \left| 
+        \begin{aligned}
+          u &= \ln \parens{\sqrt{x + 1} - \sqrt{x - 1}} & v &= x
+          \\
+          u' &= -\frac{1}{2\sqrt{x^2 - 1}} & v' &= 1
+        \end{aligned}
+      \right|
+      \\
+      &=
+      x \ln \parens{\sqrt{x + 1} - \sqrt{x - 1}}
+      +
+      \int \frac{x}{2\sqrt{x^2 - 1}} \diff x.
+    \end{align*}
+    Poslední integrál vyřešíme první substituční metodou
+    \begin{equation*}
+      \int \frac{x}{2\sqrt{x^2 - 1}} \diff x
+      =
+      \left| 
+        \begin{aligned}
+          t &= x^2 - 1
+          \\
+          \diff t & = 2x \diff x
+        \end{aligned}
+      \right|
+      =
+      \frac{1}{4} \int t^{-\frac{1}{2}} \diff t
+      =
+      \frac{1}{2} \sqrt{t} + c
+      =
+      \frac{1}{2} \sqrt{x^2 - 1} + c.
+    \end{equation*}
+    Celkově tedy dostáváme
+    \begin{equation*}
+      \int \ln \parens{\sqrt{x + 1} - \sqrt{x - 1}} \diff x
+      =
+      x \ln \parens{\sqrt{x + 1} - \sqrt{x - 1}}
+      +
+      \frac{1}{2} \sqrt{x^2 - 1} 
+      + c.
+    \end{equation*}
+  \end{solution}
+  
+%  \question[3] Spočtěte
+%  \begin{equation*}
+%    \int \frac{\tan \frac{1}{x}}{x^2} \diff x,
+%  \end{equation*}
+%  na maximálních možných intervalech (a ty určete).
+%  
+%  \begin{solution}
+%    Integrand je definovaný na intervalech
+%    \begin{equation*}
+%      \int \frac{\tan \frac{1}{x}}{x^2} \diff x
+%      =
+%      \left| 
+%        \begin{aligned}
+%          u &= \frac{1}{x}
+%          \\
+%          \diff u &= - \frac{1}{x^2} \diff x
+%        \end{aligned}
+%      \right|
+%      =
+%      - \int \tan u \diff u
+%      =
+%      - \int \frac{\sin u}{\cos u} \diff u
+%      =
+%      \left|
+%        \begin{aligned}
+%          v &= \cos u
+%          \\
+%          \diff v &= - \sin u \diff u
+%        \end{aligned}
+%      \right|
+%      =
+%      \int \frac{1}{v} \diff v
+%      =
+%      \ln \abs{v} + c      
+%    \end{equation*}
+%  \end{solution}
+  
+%  \question[2] Spočtěte limitu funkce
+%  \begin{equation*}
+%    \lim_{x \to 1} \frac{x^x - x}{\ln x - x + 1}.
+%  \end{equation*}
+%  
+%  \begin{solution}
+%  Člen $x^x$ si přepíšeme jako $\exponential{x \ln x}$ a počítáme
+%  \begin{align*}
+%    \lim_{x \to 1} \frac{\exponential{x \ln x} - x}{\ln x - x + 1}
+%    \texteq{l'H}
+%    \lim_{x \to 1} \frac{\exponential{x \ln x} \parens{\ln x + 1} - 1}{\frac{1}{x} - 1}
+%    \texteq{l'H}
+%    \lim_{x \to 1} \frac{\exponential{x \ln x} \parens{\ln x + 1}^2 + \exponential{x \ln x} \frac{1}{x}}{-\frac{1}{x^2}}
+%    =
+%    -2,
+%  \end{align*}
+%  kde jsme v prvních dvou rovnostech využili l'Hôpitalova pravidla pro výpočet limity typu ``$\frac{0}{0}$''.
+%  \end{solution}
+
+  \question[2] Spočtěte
+  \begin{equation*}
+    \int \frac{x^3}{\parens{x - 1}^{100}} \diff x
+  \end{equation*}
+  na maximálních možných intervalech (a ty určete).
+  
+  \begin{solution}
+  Integrand je zjevně definovaný a spojitý na intervalech $(-\infty, 1)$ a $(1, +\infty)$. Na těchto intervalech tedy budeme hledat primitivní funkci. 
+  
+  Byť je integrand ve tvaru vhodném k rozkladu na parciální zlomky, byla by chyba tento postup použít, protože by to vedlo k hledání $100$ konstant. Místo toho použijeme jednoduchou substituci
+  \begin{align*}
+    \int \frac{x^3}{\parens{x - 1}^{100}} \diff x
+    &=
+    \left| 
+      \begin{aligned}
+        t &= x - 1
+        \\
+        \diff t & = \diff x
+      \end{aligned}
+    \right|
+    =
+    \int \frac{\parens{1 + t}^3}{t^{100}} \diff t
+    =
+    \int \frac{1 + 3t + 3t^2 + t^3}{t^{100}} \diff t  
+    \\
+    &=
+    \int \parens{t^{-100} + 3t^{-99} + 3t^{-98} + t^{-97}} \diff t  
+    =
+    - \frac{1}{99 t^{99}} - \frac{3}{98 t^{98}} - \frac{3}{97 t^{97}} - \frac{1}{96 t^{96}} + c
+    \\
+    &=
+    - \frac{1}{99 \parens{x - 1}^{99}} - \frac{3}{98 \parens{x - 1}^{98}} - \frac{3}{97 \parens{x - 1}^{97}} - \frac{1}{96 \parens{x - 1}^{96}} + c.
+  \end{align*}
+  \end{solution}
+
+  \question[2] Spočtěte limitu funkce
+  \begin{equation*}
+    \lim_{x \to 0+} \parens{\ln \frac{1}{x}}^x.
+  \end{equation*}
+  
+  \begin{solution}
+    Platí
+    \begin{equation*}
+      \lim_{x \to 0+} x \ln \parens{\ln \frac{1}{x}}
+      =
+      \lim_{x \to 0+} \frac{\ln \parens{\ln \frac{1}{x}}}{\frac{1}{x}}
+      \texteq{l'H}
+      \lim_{x \to 0+} \frac{\frac{1}{\ln \frac{1}{x}} \cdot x \cdot \parens{-\frac{1}{x^2}}}{- \frac{1}{x^2}}
+      =
+      \lim_{x \to 0+} \frac{x}{\ln \frac{1}{x}}
+      =
+      \lim_{x \to 0+} x \, \cdot \lim_{x \to 0+} \frac{1}{\ln \frac{1}{x}} 
+      =
+      0 \cdot 0
+      =
+      0,
+    \end{equation*} 
+    kde jsme v druhé rovnosti využili l'Hôpitalova pravidla pro výpočet limity typu ``$\frac{\textrm{něco}}{\infty}$''. 
+    
+    Pro původní limitu potom dostáváme
+    \begin{equation*}
+      \lim_{x \to 0+} \parens{\ln \frac{1}{x}}^x
+      =
+      \exponential{\lim_{x \to 0+} x \ln \parens{\ln \frac{1}{x}}}
+      =
+      \exponential{0}
+      =
+      1.
+    \end{equation*}
+  \end{solution}
+   
+\end{questions}
+
+\end{document}
