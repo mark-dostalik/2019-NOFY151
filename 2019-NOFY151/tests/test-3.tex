@@ -1,0 +1,489 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+\definecolor{GraphColor}{HTML}{1d7ad1}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\usepackage{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza I (NOFY151) – 3. zápočtový test\vspace{-1ex}}
+\author{\vspace{-2ex}}
+\date{\vspace{-2ex}7. ledna 2020}
+
+\begin{document}
+\maketitle
+
+Při vyšetřování průběhu funkce nás zajímá:
+\begin{enumerate}
+	\item definiční obor
+	\item obor spojitosti 
+	\item sudost/lichost, periodicita, jiné symetrie
+	\item limity v krajních bodech definičního oboru (či jeho podintervalů) a v bodech nespojitosti
+	\item průsečíky s osami
+	\item první derivace (i jednostranné derivace v bodech, které derivaci nemají)
+	\item druhá derivace
+	\item vyhodnocení první a druhé derivace: 
+		\begin{enumerate}
+			\item množiny monotonie
+			\item lokální a globální extrémy
+			\item obor hodnot
+			\item konvexita, konkávnost, inflexní body
+		\end{enumerate} 
+	\item asymptoty
+	\item náčrt grafu
+\end{enumerate}
+
+\vspace{6pt}
+\hrule
+\vspace{6pt}
+
+\begin{questions}
+  \question[4] Vyšetřete průběh funkce
+  \begin{equation*}
+    f(x) \defeq \frac{x}{\ln x}.
+  \end{equation*}
+  
+  \begin{solution}
+    \begin{enumerate}
+    	\item Jmenovatel zadané funkce je definovaný a nenulový pro všechna $x \in \parens{0, 1} \cup \parens{1, +\infty}$, tedy $D_f = \parens{0, 1} \cup \parens{1, +\infty}$.
+    	
+    	\item Protože čitatel i jmenovatel zadané funkce jsou spojité funkce na $D_f$, na stejné množině je tedy spojitá i celá funkce $f$ (podíl spojitých funkcí je spojitá funkce).
+    	
+    	\item Funkce není definovaná pro záporné hodnoty nemůže být tedy ani sudá ani lichá. Taktéž není periodická a nevykazuje ani jiné symetrie.
+    	
+    	\item \label{item:4}
+    		Limity v krajních bodech definičního oboru vycházejí následovně
+    		\begin{align*}
+    			\lim_{x \to 0+} \frac{x}{\ln x}
+    			&\texteq{l'H}
+    			\lim_{x \to 0+} \frac{1}{\frac{1}{x}}
+    			=
+    			0,
+    			\\
+    			\lim_{x \to +\infty} \frac{x}{\ln x}
+    			&\texteq{l'H}
+    			\lim_{x \to +\infty} \frac{1}{\frac{1}{x}}
+    			=
+    			+\infty,
+    			\\
+    			\lim_{x \to 1-} \frac{x}{\ln x}
+    			&= - \infty,
+    			\\
+    			\lim_{x \to 1+} \frac{x}{\ln x}
+    			&= + \infty,
+    		\end{align*}
+    		kde jsme v prvních dvou případech využili l'Hôpitalovo pravidlo pro výpočet limity typu ``$\frac{\textrm{něco}}{\infty}$''.
+    	\item 
+    		Protože funkce není definovaná v nule, nemá průsečík s osou $y$. S osou $x$ taktéž neexistuje žádný průsečík, protože čitatel zadané funkce by v takovém případě musel být nulový, což opět vylučuje definiční obor funkce.
+    		
+    		\item První derivace je rovna
+    			\begin{equation*}
+    				\dd{f}{x}(x)
+    				=
+    				\frac{\ln x - x \cdot \frac{1}{x}}{\ln^2 x}
+    				=
+    				\frac{\ln x - 1}{\ln^2 x}.
+    			\end{equation*}
+    			Všimněme si, že $D_{\dd{f}{x}} = D_f$.
+					
+					V bodě $0$ není funkce $f$ definovaná, nemůže tam mít tedy ani jednostrannou derivaci. Můžeme ale jako dodatečnou informaci spočítat limitu první derivace pro $x$ jdoucí k nule zprava
+    			\begin{equation*}
+    				\lim_{x \to 0+} \dd{f}{x}(x)
+    				=
+    				\lim_{x \to 0+} \frac{\ln x - 1}{\ln^2 x}
+    				\texteq{l'H}
+    				\lim_{x \to 0+} \frac{\frac{1}{x}}{2 \ln x \cdot \frac{1}{x}}
+    				=
+    				\lim_{x \to 0+} \frac{1}{2 \ln x}
+    				=
+    				0.
+    			\end{equation*}
+    		
+    		\item Druhá derivace je rovna
+    			\begin{equation*}
+    				\dd[2]{f}{x}(x)
+    				=
+    				\frac{\frac{1}{x}\ln^2 x - \parens{\ln x - 1} \cdot 2 \ln x \cdot \frac{1}{x}}{\ln^4 x}
+    				=
+    				\frac{2 - \ln x}{x \ln^3 x}.
+    			\end{equation*}
+    			Všimněme si, že $D_{\dd[2]{f}{x}} = D_f$.
+    			
+    		\item Z podmínky nulové první derivace dostaneme kandidáty na lokální extrémy
+    		\begin{equation*}
+    			\dd{f}{x}(x) = 0 \iff x = \exponential{}.
+    		\end{equation*}
+    		Protože $D_{\dd{f}{x}} = D_f$, první derivace existuje všude a nedostáváme tak žádné další kandidáty na extrém.
+    		
+    		Z podmínky nulové druhé derivace dostaneme kandidáty na inflexní body
+    		\begin{equation*}
+    			\dd[2]{f}{x}(x) = 0 \iff x = \exponential{2}.
+    		\end{equation*}
+    		Protože $D_{\dd[2]{f}{x}} = D_f$, první derivace existuje všude a nedostáváme tak žádné další kandidáty na inflexní body.
+    		    		
+    		Definiční obor funkce tak můžeme podle významných bodů rozdělit na $4$ intervaly a určit funkční hodnoty v těchto bodech a znaménka derivací na příslušných intervalech
+    		\begin{center}
+	    		\begin{tabular}{c|ccccccccc}
+	    			& $0$ & $\parens{0, 1}$ & $1$ & $\parens{1, \exponential{}}$ & $\exponential{}$ & $\parens{\exponential{}, \exponential{2}}$ & $\exponential{2}$ & $\parens{\exponential{2}, +\infty}$ & $+\infty$ \\[2pt]
+	    			\hline \\[-8pt]
+	    			$f$ & $0$ & & $\mp \infty$ & & $\exponential{}$ & & $\frac{\exponential{2}}{2}$ & & $+\infty$ \\[3pt]
+	    			$\dd{f}{x}$ & $0$ & $-$ & & $-$ & $0$ & $+$ & & $+$ & \\[3pt]
+	    			$\dd[2]{f}{x}$ & & $-$ & & $+$ & & $+$ & $0$ & $-$ &
+	    		\end{tabular}
+    		\end{center}
+    		(Zde rozumíme \uv{funkční hodnotou} v bodech $0$, $1$ a $+\infty$ (jednostrannou) limitu příslušné funkce v těchto bodech.)
+    		
+    		Z tabulky výše pak dostáváme
+    		\begin{enumerate}
+    			\item funkce je klesající na množině $\parens{0, 1} \cup \parens{1, \exponential{}}$ a rostoucí na množině $\parens{\exponential{}, +\infty}$
+    			\item v bodě $\exponential{}$ má funkce lokální minimum, globální extrémy funkce nemá
+    			\item $R_f = \parens{-\infty, 0} \cup [\exponential{}, +\infty)$
+    			\item funkce je konvexní na intervalu $\parens{1,\exponential{2}}$, konkávní na intervalech $\parens{0, 1}$ a $\parens{\exponential{2}, +\infty}$ a v bodě $\exponential{2}$ má inflexní bod
+    		\end{enumerate}
+    		
+    		\item Podle bodu \ref{item:4} má funkce vertikální asymptotu v bodě $1$. Pro ověření zda má funkce asymptotu v nekonečnu vypočítejme, jakou by musela mít směrnici $k$
+    		\begin{equation*}
+    			k 
+    			= 
+    			\lim_{x \to +\infty} \frac{f(x)}{x}
+    			=
+    			\lim_{x \to +\infty} \frac{1}{\ln x}
+    			=
+    			0. 
+    		\end{equation*}
+    		Asymptota v nekonečnu by pak musela být horizontální přímka a muselo by tedy platit
+    		\begin{equation*}
+    		 \lim_{x \to +\infty} f(x) \in \R.
+    		\end{equation*}
+    		To je ale ve sporu s bodem \ref{item:4}. Asymptotu v nekonečnu tedy funkce $f$ nemá.
+    		
+    		\item Graf funkce $f$ vypadá následovně 
+		    \begin{center}
+		      \begin{tikzpicture}
+		        \begin{axis}[
+	    	      width=0.85\textwidth,
+	    	      height=0.57\textwidth,
+		          xlabel=$x$, 
+		          xmin=0,
+		          xmax=15,
+		          xtick pos=bottom,
+		          xtick={0,1,2.7182818,7.3890559},
+		          xticklabels={$0$,$1$,$\exponential{\phantom{1}}$,$\exponential{2}$},
+		          ylabel=$f(x)$,
+		          ylabel style={rotate=-90, xshift=7pt},
+		          ymin=-6,
+		          ymax=10,
+		          ytick pos=left,
+		          ytick={0,2.7182818,3.69452795},
+		          yticklabels={$0$,$\exponential{\phantom{1}}$,$\frac{\exponential{2}}{2}$},]
+		          \addplot[
+		            blue, samples=1000, smooth, color=GraphColor, line width=0.8pt, domain=0.001:0.999
+		          ]
+		            {x / ln(x)};
+		          \addplot[
+		            blue, samples=1000, smooth, color=GraphColor, line width=0.8pt, domain=1.01:15
+		          ]{x / ln(x)};		
+              \addplot[
+                only marks, mark size=1.5pt, color=GraphColor, samples at = {2.7182818,7.3890559}
+              ]{x / ln(x)};
+		          \addplot[dashed] coordinates {(1,-6) (1,10)};
+		          \addplot[dotted] coordinates {(2.7182818,-6) (2.7182818,2.7182818)};
+		          \addplot[dotted] coordinates {(0,2.7182818) (2.7182818,2.7182818)};
+		          \addplot[dotted] coordinates {(7.3890559,-6) (7.3890559,3.69452795)};
+		          \addplot[dotted] coordinates {(0,3.69452795) (7.3890559,3.69452795)};
+		        \end{axis}
+		      \end{tikzpicture}
+		    \end{center}
+    \end{enumerate}
+  \end{solution}
+  
+  \question[6] Vyšetřete průběh funkce
+	\begin{equation*}
+	f(x) \defeq 2 \abs{\sin x} + \abs{\cos 2x}.
+	\end{equation*}
+	
+  \begin{solution}
+    \begin{enumerate}
+    	\item Funkce je definovaná pro všechna $x \in \R$, tedy $D_f = \R$.
+    	
+    	\item Goniometrické funkce $\sin$ a $\cos$ jsou spojité na $\R$, absolutní hodnota též a jejich složení a součet taktéž. Celkově je tedy obor spojitosti funkce $f$ celá reálná osa.
+    	
+    	\item Funkce $\abs{\sin x}$ je $\pi$-periodická a funkce $\abs{\cos 2x}$ je $\frac{\pi}{2}$-periodická (nakreslete si obrázky). Celkově je tedy zadaná funkce $\pi$-periodická. Navíc platí
+    	\begin{equation*}
+    		f(-x) = 2 \abs{\sin(-x)} + \abs{\cos(-x)} = 2 \abs{- \sin x} + \abs{\cos x} = 2 \abs{\sin x} + \abs{\cos 2x} = f(x).
+    	\end{equation*}
+    	Zadaná funkce je tedy sudá. Z těchto pozorování plyne, že se můžeme při vyšetřování průběhu funkce omezit na interval $[0, \frac{\pi}{2}]$. Na tomto intervalu pak můžeme funkci $f$ psát jako
+    	\begin{equation}
+    		\label{eq:1}
+    		f(x)
+    		=
+    		\begin{cases}
+    			2 \sin x + \cos 2x, &\quad \text{na $\brackets{0, \frac{\pi}{4}}$,}
+    			\\
+    			2 \sin x - \cos 2x, &\quad \text{na $\brackets{\frac{\pi}{4}, \frac{\pi}{2}}$.}
+    		\end{cases}
+    	\end{equation}
+    	
+    	\item \label{item:4b}
+    		Zadaná funkce je spojitá na celém $\R$, tedy i v krajních bodech intervalu $[0, \frac{\pi}{2}]$. Stačí tedy spočítat funkční hodnoty v těchto bodech
+    		\begin{align*}
+    			f(0)
+    			&=
+    			1,
+    			\\
+    			f\parens{\frac{\pi}{2}}
+    			&=
+    			3.
+    		\end{align*}
+    	\item 
+    		Průsečík s osou $y$ už máme z předchozího bodu: $f(0) = 1$. Abychom dostali průsečík s osou $x$, je potřeba vyřešit rovnici
+    		\begin{equation*}
+    			2 \abs{\sin x} + \abs{\cos 2x} = 0.
+    		\end{equation*}
+    		Protože absolutní hodnota je vždy nezáporná, vidíme, že rovnost může nastat pouze, pokud
+    		\begin{equation*}
+	    		\sin x = 0, \quad \land \quad \cos 2x = 0,
+    		\end{equation*}
+    		což je na intervalu $[0, \frac{\pi}{2}]$ ekvivalentní
+    		\begin{equation*}
+    			x = 0, \quad \land \quad x = \frac{\pi}{4}.
+    		\end{equation*}
+    		To ale nemůže nastat a funkce tak žádný průsečík s osou $x$ nemá.
+    		
+    		\item \label{item:6} První derivace je rovna (využíváme zápisu funkce $f$ ve tvaru \eqref{eq:1})
+		    	\begin{equation*}
+		    		\dd{f}{x}(x)
+		    		=
+		    		\begin{cases}
+		    			2 \cos x - 2 \sin 2x, &\quad \text{na $\parens{0, \frac{\pi}{4}}$,}
+		    			\\
+		    			2 \cos x + 2 \sin 2x, &\quad \text{na $\parens{\frac{\pi}{4}, \frac{\pi}{2}}$.}
+		    		\end{cases}
+		    	\end{equation*}
+					Jednostranné derivace v krajních bodech intervalů $(0, \frac{\pi}{4})$ a $(\frac{\pi}{4}, \frac{\pi}{2})$ vychází následovně
+					\begin{align*}
+						\dd{f_+}{x}(0) 
+						&=
+						\lim_{x \to 0+} \dd{f}{x}(x) 
+						= 
+						\lim_{x \to 0+} \parens{2 \cos x - 2 \sin 2x}
+						=
+						2,
+						\\
+						\dd{f_-}{x}\parens{\frac{\pi}{4}} 
+						&=
+						\lim_{x \to \frac{\pi}{4}-} \dd{f}{x}(x) 
+						= 
+						\lim_{x \to \frac{\pi}{4}-} \parens{2 \cos x - 2 \sin 2x}
+						=
+						\sqrt{2} - 2,			
+						\\
+						\dd{f_+}{x}\parens{\frac{\pi}{4}} 
+						&=
+						\lim_{x \to \frac{\pi}{4}+} \dd{f}{x}(x) 
+						= 
+						\lim_{x \to \frac{\pi}{4}+} \parens{2 \cos x + 2 \sin 2x}
+						=
+						\sqrt{2} + 2,
+						\\
+						\dd{f_-}{x}\parens{\frac{\pi}{2}} 
+						&=
+						\lim_{x \to \frac{\pi}{2}-} \dd{f}{x}(x) 
+						= 
+						\lim_{x \to \frac{\pi}{2}-} \parens{2 \cos x + 2 \sin 2x}
+						=
+						0.								
+					\end{align*}
+					   		
+    		\item Druhá derivace je rovna (opět využíváme zápisu funkce $f$ ve tvaru \eqref{eq:1})
+		    	\begin{equation*}
+		    		\dd[2]{f}{x}(x)
+		    		=
+		    		\begin{cases}
+		    			- 2 \sin x - 4 \cos 2x, &\quad \text{na $\parens{0, \frac{\pi}{4}}$,}
+		    			\\
+		    			- 2 \sin x + 4 \cos 2x, &\quad \text{na $\parens{\frac{\pi}{4}, \frac{\pi}{2}}$.}
+		    		\end{cases}
+		    	\end{equation*}
+    			
+    		\item Z podmínky nulové první derivace ve vnitřních bodech intervalů, kde derivace existuje, dostaneme kandidáty na lokální extrémy. Na intervalu $(0, \frac{\pi}{4})$ by mělo platit
+    		\begin{equation*}
+    			2 \cos x - 2 \sin 2x = 0,
+    		\end{equation*}
+    		což se s využitím vzorce $\sin 2x = 2 \sin x \cos x$ a nenulovosti $\cos x$ na intervalu $(0, \frac{\pi}{4})$ redukuje na rovnici
+    		\begin{equation*}
+    			\sin x = \frac{1}{2}.
+    		\end{equation*}
+    		Dostáváme tak kandidáta na extrém v bodě $x = \frac{\pi}{6}$.
+    		
+    		Na intervalu $(\frac{\pi}{4}, \frac{\pi}{2})$ by mělo platit
+    		\begin{equation*}
+    			2 \cos x + 2 \sin 2x = 0,
+    		\end{equation*}
+    		což se opět s využitím vzorce $\sin 2x = 2 \sin x \cos x$ a nenulovosti $\cos x$ na intervalu $(\frac{\pi}{4}, \frac{\pi}{2})$ redukuje na rovnici
+    		\begin{equation*}
+    			\sin x = -\frac{1}{2}.
+    		\end{equation*}    		
+    		To ale není splněno pro žádné $x$ z intervalu $(\frac{\pi}{4}, \frac{\pi}{2})$.
+    		
+    		Podle bodu \ref{item:6} dostáváme ještě kandidáta na extrém v bodě $\frac{\pi}{4}$, neboť zde neexistuje první derivace (jednostranné derivace v tomto bodě se různí).
+    		    		
+    		Z podmínky nulové druhé derivace ve vnitřních bodech intervalů, kde derivace existuje, dostaneme kandidáty na inflexní body. Na intervalu $(0, \frac{\pi}{4})$ by mělo platit
+    		\begin{equation*}
+    			- 2 \sin x - 4 \cos 2x = 0.
+    		\end{equation*}
+    		Na tomto intervalu jsou ovšem $\sin x$ i $\cos 2x$ kladné, takže rovnost nemůže nastat.
+    		
+    		Na intervalu $(\frac{\pi}{4}, \frac{\pi}{2})$ by mělo platit
+    		\begin{equation*}
+    			- 2 \sin x + 4 \cos 2x = 0.
+    		\end{equation*}
+    		Na tomto intervalu je ovšem $\sin x$ kladný a $\cos 2x$ záporný, takže rovnost opět nemůže nastat.
+    		
+    		Jak už víme, v bodě $\frac{\pi}{4}$ neexistuje první derivace a v takovém bodě tedy nemůže být ani inflexní bod (funkce musí být v inflexním bodě diferencovatelná). Žádní kandidáti na inflexní bod tedy neexistují.
+    		
+    		Interval $[0, \frac{\pi}{2}]$ tak můžeme podle významných bodů rozdělit na $3$ intervaly a určit funkční hodnoty v těchto bodech a znaménka derivací na příslušných intervalech
+    		\begin{center}
+	    		\begin{tabular}{c|ccccccc}
+	    			& $0$ & $\parens{0, \frac{\pi}{6}}$ & $\frac{\pi}{6}$ & $\parens{\frac{\pi}{6}, \frac{\pi}{4}}$ & $\frac{\pi}{4}$ & $\parens{\frac{\pi}{4}, \frac{\pi}{2}}$ & $\frac{\pi}{2}$ \\[2pt]
+	    			\hline \\[-8pt]
+	    			$f$ & $1$ & & $\frac{3}{2}$ & & $\sqrt{2}$ & & $3$  \\[3pt]
+	    			$\dd{f}{x}$ & $2$ & $+$ & $0$ & $-$ & $\sqrt{2} \mp 2$ & $+$ & $0$ \\[3pt]
+	    			$\dd[2]{f}{x}$ & & $-$ & & $-$ & & $-$
+	    		\end{tabular}
+    		\end{center}
+    		(Zde rozumíme \uv{funkční hodnotou} první derivace v bodech $0$, $\frac{\pi}{4}$ a $\frac{\pi}{2}$ jednostrannou derivaci v příslušných bodech.)
+    		
+    		Z tabulky výše pak pro funkci $f$ na intervalu $[0, \frac{\pi}{2}]$ dostáváme
+    		\begin{enumerate}
+    			\item \label{item:a} funkce je klesající na množině $\parens{\frac{\pi}{6}, \frac{\pi}{4}}$ a rostoucí na množině $\parens{0, \frac{\pi}{6}} \cup \parens{\frac{\pi}{4}, \frac{\pi}{2}}$
+    			\item \label{item:b} v bodě $\frac{\pi}{4}$ má funkce lokální minimum, v bodě $\frac{\pi}{6}$  lokální maximum, v bodě $0$ globální minimum a v bodě $\frac{\pi}{2}$ globální maximum
+    			\item $R_f = \brackets{1, 3}$
+    			\item \label{item:c} funkce je konkávní na intervalech $\brackets{0, \frac{\pi}{4}}$ a $\brackets{\frac{\pi}{4}, \frac{\pi}{2}}$, inflexní body nemá
+    		\end{enumerate}
+    		
+    		Vlastnosti z bodů \ref{item:a}, \ref{item:b} a \ref{item:c} by se s využitím sudosti a periodicity funkce $f$ snadno rozšířily na celý definiční obor zadané funkce.
+    		
+    		\item Zadaná funkce je spojitá na celém $\R$, takže nemá žádné vertikální asymptoty. Pro ověření zda má funkce asymptotu v nekonečnu vypočítejme, jakou by musela mít směrnici $k$
+    		\begin{equation*}
+    			k 
+    			= 
+    			\lim_{x \to +\infty} \frac{f(x)}{x}
+    			=
+    			0,
+    		\end{equation*}
+    		neboť $f$ je omezená a $\frac{1}{x}$ jde k nule pro $x \to +\infty$.
+    		Asymptota v nekonečnu by pak musela být horizontální přímka a muselo by tedy platit
+    		\begin{equation*}
+					\lim_{x \to +\infty} f(x) \in \R.
+    		\end{equation*}
+    		Protože je ale $f$ periodická a nekonstantní, z Heineho věty plyne, že její limita v nekonečnu neexistuje. Asymptotu v nekonečnu tedy funkce $f$ nemá.
+    		
+    		\item Graf funkce $f$ vypadá následovně 
+		    \begin{center}
+		      \begin{tikzpicture}
+		        \begin{axis}[
+	    	      width=0.92\textwidth,
+	    	      height=0.72\textwidth,
+		          xlabel=$x$, 
+		          xmin=-3.14159,
+		          xmax=3.14159,
+		          xtick pos=bottom,
+		          xtick={-3.14159,0,0.5235987,0.785398,1.57079632679,2.35619449019,2.617993877,3.14159},
+		          xticklabels={$-\pi$,$0$,$\frac{\pi}{6}$,$\frac{\pi}{4}$,$\frac{\pi}{2}$,$\frac{3\pi}{4}$,$\frac{5\pi}{6}$,$\pi$},
+		          ylabel=$f(x)$,
+		          ylabel style={rotate=-90, xshift=7pt},
+		          ymin=0.95,
+		          ymax=3.05,
+		          ytick pos=left,
+		          ytick={1,1.41421,1.5, 3},
+		          yticklabels={$1$,$\sqrt{2}$,$\frac{3}{2}$,$3$},]
+		          \addplot[
+		            blue, samples=1000, smooth, color=GraphColor, line width=0.8pt, domain=0:1.57079632679
+		          ]
+		            {abs(2*sin(deg(x))) + abs(cos(2*deg(x)))};
+		          \addplot[
+		            blue, samples=1000, smooth, color=GraphColor, line width=0.4pt, domain=1.57079632679:3.14159
+		          ]
+		            {abs(2*sin(deg(x))) + abs(cos(2*deg(x)))};
+		          \addplot[
+		            blue, samples=1000, smooth, color=GraphColor, line width=0.4pt, domain=-3.14159:0
+		          ]
+		            {abs(2*sin(deg(x))) + abs(cos(2*deg(x)))};	
+              \addplot[
+                only marks, mark size=1.5pt, color=GraphColor, samples at = {0,0.5235987,0.785398,1.57079632679}
+              ]
+              	{abs(2*sin(deg(x))) + abs(cos(2*deg(x)))};
+		          \addplot[dotted] coordinates {(0,0.8) (0,1)};
+		          \addplot[dotted] coordinates {(-3.14159,1) (0,1)};
+		          \addplot[dotted] coordinates {(0.5235987,0.8) (0.5235987,1.5)};
+		          \addplot[dotted] coordinates {(-3.14159,1.5) (0.5235987,1.5)};
+		          \addplot[dotted] coordinates {(0.785398,0.8) (0.785398,1.41421)};
+		          \addplot[dotted] coordinates {(-3.14159,1.41421) (0.785398,1.41421)};
+		          \addplot[dotted] coordinates {(1.57079632679,0.8) (1.57079632679,3)};
+		          \addplot[dotted] coordinates {(-3.14159,3) (1.57079632679,3)};		          
+		        \end{axis}
+		      \end{tikzpicture}
+		    \end{center}
+		    Zvýrazněná část grafu odpovídá zkoumané funkci na intervalu $[0, \frac{\pi}{2}]$, kde jsme vyšetřovali její průběh.
+    \end{enumerate}
+  \end{solution}
+	   
+\end{questions}
+
+\end{document}
