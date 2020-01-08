@@ -241,6 +241,9 @@ Při vyšetřování průběhu funkce nás zajímá:
               \addplot[
                 only marks, mark size=1.5pt, color=GraphColor, samples at = {2.7182818,7.3890559}
               ]{x / ln(x)};
+              \addplot[
+                only marks, mark size=1.5pt, mark options={fill=white}, color=GraphColor, samples at = {0}
+              ]{0};
 		          \addplot[dashed] coordinates {(1,-6) (1,10)};
 		          \addplot[dotted] coordinates {(2.7182818,-6) (2.7182818,2.7182818)};
 		          \addplot[dotted] coordinates {(0,2.7182818) (2.7182818,2.7182818)};
