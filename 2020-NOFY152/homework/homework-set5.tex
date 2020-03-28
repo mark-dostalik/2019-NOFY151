@@ -1,0 +1,430 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+\usepackage{enumitem}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% correct spacing for \left \right commands
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+% title
+\title{\vspace{-3ex}Matematická analýza II (NOFY152) – DÚ 1}
+\author{Číselné řady s nezápornými členy}
+\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+
+Použitím kritérií pro konvergenci řad s nezápornými členy rozhodněte o konvergenci či divergenci následujících řad. Pokud řada obsahuje parametry, proveďte vzhledem k nim diskuzi.
+
+\begin{questions}
+  \question
+  \begin{equation*}
+    \sum_{n = 2}^{+\infty}
+    \frac{1}{\left( \ln n \right)^{\ln n}}
+  \end{equation*}
+  
+  \begin{solution}
+  	Chceme ukázat, že $\exists n_0 \in \mathbb{N}$ takové, že pro $\forall n \in [n_0, +\infty)$ platí
+  	\begin{equation*}
+  		\frac{1}{\left( \ln n \right)^{\ln n}}
+  		<
+  		\frac{1}{n^2}.	
+  	\end{equation*}
+  	Použitím srovnávacího kritéria potom dostaneme konvergenci zadané řady, neboť řada $\sum_{n = n_0}^{+\infty} \frac{1}{n^2}$ konverguje. (Konvergence řady nezávisí na chování konečného počtu členů -- nemusíme se tedy zabývat prvními $n_0 -1$ členy.) Protože platí následující řetězec ekvivalencí
+  	\begin{equation*}
+  		\frac{1}{\left( \ln n \right)^{\ln n}}
+  		<
+  		\frac{1}{n^2}
+  		\iff
+  		\mathrm{e}^{\ln n \ln \left( \ln n \right)}
+  		>
+  		\mathrm{e}^{2 \ln n}
+  		\iff
+  		\ln n \ln \left( \ln n \right)
+  		>
+  		2 \ln n
+  		\iff  
+  		n 
+  		> 
+  		\mathrm{e}^{\mathrm{e}^2} \approx 1618.178,			
+  	\end{equation*}
+  	stačí volit $n_0 = 1619$.
+  \end{solution}
+
+  \question
+  \begin{equation*}
+    \sum_{n = 3}^{+\infty}
+    \frac{1}{\left( \ln n \right)^{\ln \ln n}}
+  \end{equation*}
+  
+  \begin{solution}
+  	Chceme ukázat, že $\exists n_0 \in \mathbb{N}$ takové, že pro $\forall n \in [n_0, +\infty)$ platí
+  	\begin{equation*}
+  		\frac{1}{\left( \ln n \right)^{\ln \ln n}}
+  		>
+  		\frac{1}{n}.	
+  	\end{equation*}
+		Použitím srovnávacího kritéria potom dostaneme divergenci zadané řady, neboť řada $\sum_{n = n_0}^{+\infty} \frac{1}{n}$ diverguje. (Divergence řady nezávisí na chování konečného počtu členů -- nemusíme se tedy zabývat prvními $n_0 -1$ členy.)
+		Platí následující řetězec ekvivalencí (v poslední ekvivalenci využíváme $n \ge 3$)
+  	\begin{equation*}
+  		\frac{1}{\left( \ln n \right)^{\ln \ln n}}
+  		>
+  		\frac{1}{n}
+  		\iff
+  		\mathrm{e}^{\left( \ln \ln n \right)^2}
+  		<
+  		n
+  		\iff
+  		\left( \ln \ln n \right)^2
+  		<
+  		\ln n
+  		\iff  
+  		\ln \ln n 
+  		<
+  		\sqrt{\ln n}.			
+  	\end{equation*}
+  	Poslední nerovnost už ale platí pro všechna $n \ge 3$ (a za $n_0$ výše lze tedy brát první člen $n_0 = 3$), neboť
+  	\begin{equation*}
+  		\ln x < \sqrt{x}, \quad \forall x > 0.
+  	\end{equation*}
+  	Skutečně, derivace funkce $f(x) := \sqrt{x} - \ln x$ vychází
+  	\begin{equation*}
+  		\frac{\mathrm{d}f}{\mathrm{d}x}(x)
+  		=
+  		\frac{\sqrt{x} - 2}{2x},
+  	\end{equation*}
+  	a snadno se ověří, že funkce $f$ má tedy v bodě $x = 4$ globální minimum. Navíc $f(4) = 2 - \ln 2 > 0$, a tedy $f(x) > 0$ pro $x > 0$.
+  \end{solution}
+
+  \question
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+    \left( n^{n^{\alpha}} - 1 \right),
+    \quad
+    \alpha \in \mathbb{R}
+  \end{equation*}
+  
+  \begin{solution}
+  	Označme si
+  	\begin{equation*}
+  		a_n
+  		:=
+  		n^{n^{\alpha}} - 1
+  		=
+  		\mathrm{e}^{n^{\alpha} \ln n} - 1.
+  	\end{equation*}
+  	Zřejmě, pro $\alpha \ge 0$ je $\lim_{n \to +\infty} a_n = + \infty$, a není tak splněna nutná podmínka konvergence číselných řad. Naopak, pro $\alpha < 0$ je nutná podmínka splněna, neboť
+  	\begin{equation*}
+  		\lim_{n \to +\infty}
+  		a_n
+  		=
+  		\lim_{n \to +\infty}
+  		\mathrm{e}^{n^{\alpha} \ln n} - 1
+  		=
+  		\lim_{n \to +\infty}
+  		\frac{\mathrm{e}^{n^{\alpha} \ln n} - 1}{n^{\alpha} \ln n} \cdot n^{\alpha} \ln n
+  		=
+  		\lim_{n \to +\infty}
+  		\frac{\mathrm{e}^{n^{\alpha} \ln n} - 1}{n^{\alpha} \ln n}
+  		\cdot
+  		\lim_{n \to +\infty}
+  		n^{\alpha} \ln n
+  		=
+  		1 \cdot 0
+  		=
+  		0,  		
+  	\end{equation*}
+  	kde jsme využili toho, že pro $\alpha < 0$  platí
+  	\begin{equation*}
+  		\lim_{n \to +\infty}
+  		n^{\alpha} \ln n
+  		=
+  		0,
+  	\end{equation*}
+  	což plyne z Heineho věty a použití l'Hôspitalova pravidla pro výpočet limity funkce typu ``$\frac{\textrm{něco}}{\infty}$''
+  	\begin{equation*}
+  		\lim_{x \to +\infty}
+  		x^{\alpha} \ln x
+  		=
+  		\lim_{x \to +\infty}
+  		\frac{\ln x}{x^{-\alpha}}
+  		\stackrel{\text{l'H}}{=}
+  		\lim_{x \to +\infty}
+  		\frac{1}{-\alpha x^{-\alpha}}
+  		=
+  		0.
+  	\end{equation*}
+  	
+  	V dalším tedy uvažujeme pouze $\alpha < 0$. Označme si
+  	\begin{equation*}
+  		b_n := n^{\alpha} \ln n.
+  	\end{equation*}
+  	Víme, že
+  	\begin{equation*}
+  		\lim_{n \to +\infty}
+  		\frac{a_n}{b_n}
+  		=
+  		\lim_{n \to +\infty}
+  		\frac{\mathrm{e}^{n^{\alpha} \ln n} - 1}{n^{\alpha} \ln n}
+  		=
+  		1
+  		\in
+  		\mathbb{R}^+.
+  	\end{equation*}
+  	Můžeme tedy použít limitní srovnávací kritérium a tudíž stačí vyzkoumat, pro která $\alpha < 0$, konverguje/diverguje řada $\sum_{n = 1}^{+\infty} b_n$.
+  	
+  	Na vyšetření konvergence/divergence řady $\sum_{n = 1}^{+\infty} b_n$ použijeme Cauchyho integrální kritérium. Předpoklady příslušné věty vyžadují, aby existovalo $x_0 \in \mathbb{R}$ takové, že $f(x) := x^{\alpha} \ln x$ je nerostoucí funkce na intervalu $(x_0, +\infty)$. Protože
+  	\begin{equation*}
+  		\frac{\mathrm{d}f}{\mathrm{d}x}(x)
+  		=
+  		x^{\alpha - 1} \left( \alpha \ln x + 1 \right),  		
+  	\end{equation*}
+  	vidíme, že lze volit $x_0 = \mathrm{e}^{-\frac{1}{\alpha}}$, neboť $\frac{\mathrm{d}f}{\mathrm{d}x}$ je potom na $(x_0, +\infty)$ záporná a tedy funkce $f$ je na příslušném intervalu klesající.
+  	
+  	Pro $\alpha \in (-\infty, 0) \setminus \{ -1 \}$ máme
+  	\begin{equation*}
+  		\int x^{\alpha} \ln x \, \mathrm{d} x
+  		=
+      \left| 
+        \begin{aligned}
+          u &= \ln x & v &= \frac{x^{\alpha + 1}}{\alpha + 1}
+          \\
+          u' &= \frac{1}{x} & v' &= x^{\alpha}
+        \end{aligned}
+      \right|
+      =
+      \frac{x^{\alpha + 1} \ln x}{\alpha + 1}
+      -
+      \int \frac{x^{\alpha}}{\alpha + 1} \, \mathrm{d} x
+      =
+      \frac{x^{\alpha + 1} \ln x}{\alpha + 1}
+      -
+      \frac{x^{\alpha + 1}}{\left( \alpha + 1 \right)^2}
+      +
+      c,
+  	\end{equation*}
+  	a tedy $\int_{x_0}^{+\infty} x^{\alpha} \ln x \, \mathrm{d}x$ pro $\alpha \in (-\infty, -1)$ konverguje a pro $\alpha \in (-1, 0)$ diverguje. (Limitu primitivní funkce v $+\infty$ spočítáme pomocí l'Hôspitalova pravidla podobně jako výše.) Pro $\alpha = 1$ máme
+  	\begin{equation*}
+  		\int \frac{\ln x}{x} \, \mathrm{d} x
+  		=
+      \left| 
+        \begin{aligned}
+          t &= \ln x
+          \\
+          \mathrm{d}t &= \frac{1}{x} \mathrm{d}x
+        \end{aligned}
+      \right|
+      =
+      \int t \, \mathrm{d} t
+      =
+      \frac{t^2}{2} + c
+      =
+      \frac{1}{2} \ln^2 x + c,
+  	\end{equation*}  	
+  	a tedy $\int_{x_0}^{+\infty} \frac{\ln x}{x} \, \mathrm{d}x$ diverguje.
+  	
+  	Podle Cauchyho integrálního kritéria tedy řada $\sum_{n = 1}^{+\infty} b_n$ konverguje pro $\alpha \in (-\infty, -1)$ a diverguje pro $\alpha \in [-1, 0)$. Stejný výsledek pak dostaneme i pro původní řadu $\sum_{n = 1}^{+\infty} a_n$ podle limitního srovnávacího kritéria.
+  	
+  	Závěr: řada $\sum_{n = 1}^{+\infty} \left( n^{n^{\alpha}} - 1 \right)$ konverguje pro $\alpha < -1$ a diverguje pro $\alpha \ge -1$.
+  \end{solution}
+
+  \question
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+		\frac{\left( n! \right)^2}{2^{n^2}}
+  \end{equation*}
+  
+  \begin{solution}
+  	Označme si
+  	\begin{equation*}
+  		a_n
+  		:=
+  		\frac{\left( n! \right)^2}{2^{n^2}}.
+  	\end{equation*}
+  	Platí
+  	\begin{equation*}
+  		\frac{a_{n + 1}}{a_n}
+  		=
+  		\frac{\left( \left( n + 1 \right)! \right)^2}{2^{\left( n + 1 \right)^2}}
+  		\cdot
+  		\frac{2^{n^2}}{\left( n! \right)^2}
+  		=
+  		\frac{\left( n + 1 \right)^2}{2^{2n + 1}}.
+  	\end{equation*}
+  	Limitní podílové kritérium potom dává konvergenci zadané řady, neboť
+  	\begin{equation*}
+  		\lim_{n \to +\infty}
+  		\frac{a_{n + 1}}{a_n}
+  		=
+  		\lim_{n \to +\infty}
+  		\frac{\left( n + 1 \right)^2}{2^{2n + 1}}
+  		=
+  		0
+  		<
+  		1.
+  	\end{equation*}
+  	Poslední limita je opravdu rovna nule, neboť exponenciální funkce roste rychleji, než polynom v čitateli. Pokud bychom chtěli být pečliví, výsledek dostaneme dvojnásobným použitím l'Hôspitalova pravidla pro výpočet limity typu ``$\frac{\textrm{něco}}{\infty}$''
+  	\begin{equation*}
+  		\lim_{x \to +\infty}
+  		\frac{\left( x + 1 \right)^2}{2^{2x + 1}}
+  		\stackrel{\text{l'H}}{=}
+  		\lim_{x \to +\infty}
+  		\frac{2 \left( x + 1 \right)}{2^{2x + 2} \ln 2}
+  		\stackrel{\text{l'H}}{=}
+  		\lim_{x \to +\infty}
+  		\frac{2}{2^{2x + 3} \ln^2 2}
+  		=
+  		0,
+  	\end{equation*}
+  	a následnou aplikací Heineho věty.
+  \end{solution}
+  
+  \question
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+		\frac{n^2}{\left( \frac{\pi}{3} + \frac{1}{n} \right)^n}
+  \end{equation*}
+  
+  \begin{solution}
+		Ozna\v cme $n$-t\'y \v clen \v rady 
+		$$\sum\limits_{n=1}^{+\infty}\frac{n^2}{(\frac{\pi}{3}+\frac{1}{n})^n}$$
+		jako $a_n:=\frac{n^2}{(\frac{\pi}{3}+\frac{1}{n})^n}$. Jedn\'a se o \v radu s kladn\'ymi prvky a m\r u\v zeme pou\v z\'it limitní odmocninové krit\'erium. Plat\'i 
+		\begin{align*}
+		\lim\limits_{n\to+\infty}\sqrt[n]{a_n}&=\lim\limits_{n\to+\infty}\frac{n^\frac{2}{n}}{\frac{\pi}{3}+\frac{1}{n}}=\lim\limits_{n\to+\infty}\frac{e^\frac{2\ln n}{n}}{\frac{\pi}{3}+\frac{1}{n}}=\lim\limits_{n\to+\infty}\frac{e^\frac{2\ln n}{n}}{\frac{\pi}{3}+\frac{1}{n}}=\frac{\lim\limits_{n\to+\infty}e^\frac{2\ln n}{n}}{\lim\limits_{n\to+\infty}(\frac{\pi}{3}+\frac{1}{n})}.
+		\end{align*}
+		Limita ve jmenovateli je evidentn\v e $\frac{\pi}{3}$ a zb\'yv\'a tedy ur\v cit limitu v \v citateli. Z l'H\^{o}spitalova pravidla plyne 
+		$$\lim\limits_{x\to+\infty}\frac{2\ln x}{x}=\lim\limits_{x\to+\infty}\frac{\frac{2}{x}}{1}=0.$$
+		Z Heineho v\v ety pak m\'ame
+		$$\lim\limits_{n\to+\infty}\frac{2\ln n}{n}=0$$
+		a pou\v zit\'im v\v ety o limit\v e slo\v zen\'e funkce dostaneme 
+		$$\lim\limits_{n\to+\infty}e^{\frac{2\ln n}{n}}=e^{\lim\limits_{n\to+\infty}{\frac{2\ln n}{n}}}=e^0=1.$$
+		Vid\'ime tedy, \v ze 
+		$$\lim\limits_{n\to+\infty}\sqrt[n]{a_n}=\frac{1}{\frac{\pi}{3}}=\frac{3}{\pi}<1.$$
+		Z limitního odmocninového krit\'eria okam\v zit\v e dost\'av\'ame, \v ze \v rada konverguje.  
+  \end{solution}
+  
+  \question
+  \begin{equation*}
+    \sum_{n = 3}^{+\infty}
+		\frac{1}{n \left( \ln n \right)^p \left( \ln \ln n \right)^q},
+		\quad
+		p, q \in \mathbb{R}
+  \end{equation*}
+  
+  \begin{solution}
+		K ur\v cen\'i konvergence \v rady
+		\begin{equation}\label{rada 19}
+		\sum_{n=3}^{+\infty}\frac{1}{n(\ln n)^p(\ln\ln n)^q},\ p,q\in\mathbb R, 
+		\end{equation}
+		nejprve uva\v zme speci\'aln\'i p\v r\'ipad $q=0$. Je-li $p\le0$, pak plat\'i
+		$$\frac{1}{n(\ln n)^p}\ge\frac{1}{n},\ n\in\mathbb N.$$
+		Jeliko\v z $\sum_{n=1}^{+\infty}\frac{1}{n}=+\infty$, pak i \v rada (\ref{rada 19}) m\'a sou\v cet $+\infty$. Nyn\'i m\r u\v zeme p\v redpokl\'adat, \v ze $p>0$. Uva\v zujme funkci 
+		$$f(x)=\frac{1}{x(\ln x)^p},\ x\in(3,+\infty).$$
+		Ta je klesaj\'ic\'i, nebo\v t je sou\v cinem dvou kladn\'ych klesaj\'ic\'ich funkc\'i (p\v r\'ipadn\v e se o tom m\r u\v zeme p\v resv\v ed\v cit ze znam\'enka $f'$). D\'ale v\'ime, \v ze integr\'al
+		$$\int_3^{+\infty}\frac{dx}{x(\ln x)^p}=\int_{\ln3}^{+\infty}\frac{dy}{y^p},\ \ \ y=\ln x,$$
+		konverguje pr\'av\v e tehdy, kdy\v z $p>1$. Z integr\'aln\'iho krit\'eria tedy plyne, \v ze (\ref{rada 19}) konverguje pro $p>1,q=0$ a diverguje pro $q=0$ a $0<p\le 1$. Pro $q=0$ tedy \v rada konveguje pr\'av\v e tehdy, kdy\v z $p>1$.
+		
+		Nyn\'i m\r u\v zeme probrat obecn\'y p\v r\'ipad. V\v simn\v eme si, \v ze pro $\varepsilon,s\in\mathbb R$ plat\'i
+		\begin{equation}\label{limita help}
+		\lim_{x\to+\infty}(\ln x)^{\varepsilon}(\ln\ln x)^{s}=\lim_{y\to+\infty}y^{\varepsilon}(\ln y)^{s}=\bigg\{
+		\begin{matrix}
+		+\infty,&\ \varepsilon>0,\\
+		0,&\ \varepsilon<0.
+		\end{matrix}
+		\end{equation}
+		Ve (\ref{limita help}) jsme v prvn\'i rovnosti pou\v zili v\v etu o limit\v e slo\v zen\'e funkce pro substituci $y=\ln x$ a druh\'a rovnost se dok\'a\v ze jako v p\v r\'iklad\v e 3. Speci\'aln\v e tato limita v\r ubec nez\'avis\'i na $s$ pro $\varepsilon\ne0$. 
+		
+		Je-li nyn\'i $p<1$, pak zvolne $\varepsilon>0$ tak, aby i $p+\varepsilon<1$. Pak z (\ref{limita help}) plyne, \v ze existuje $n_0\in\mathbb N$ tak, \v ze pro ka\v zd\'e $n\ge n_0$ plat\'i odhad:
+		$$\frac{(\ln n)^{\varepsilon}}{(\ln\ln n)^q}\ge1.$$
+		Tud\'i\v z
+		$$\frac{1}{n(\ln n)^p(\ln\ln n)^q}=\frac{1}{n(\ln n)^{p+\varepsilon}}\frac{(\ln n)^{\varepsilon}}{(\ln\ln n)^q}\ge\frac{1}{n(\ln n)^{p+\varepsilon}}.$$
+		Jeliko\v z jsme ji\v z uk\'azali
+		$$\sum_{n=3}^{+\infty}\frac{1}{n(\ln n)^{p+\varepsilon}}=+\infty,$$
+		pak ze srovn\'avac\'iho krit\'eria pro \v rady plyne, \v ze i (\ref{rada 19}) diverguje pro $p<1$ a $q$ libovoln\'e.
+		
+		Je-li nyn\'i naopak $p>1$, pak zvolne $\varepsilon>0$ tak, aby i $p-\varepsilon>1$. Pak z (\ref{limita help}) plyne, \v ze existuje $n_0\in\mathbb N$ tak, \v ze pro ka\v zd\'e $n\ge n_0$ plat\'i odhady:
+		$$\frac{(\ln n)^{-\varepsilon}}{(\ln\ln n)^q}\le1$$
+		a
+		$$\frac{1}{n(\ln n)^p(\ln\ln n)^q}=\frac{1}{n(\ln n)^{p-\varepsilon}}\frac{(\ln n)^{-\varepsilon}}{(\ln\ln n)^q}\le\frac{1}{n(\ln n)^{p-\varepsilon}}.$$
+		Jeliko\v z jsme ji\v z d\v r\'ive uk\'azali, \v ze
+		$$\sum_{n=3}^{+\infty}\frac{1}{n(\ln n)^{p-\varepsilon}}<+\infty,$$
+		pak ze srovn\'avac\'iho krit\'eria pro \v rady plyne, \v ze i (\ref{rada 19}) konverguje pro $p>1$ a $q$ libovoln\'e.
+		
+		Nyn\'i zb\'yv\'a p\v r\'ipad $p=1$ a $q\in\mathbb R$. Je-li $q\le0$, pak plat\'i odhad
+		$$\frac{1}{n\ln n(\ln\ln n)^q}\ge\frac{1}{n\ln n},\ n\in\mathbb N.$$
+		Vid\'ime, \v ze pro $p=1$ a $q\le0$ \v rada (\ref{rada 19}) diveruje. M\r u\v zeme tedy p\v redpokl\'adat, \v ze $q>0$. Pak funkce 
+		$$g(x)=\frac{1}{x\ln x(\ln\ln x)^q},\ x\in(3,+\infty).$$
+		je zjevn\v e klesaj\'i (ze stejn\'eho d\r uvodu jako funkce $f$). Plat\'i
+		\begin{align*}
+		\int_3^{+\infty}\frac{dx}{x\ln x(\ln\ln x)^q}&=\int_{\ln 3}^{+\infty}\frac{dy}{y(\ln y)^q}
+		\end{align*}
+		a u\v z v\'ime, \v ze tento integr\'al konverguje pr\'av\v e tehdy, kdy\v z $q>1$. 
+		
+		Z\'av\v er: \v rada (\ref{rada 19}) konverguje pr\'av\v e tehdy, kdy\v z $p>1$ nebo $p=1,\ q>1$.
+  \end{solution}
+  
+  \question
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+		\left( \frac{1 \cdot 3 \cdots \left( 2n - 1 \right)}{2 \cdot 4 \cdots 2n} \right)^p,
+		\quad
+		p \in \mathbb{R}
+  \end{equation*}
+  
+  \begin{solution}
+	Polo\v zme 
+	$$a_n:=\bigg(\frac{1\cdot3\cdots(2n-1)}{2\cdot4\cdots2n}\bigg)^p,\ p\in\mathbb R.$$
+	D\'ale
+	\begin{align*}
+		\lim\limits_{n\to+\infty}n\bigg(1-\frac{a_{n+1}}{a_n}\bigg)&=\lim\limits_{n\to+\infty}n\bigg(1-\bigg(\frac{2n+1}{2n+2}\bigg)^p\bigg)\\
+		&=\lim\limits_{n\to+\infty}n\bigg(1-\bigg(1-\frac{1}{2n+2}\bigg)^p\bigg)\\
+		&=\lim\limits_{n\to+\infty}n\bigg(1-\bigg(1-\frac{p}{2n+2}+O\bigg(\big(\frac{1}{2n+2}\big)^2\bigg)\bigg)\bigg)\\
+		&=\lim\limits_{n\to+\infty}n\bigg(\frac{p}{2n+2}+O\bigg(\big(\frac{1}{2n+2}\big)^2\bigg)\bigg)=\frac{p}{2}.
+	\end{align*}
+	Z Raabeho krit\'eria plyne, \v ze \v rada 
+	\begin{equation}\label{rada 22}
+		\sum_{n=1}^{+\infty}a_n 
+	\end{equation}
+	konverguje pro $p>2$ a diverguje pro $p<2$. Je-li $p=2$, pak 
+	$$a_{n+1}=(1-\frac{1}{2n+2})^2a_n=\big(1-\frac{1}{n+1}+\frac{1}{(2n+2)^2}\big)a_n>(1-\frac{1}{n+1})a_n=\frac{n}{n+1}a_n.$$
+	Indukc\'i dle $n$ dost\'av\'ame 
+	$$a_{n+1}>\frac{n}{n+1}a_n>\frac{n-1}{n+1}a_{n-2}>\cdots>\frac{1}{n+1}a_1=\frac{1}{4(n+1)}.$$
+	Tud\'i\v z sou\v cet \v rady (\ref{rada 22}) je zdola odhadnut sou\v ctem \v rady $\frac{1}{4}\sum_{n=1}^{+\infty}\frac{1}{n}=+\infty$. Tud\'i\v z (\ref{rada 22}) diverguje pro $p=2$.  
+  \end{solution}
+   
+\end{questions}
+
+\end{document}
