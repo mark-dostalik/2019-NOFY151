@@ -1,0 +1,453 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+\definecolor{GraphColor}{HTML}{1d7ad1}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+\usepackage{enumitem}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\usepackage{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza II (NOFY152) – DÚ 2}
+\author{Číselné řady s obecnými členy}
+\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+
+Použitím kritérií pro konvergenci řad rozhodněte o konvergenci (absolutní i neabsolutní, je-li to možné) či divergenci následujících řad. Pokud řada obsahuje parametry, proveďte vzhledem k nim diskuzi.
+
+\begin{questions}
+  \question
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+    a_n
+    =
+    1 + \frac{1}{2} + \frac{1}{3} - \frac{1}{4} - \frac{1}{5} - \frac{1}{6} + \frac{1}{7} + \frac{1}{8} + \frac{1}{9} - \dots
+  \end{equation*}
+  
+  \begin{solution}
+		Absolutní konvergence je zřejmě vyloučená, neboť
+		\begin{equation*}
+    \sum_{n = 1}^{+\infty}
+    \left| a_n \right|
+    =
+    \sum_{n = 1}^{+\infty}
+    \frac{1}{n},		
+		\end{equation*}
+		a harmonická řada diverguje.
+		
+		Ukažme, že zadaná řada konverguje neabsolutně. Všimněme si, že můžeme psát $a_n = b_n c_n$, kde $b_n:=\frac{1}{n}$ a $c_n$ jsou prvky posloupnosti
+		\begin{equation*}
+			\{ +1, +1, +1, -1, -1, -1, +1, +1, +1, -1, -1, -1, +1, +1, +1, \ldots \}
+		\end{equation*}
+		Označme $C_n$ $n$-tý částečný součet posloupnosti $c_n$. Posloupnost $C_n$ je tvaru
+		\begin{equation*}
+			\{ 1,2,3,2,1,0,1,2,3,2,1,0,\ldots \}.
+		\end{equation*}
+		Vid\'ime, \v ze se jedn\'a o periodickou posloupnost s periodou 6. Speci\'aln\v e, $0\le C_n\le3,\ n\in\mathbb N$, a posloupnost $\{C_n\}$ je tedy omezen\'a.
+		
+		Protože navíc $b_n$ je klesaj\'ic\'i posloupnost, kter\'a konverguje k nule (to se b\v e\v zn\v e zapisuje jako $b_n\searrow0$ pro $n\to+\infty$), jsou spln\v eny všechny p\v redpoklady Dirichletova krit\'eria pro konvergenci \v rady $\sum_{n=1}^{+\infty} b_nc_n = \sum_{n=1}^{+\infty} a_n$, a tato \v rada tedy konverguje. 
+		
+%		Zadanou řadu můžeme přepsat do následujícího tvaru
+%		\begin{equation*}
+%    \sum_{n = 1}^{+\infty}
+%    a_n
+%    =
+%    1 + \frac{1}{2} + \frac{1}{3} - \frac{1}{4} - \frac{1}{5} - \frac{1}{6} + \frac{1}{7} + \frac{1}{8} + \frac{1}{9} - \dots
+%    =
+%    \sum_{n = 0}^{+\infty}	
+%    \left(
+%    	\frac{(-1)^n}{3n + 1}		
+%    	+
+%    	\frac{(-1)^n}{3n + 2}
+%    	+
+%    	\frac{(-1)^n}{3n + 3}				
+%    \right).
+%		\end{equation*}
+%		(Uvědomte si, že přepis nezmění uspořádání členů původní řady.) Stačí pak zkoumat konvergenci řad
+%		\begin{equation*}
+%			\sum_{n = 0}^{+\infty}
+%			\frac{(-1)^n}{3n + 1},
+%			\quad
+%			\sum_{n = 0}^{+\infty}
+%			\frac{(-1)^n}{3n + 2},
+%			\quad
+%			\sum_{n = 0}^{+\infty}
+%			\frac{(-1)^n}{3n + 3}.							
+%		\end{equation*}
+%		Ty ale konvergují podle Leibnizova kritéria, neboť posloupnosti $\{ \frac{1}{3n + 1} \}, \{ \frac{1}{3n + 2} \}, \{ \frac{1}{3n + 3} \}$ konvergují monotonně k nule. Z aritmetiky limit pak dostáváme, že konverguje i zadaná řada.
+		
+		Závěr: Řada konverguje neabsolutně.
+  \end{solution}
+
+  \question
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+    2^n \sin \frac{x}{3^n},
+    \quad
+    x \in \mathbb{R}
+  \end{equation*}
+  
+  \begin{solution}  
+		Ozna\v cme jako $M$ mno\v zinu t\v ech $x\in\mathbb R$, pro kter\'a \v rada
+		\begin{align}\label{rada 1}
+		\sum_{n=1}^{+\infty}2^n\sin\big(\frac{x}{3^n}\big)
+		\end{align}
+		konverguje a jako $s(x),\ x\in M,$ sou\v cet t\'eto \v rady. Pak je z\v rejm\'e, \v ze $0\in M,\ s(0)=0$. D\'ale je-li $x\in M$ pak z\v rejm\v e i $-x\in M$ a pro takov\'e $x$ plat\'i $s(-x)=-s(x)$. M\r u\v zeme se tedy omezit na p\v r\'ipad $x>0$. 
+		
+		Zvolme nyn\'i pevn\v e $x>0$. Pak existuje $n_0\in\mathbb N$ tak, aby $x<3^{n_0}\frac{\pi}{2}$. Pak pro $n\ge n_0$ plat\'i $0<\frac{x}{3^n}<\frac{\pi}{2}$ a tedy $0<\sin(\frac{x}{3n})<1$. Tud\'i\v z \v rada
+		\begin{equation}\label{partial sum}
+		\sum_{n=n_0}^{+\infty}2^n\sin\big(\frac{x}{3^n}\big) 
+		\end{equation}
+		obsahuje pouze kladn\'e \v cleny. D\'ale z Heineho v\v ety dost\'av\'ame
+		\begin{align*}
+		\lim\limits_{n\to+\infty}\frac{2^n\sin(\frac{x}{3^n})}{x(\frac{2}{3})^n}&=\lim\limits_{n\to+\infty}\frac{\sin(\frac{x}{3^n})}{\frac{x}{3^n}}=1.
+		\end{align*}
+		Jeliko\v z 
+		$$\sum_{n=n_0}^{+\infty}x\bigg(\frac{2}{3}\bigg)^n=x\bigg(\frac{2}{3}\bigg)^{n_0}\  \sum_{n=0}^{+\infty}\bigg(\frac{2}{3}\bigg)^n=x\bigg(\frac{2}{3}\bigg)^{n_0}\frac{1}{1-\frac{2}{3}}=3x\bigg(\frac{2}{3}\bigg)^{n_0},$$
+		pak z limitn\'iho srovn\'avac\'iho krit\'eria plyne, \v ze \v rada (\ref{partial sum}) konverguje. Tud\'i\v z konverguje i \v rada (\ref{rada 1}), a to dokonce absolutn\v e, nebo\v t
+		\begin{align*}
+		\sum_{n=1}^{+\infty}\left|2^n\sin\left(\frac{x}{3^n}\right)\right|&=\sum_{n=1}^{n_0-1}\left|2^n\sin\left(\frac{x}{3^n}\right)\right|+\sum_{n=n_0}^{+\infty}\left|2^n\sin\left(\frac{x}{3^n}\right)\right|\\
+		&=\sum_{n=1}^{n_0-1}\left|2^n\sin\left(\frac{x}{3^n}\right)\right|+\sum_{n=n_0}^{+\infty}2^n\sin\left(\frac{x}{3^n}\right)<+\infty.
+		\end{align*}
+		
+		Je-li $x<0$, pak
+		\begin{align*}
+		\sum_{n=1}^{+\infty}\left|2^n\sin\left(\frac{x}{3^n}\right)\right|&=\sum_{n=1}^{n_0-1}\left|2^n\sin\left(\frac{x}{3^n}\right)\right|+\sum_{n=n_0}^{+\infty}\left|2^n\sin\left(\frac{x}{3^n}\right)\right|\\
+		&=\sum_{n=1}^{n_0-1}\left|2^n\sin\left(\frac{x}{3^n}\right)\right|+\sum_{n=n_0}^{+\infty}2^n\sin\left(\frac{-x}{3^n}\right)<+\infty.
+		\end{align*}
+		
+		Závěr: Řada konverguje absolutn\v e pro ka\v zd\'e $x\in\mathbb{R}$.
+  \end{solution}
+
+  \question
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+    \left( -1 \right)^n
+    \left( 1 + \frac{1}{n} \right)^{n^2}
+    \frac{1}{e^n}
+  \end{equation*}
+  
+  \begin{solution}
+  	Ukažme, že není splněná nutná podmínka konvergence. Protože $\lim_{n \to+ \infty} a_n = 0$ je ekvivalentní $\lim_{n \to+ \infty} |a_n| = 0$ pro každou posloupnost $\{ a_n \}$, stačí hledat limitu
+		\begin{align*}
+		\lim_{n\to+\infty}\bigg(1+\frac{1}{n}\bigg)^{n^2}\frac{1}{e^n}&=\lim_{n\to+\infty}\bigg(\frac{\big(1+\frac{1}{n}\big)^n}{e}\bigg)^{n}\\
+		&=\lim_{n\to+\infty}e^{n \ln \big(\frac{(1+\frac{1}{n})^n}{e}\big)}. 
+		\end{align*}
+		D\'ale platí
+		\begin{align*}
+		\lim_{n\to+\infty}{n \ln \left(\frac{(1+\frac{1}{n})^n}{e}\right)}&=\lim_{n\to+\infty}n\left(n\ln\left(1+\frac{1}{n}\right)-\ln e\right)\\
+		&=\lim_{n\to+\infty}n\bigg(n\left(\ \frac{1}{n}-\frac{1}{2n^2}+O(n^{-3})\right)-1\bigg)\\
+		&=\lim_{n\to+\infty}n\bigg(-\frac{1}{2n}+O(n^{-2})\bigg)\\
+		&=\lim_{n\to+\infty}-\frac{1}{2}+O(n^{-1})=-\frac{1}{2}.
+		\end{align*}
+		Tud\'i\v z 
+		\begin{align*}
+		\lim_{n\to+\infty}\bigg(1+\frac{1}{n}\bigg)^{n^2}\frac{1}{e^n}&=e^{-\frac{1}{2}}.
+		\end{align*}
+		Vid\'ime, \v ze nen\'i spln\v ena nutn\'a podm\'inka pro konvergenci \v rady
+		$$\sum_{n=1}^{+\infty}(-1)^n\bigg(1+\frac{1}{n}\bigg)^{n^2}\frac{1}{e^n}$$
+		a \v rada tedy nekonverguje.
+  \end{solution}
+
+  \question
+  \begin{equation*}
+    \sum_{n = 10}^{+\infty}
+		\left( -1 \right)^n
+		\frac{\sqrt[n]{n}}{\ln \ln \ln n}
+  \end{equation*}
+  
+  \begin{solution}
+  	Nejprve zkoumejme, zda daná řada nekonverguje absolutně. Funkce $\frac{1}{\ln \ln \ln x}$ je záporná pro $x \in [10, e^e)$ a kladná pro $x \in (e^e, +\infty)$. (V bodě $x = e^e \approx 15.154$ není definovaná, neboť $\ln \ln \ln e^e = 0$.) Vynecháme tedy prvních pět členů, u kterých bychom museli řešit znaménka a budeme vyšetřovat konvergenci/divergenci řady
+  	\begin{equation}
+  		\label{eq:1}
+		  \sum_{n = 16}^{+\infty}
+		  \left|
+				\left( -1 \right)^n
+				\frac{\sqrt[n]{n}}{\ln \ln \ln n}
+			\right| 
+			=		
+		  \sum_{n = 16}^{+\infty}
+			\frac{\sqrt[n]{n}}{\ln \ln \ln n}.	
+  	\end{equation}  	
+  	Zkoumejme nejdřív chování posloupnosti $\{ \sqrt[n]{n} \}$. Položme
+  	\begin{equation*}
+  		f(x) := \sqrt[x]{x} = \mathrm{e}^{\frac{\ln x}{x}}.
+  	\end{equation*}
+  	Derivace funkce $f$
+  	\begin{equation*}
+  		\frac{\mathrm{d}f}{\mathrm{d}x}(x)
+  		=
+  		\mathrm{e}^{\frac{\ln x}{x}} \frac{1 - \ln x}{x^2},
+  	\end{equation*}
+  	je pro $x \in (e, +\infty)$ záporná a $f$ je tedy na tomto intervalu klesající. Navíc platí
+  	\begin{equation*}
+  		\lim_{x \to+ \infty}
+  		f(x)
+  		=
+  		\lim_{x \to+ \infty}
+  		\mathrm{e}^{\frac{\ln x}{x}}
+  		=
+  		\mathrm{e}^{\lim_{x \to+ \infty} \frac{\ln x}{x}}
+  		\stackrel{\text{l'H}}{=}
+  		\mathrm{e}^{\lim_{x \to+ \infty} \frac{\frac{1}{x}}{1}}
+  		=
+  		\mathrm{e}^0
+  		=
+  		1,
+  	\end{equation*}
+  	kde jsme využili větu o limitě složené funkce a l'Hôspitalovo pravidlo pro výpočet limity funkce typu ``$\frac{\textrm{něco}}{\infty}$''. Dohromady tedy dostáváme, že posloupnost $\{ \sqrt[n]{n} \}$ je omezená a klesající pro $n \ge 10$. Speciálně, pro $n \ge 16$ je $\sqrt[n]{n} > 1$ a jistě pak platí
+  	\begin{equation}
+  		\label{eq:2}
+  		\frac{\sqrt[n]{n}}{\ln \ln \ln n}
+  		>
+  		\frac{1}{\ln \ln \ln n}
+  		>
+  		\frac{1}{n \left( \ln n \right) \left( \ln \ln n \right) \left( \ln \ln \ln n \right)}.
+  	\end{equation}
+  	Funkce
+  	\begin{equation*}
+  		g(x)
+  		:=
+			\frac{1}{x \left( \ln x \right) \left( \ln \ln x \right) \left( \ln \ln \ln x \right)},
+  	\end{equation*}
+  	je na intervalu $[16, +\infty)$ součinem spojitých, kladných a klesajících funkcí, a je tedy sama spojitá, kladná a klesající. Protože platí
+  	\begin{equation*}
+  		\int_{16}^{+\infty}
+  			\frac{1}{x \left( \ln x \right) \left( \ln \ln x \right) \left( \ln \ln \ln x \right)}
+  		\, \mathrm{d}x
+  		=
+	   	\left| 
+		     \begin{aligned}
+		       t &= \ln \ln \ln x
+		       \\
+		       \mathrm{d}t &= \frac{1}{x \left( \ln x \right) \left( \ln \ln x \right)} \mathrm{d}x
+		     \end{aligned}
+		   \right|  		
+		   =
+		   \int_{\ln \ln \ln 16}^{+\infty}
+		      	\frac{1}{t}
+		   \, \mathrm{d}t
+		   =
+		   \left[
+		      	\ln t
+		   \right]_{\ln \ln \ln 16}^{+\infty}
+		   =
+		   +\infty,
+  	\end{equation*}
+  	Cauchyho integrální kritérium dává divergenci řady $\sum_{n = 16}^{+\infty} \frac{1}{n \left( \ln n \right) \left( \ln \ln n \right) \left( \ln \ln \ln n \right)}$ a nerovnost \eqref{eq:2} spolu se srovnávacím kritériem pak i divergenci řady \eqref{eq:1}. Zadaná řada tedy nekonverguje absolutně.
+  	
+		Vraťme se ke zkoumání konvergence původní řady. Nejprve ukažme, že řada
+  	\begin{equation}
+	  	\label{eq:3}
+	    \sum_{n = 10}^{+\infty}
+			\left( -1 \right)^n
+			\frac{1}{\ln \ln \ln n}, 		
+  	\end{equation}
+  	konverguje. Podle Leibnizova kritéria stačí ukázat, že posloupnost
+  	\begin{equation*}
+  		a_n := \frac{1}{\ln \ln \ln n},
+  	\end{equation*}
+  	je od jistého $n_0 \in [10, +\infty)$ monotonní a $\lim_{n \to+ \infty} a_n = 0$. Druhý předpoklad zřejmě platí, ověřme tedy monotonii. Protože funkce $\ln \ln \ln x$ vznikne složením tří rostoucích funkcí, je sama rostoucí a navíc, jak už víme, je pro $x > e^e \approx 15.154$ kladná. Funkce $\frac{1}{\ln \ln \ln x}$ je tudíž na intervalu $(e^e, +\infty)$ klesající, a tedy i posloupnost $a_n$ je pro $n \ge n_0 = 16$ klesající.
+  	
+  	Konvergenci zadané řady nám nyní dá Abelovo kritérium, neboť, jak už víme, řada \eqref{eq:3} konverguje a posloupnost $\{ \sqrt[n]{n} \}$ je  omezená a klesající pro $n \ge 10$.
+  	
+  	Závěr: Řada konverguje neabsolutně.
+  \end{solution}
+  
+  \question
+  \begin{equation*}
+    \sum_{n = 2}^{+\infty}
+		\frac{\sin \left( n + \frac{1}{n} \right)}{\ln \ln n}
+  \end{equation*}
+  
+  \begin{solution}
+		V následujícím budeme hojně využívat faktu, že posloupnosti $\{ \sin(an) \}$, $\{ \cos(an) \}$ mají omezené částečné součty pro $a \in \{ 1, 2 \}$. (Viz Tvrzení 9.3.5. ve \href{http://www.karlin.mff.cuni.cz/~pokorny/skripta_MAF2.pdf}{skriptech} Roberta Černého a Milana Pokorného.)
+		
+		Dále se nám bude hodit, že funkce $\sin(\frac{a}{n})$, $a \in \{ 1, 2 \}$ je omezená, kladná a klesající pro $n \ge 2$ a funkce $\cos(\frac{a}{n})$, $a \in \{ 1, 2 \}$ je omezená, kladná a rostoucí pro $n \ge 2$. To plyne z faktu, že pro $a \in \{ 1, 2 \}$ a $n \ge 2$ platí
+		\begin{equation*}
+			0 < \frac{a}{n} < \frac{\pi}{2}.
+		\end{equation*}
+  
+  	Nejprve ukažme, že daná řada nekonverguje absolutně, tj. vyšetřujme řadu
+  	\begin{equation}
+  		\label{eq:4}
+	     	\sum_{n = 3}^{+\infty}
+ 				\frac{\left| \sin \left( n + \frac{1}{n} \right) \right|}{\ln \ln n},	
+  	\end{equation}
+  	kde jsme z praktických důvodů vynechali první člen posloupnosti, neboť $\ln \ln 2 < 0$. Protože $\left| \sin \left( n + \frac{1}{n} \right) \right| \in (0, 1)$ pro každé $n \ge 3$, jistě platí
+  	\begin{equation}
+  		\label{eq:5}
+  		\frac{\left| \sin \left( n + \frac{1}{n} \right) \right|}{\ln \ln n}
+  		>
+  		\frac{\sin^2 \left( n + \frac{1}{n} \right)}{\ln \ln n}
+  		=
+  		\frac{1 - \cos \left( 2n + \frac{2}{n} \right)}{2 \ln \ln n}
+  		=
+  		\frac{
+  			1 - \cos 2n \cos \frac{2}{n} + \sin 2n \sin \frac{2}{n}
+  		}{
+  			2 \ln \ln n
+  		},
+  	\end{equation}
+  	kde jsme využili identit $\sin^2 x = \frac{1 - \cos 2x}{2}$ a $\cos \left( x + y \right) = \cos x \cos y - \sin x \sin y$. Naším cílem je nyní ukázat divergenci řady
+  	\begin{equation}
+  		\label{eq:6}
+  		\sum_{n = 3}^{+\infty}
+  		\frac{
+  			1 - \cos 2n \cos \frac{2}{n} + \sin 2n \sin \frac{2}{n}
+  		}{
+  			2 \ln \ln n
+  		}.
+  	\end{equation}
+  	Budeme proto zkoumat konvergenci následujících řad
+  	\begin{subequations}
+  		\begin{gather}
+  		\label{eq:7a}
+  		\sum_{n = 3}^{+\infty}
+  		\frac{1}{2 \ln \ln n},
+  		\\
+  		\label{eq:7b}
+  		\sum_{n = 3}^{+\infty}
+  		\frac{\cos 2n \cos \frac{2}{n}}{2 \ln \ln n}, 		
+  		\\
+  		\label{eq:7c}
+  		\sum_{n = 3}^{+\infty}
+  		\frac{\sin 2n \sin \frac{2}{n}}{2 \ln \ln n}.		
+  		\end{gather}
+  	\end{subequations}
+  	Srovnávácí kritérium a Cauchyho integrální kritérium nám dá divergenci řady \eqref{eq:7a} (využijeme podobné úvahy jako v Příkladu 4). 
+  	
+  	Řada \eqref{eq:7b} konverguje podle Abelova kritéria, neboť řada $\sum_{n = 3}^{+\infty} \frac{\cos 2n}{2 \ln \ln n}$ je konvergentní podle Dirichletova kritéria (posloupnost $\{ \cos 2n \}$ má omezené částečné součty a posloupnost $\{ \frac{1}{2 \ln \ln n} \}$ konverguje monotonně k nule) a posloupnost $\{ \cos \frac{2}{n} \}$ je omezená a rostoucí. 
+  	
+  	Konečně, řada \eqref{eq:7c} konverguje podle Dirichletova kritéria, neboť posloupnost $\{ \sin 2n \}$ má omezené částečné součty a posloupnost $\{ \frac{\sin \frac{2}{n}}{2 \ln \ln n} \}$ je klesající (jedná se o součin kladných klesajících funkcí) a konverguje k nule.
+  	
+  	Celkově tedy z aritmetiky řad dostáváme, že řada \eqref{eq:6} je divergentní a srovnávací kritérium spolu s nerovností \eqref{eq:5} nám dává divergenci řady \eqref{eq:4}. Zadaná řada tedy nekonverguje absolutně.
+  	  	
+		Vraťme se ke zkoumání konvergence původní řady. S využitím součtového vzorce $\sin (x + y) = \sin x \cos y + \cos x \sin y$ můžeme psát
+		\begin{equation}
+			\label{eq:8}
+	    \sum_{n = 2}^{+\infty}
+			\frac{\sin \left( n + \frac{1}{n} \right)}{\ln \ln n}
+			=
+	   \sum_{n = 2}^{+\infty}
+		 \frac{\sin n \cos \frac{1}{n} + \cos n \sin \frac{1}{n}}{\ln \ln n}
+		\end{equation}
+		a opět budeme zvlášť zkoumat konvergenci následujících řad
+  	\begin{subequations}
+  		\begin{gather}
+  		\label{eq:9a}
+  		\sum_{n = 2}^{+\infty}
+  		\frac{\sin n \cos \frac{1}{n}}{\ln \ln n},
+  		\\
+  		\label{eq:9b}
+  		\sum_{n = 2}^{+\infty}
+  		\frac{\cos n \sin \frac{1}{n}}{\ln \ln n}.
+  		\end{gather}
+  	\end{subequations}
+  	Podobně jako výše, řada \eqref{eq:9a} konverguje podle Abelova kritéria, neboť řada $\sum_{n = 2}^{+\infty} \frac{\sin n}{\ln \ln n}$ je konvergentní podle Dirichletova kritéria (posloupnost $\{ \sin n \}$ má omezené částečné součty a posloupnost $\{ \frac{1}{\ln \ln n} \}$ konverguje monotonně k nule) a posloupnost $\{ \cos \frac{1}{n} \}$ je omezená a rostoucí. 
+  	
+  	Konečně, řada \eqref{eq:9b} konverguje podle Dirichletova kritéria, neboť posloupnost $\{ \cos n \}$ má omezené částečné součty a posloupnost $\{ \frac{\sin \frac{1}{n}}{\ln \ln n} \}$ je klesající (jedná se o součin kladných klesajících funkcí) a konverguje k nule.
+  	
+  	Z aritmetiky řad tedy dostáváme, že řada \eqref{eq:8} konverguje.
+  	
+  	Závěr: Řada konverguje neabsolutně.
+  \end{solution}
+  
+  \question
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+    \frac{\sin nx}{n^p},
+    \quad
+    p \in \mathbb{R}, \, 0 < x < \pi
+  \end{equation*}
+  
+  \begin{solution}
+  	Pro $p \le 0$ posloupnost $\{ \frac{\sin nx}{n^p} \}$ osciluje pro každé $x \in (0, \pi)$ a není tak splněna nutná podmínka konvergence řady. Pro $p \le 0$ tedy zadaná řada nekonverguje (a nemůže tedy konvergovat ani absolutně).
+  	
+  	Vyšetřujme absolutní konvergenci pro $p > 1$, tj. konvergenci řady
+  	\begin{equation*}
+	    \sum_{n = 1}^{+\infty}
+	    \frac{\left| \sin nx \right|}{n^p}. 		
+  	\end{equation*}
+  	Protože platí
+  	\begin{equation*}
+  		\frac{\left| \sin nx \right|}{n^p}
+  		\le
+  		\frac{1}{n^p},
+  	\end{equation*}
+  	ze srovnávacího kritéria dostáváme, že pro $p > 1$ zadaná řada konverguje absolutně, neboť pro tato $p$ je řada $\sum_{n = 1}^{+\infty} \frac{1}{n^p}$ konvergentní.
+  	
+  	Ukažme, že pro $p \in (0, 1]$ zadaná řada nekonverguje absolutně. Protože $\left| \sin n x \right| \in [0, 1]$ pro každé $x \in (0, \pi)$ a $n \in \mathbb{N}$, jistě platí
+  	\begin{equation}
+  		\frac{\left| \sin nx \right|}{n^p}
+  		\ge
+  		\frac{\sin^2 (nx)}{n^p} 
+  		=
+		  \frac{1 - \cos(2nx)}{2 n^p},	
+  	\end{equation}
+  	kde jsme využili identitu $\sin^2 x = \frac{1 - \cos 2x}{2}$. Podobně jako v Příkladu 5 se dá ukázat, že řada
+  	\begin{equation}
+  		\label{eq:10}
+  		\sum_{n = 1}^{+\infty}
+  		\frac{1 - \cos(2nx)}{2 n^p}
+  	\end{equation}
+  	diverguje. Skutečně, řada $\sum_{n = 1}^{+\infty} \frac{1}{n^p}$ pro $p \in (0, 1]$ diverguje a řada $\sum_{n = 1}^{+\infty} \frac{\cos(2nx)}{2 n^p}$ konverguje podle Dirichletova kritéria, neboť posloupnost $\{ \cos(2nx) \}$ má omezené částečné součty (využíváme Tvrzení 9.3.5. ve \href{http://www.karlin.mff.cuni.cz/~pokorny/skripta_MAF2.pdf}{skriptech} Roberta Černého a Milana Pokorného a toho, že $x \in (0, \pi)$) a posloupnost $\{ \frac{1}{2 n^p} \}$ konverguje monotonně k nule. Divergence řady \eqref{eq:10} pak plyne z aritmetiky řad.
+  	
+  	Zbývá vyšetřit konvergenci zadané řady pro $p \in (0, 1]$. Ta je ale jednoduchým důsledkem Dirichletova kritéria, neboť posloupnost $\{ \sin(nx) \}$ má omezené částečné součty a posloupnost $\{ \frac{1}{n^p} \}$ konverguje monotonně k nule. Pro $p \in (0, 1]$ tedy daná řada konverguje neabsolutně.
+  	
+  	Závěr: Řada nekonverguje pro $p \le 0$, konverguje neabsolutně pro $p \in (0, 1]$ a konverguje absolutně pro $p > 1$. Uvedené výsledky jsou nezávislé na parametru $x \in (0, \pi)$.
+  \end{solution}
+   
+\end{questions}
+
+\end{document}
