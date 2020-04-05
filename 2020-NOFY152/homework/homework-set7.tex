@@ -1,0 +1,475 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+\definecolor{GraphColor}{HTML}{1d7ad1}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+\usepackage{enumitem}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\input{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza II (NOFY152) – DÚ 3}
+\author{Mocninné řady}
+\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+
+\begin{questions}	
+  \question Pro každé $z \in \C$ a $a, b \in \R$ vyšetřete, zda mocninná řada
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+    \frac{a^n + b^n}{n}z^n
+  \end{equation*}
+  konverguje (absolutně či neabsolutně).
+    
+  \begin{solution}
+  	Bez újmy na obecnosti předpokládejme, že $\abs{a} \ge \abs{b}$. (Pokud by tomu tak nebylo, přeznačíme si $a$ a $b$.) Pro $a, b = 0$ je navíc konvergence řady zřejmá pro všechna $z \in \C$. V dalším se tedy omezíme na případ $\abs{a} \ge \abs{b} > 0$. Označme si
+  	\begin{equation*}
+  		c_n
+  		:=
+  		\frac{a^n + b^n}{n}.
+  	\end{equation*}
+  	Platí
+  	\begin{equation*}
+  		\lim_{n\to+\infty}
+  		\sqrt[n]{\abs{c_n}}
+  		=
+  		\lim_{n\to+\infty}
+  		\sqrt[n]{\abs{\frac{a^n + b^n}{n}}}
+  		=
+  		\lim_{n \to +\infty}
+  		\sqrt[n]{\frac{\abs{a^n} \abs{1 + \parens{\frac{b}{a}}^n}}{n}}
+  		=
+  		\lim_{n \to +\infty}
+  		\frac{\abs{a} \sqrt[n]{1 + \parens{\frac{b}{a}}^n}}{\sqrt[n]{n}}
+  		=
+  		\abs{a},
+  	\end{equation*}
+  	kde jsme využili aritmetiky limit a toho, že
+  	\begin{equation*}
+  		\lim_{n \to +\infty}
+  		\sqrt[n]{1 + \parens{\frac{b}{a}}^n}
+  		=
+  		1,
+  		\qquad
+  		\lim_{n \to +\infty}
+  		\sqrt[n]{n}
+  		=
+  		1.
+  	\end{equation*}
+  	(Dokažte si sami pomocí věty o limitě složené funkce, Heineho věty a l'H\^{o}spitalova pravidla.) Odsud tedy dostáváme, že poloměr konvergence $R$ dané mocninné řady je roven
+  	\begin{equation*}
+  		R = \frac{1}{\lim_{n \to +\infty} \sqrt[n]{\abs{c_n}}} = \frac{1}{\abs{a}},
+  	\end{equation*}
+  	a řada tedy konverguje absolutně na množině $\set[\abs{z} < \frac{1}{\abs{a}}]{z \in \C}$ a nekonverguje na $\set[\abs{z} > \frac{1}{\abs{a}}]{z \in \C}$.
+  	
+  	Pro $z \in \C$ ležící na kružnici konvergence platí
+  	\begin{equation*}
+  		\abs{z} = \frac{1}{\abs{a}}
+  		\iff
+  		z = \frac{\exponential{\iunit \varphi}}{\abs{a}},
+  	\end{equation*}
+  	kde $\varphi \in [0, 2\pi)$. Na kružnici konvergence tedy vyšetřujeme konvegenci řady
+  	\begin{equation}
+  		\label{eq:0}
+	    \sum_{n = 1}^{+\infty}
+	    \frac{a^n + b^n}{n} \frac{\exponential{\iunit n \varphi}}{\abs{a}^n}
+	    =
+	    \sum_{n = 1}^{+\infty}
+	    \frac{1}{n} \parens{\sign a}^n \parens{1 + \parens{\frac{b}{a}}^n}
+	    \exponential{\iunit n \varphi}.
+  	\end{equation}
+  	Srovnávací kritérium spolu s divergencí harmonické řady nám dává, že řada \eqref{eq:0} jistě nekonverguje absolutně, neboť pro každé $n \in \N$ a $\abs{a} > \abs{b} > 0$ platí 
+  	\begin{equation*}
+  		\label{eq:01}
+  		\frac{1 + \parens{\frac{b}{a}}^n}{n} \ge \frac{1 - \abs{\frac{b}{a}}}{n}.
+  	\end{equation*}
+  	Pro případ, kdy $\abs{a} = \abs{b} \neq 0$, to plyne opět jednoduše z divergence harmonické řady (a aritmetiky řad).
+  	
+  	Pro vyšetření neabsolutní konvergence řady \eqref{eq:0} nejprve ukažme, že posloupnosti $\set{\exponential{\iunit n \varphi}}$ má omezené částečné součty pro $\varphi \in (0, 2\pi)$ a posloupnost $\set{(-1)^n \exponential{\iunit n \varphi}}$ má omezené částečné součty pro $\varphi \in [0, \pi) \cup (\pi, 2 \pi)$. Opravdu,
+  	\begin{align*}
+  		\exponential{\iunit n \varphi}
+  		&=
+  		\cos(n \varphi) + \iunit \sin(n \varphi),
+  		\\
+  		(-1)^n \exponential{\iunit n \varphi}
+  		&=
+  		\exponential{\iunit \pi n} \exponential{\iunit n \varphi}
+  		=
+  		\exponential{\iunit \parens{\pi + \varphi}n}
+  		=
+  		\cos(n \parens{\pi + \varphi}) + \iunit \sin(n \parens{\pi + \varphi}),
+  	\end{align*}
+  	a zbytek již plyne z Tvrzení 9.3.5. ve \href{http://www.karlin.mff.cuni.cz/~pokorny/skripta_MAF2.pdf}{skriptech} Roberta Černého a Milana Pokorného.
+  	
+  	Konvergenci řady \eqref{eq:0} nyní vyšetříme pro následující volby parametrů $a$, $b$.
+  	\begin{enumerate}[label=(\roman*)]
+	  	\item $\abs{a} > \abs{b} > 0$ 
+	  	
+	  	Všimněme si, že v tomto případě řada
+	  	\begin{equation*}
+	  		\sum_{n=1}^{+\infty}
+	  		\frac{1}{n} \parens{\sign a}^n \parens{\frac{b}{a}}^n \exponential{\iunit n \varphi}
+	  	\end{equation*}
+	  	konverguje absolutně (jednoduchý důsledek limitního podílového kritéria). Z aritmetiky řad tak plyne, že řada \eqref{eq:0} konverguje právě tehdy, když konverguje řada
+	  	\begin{equation}
+	  		\label{eq:001}
+	  		\sum_{n=1}^{+\infty}
+	  		\frac{1}{n} \parens{\sign a}^n \exponential{\iunit n \varphi}.
+	  	\end{equation}
+	  	Protože posloupnost $\set{\frac{1}{n}}$ monotonně konverguje k nule a posloupnost $\set{\parens{\sign a}^n \exponential{\iunit n \varphi}}$ má pro jisté hodnoty $\varphi$ omezené částečné součty (viz výše), z Dirichletova kritéria dostáváme, že pro $a < 0$ řada \eqref{eq:0} konverguje pro $\varphi \in [0, \pi) \cup (\pi, 2 \pi)$ a diverguje pro $\varphi = \pi$ a pro $a > 0$ řada \eqref{eq:0} konverguje pro $\varphi \in (0, 2\pi)$ a diverguje pro $\varphi = 0$. (Divergence jsme dostali z toho, že pro příslušná $a$ a $\varphi$ se \eqref{eq:001} redukuje na harmonickou řadu.)
+	  	
+	  	\item $a = b > 0$
+  		
+  		Řada \eqref{eq:0} se redukuje na
+  		\begin{equation*}
+		    \sum_{n = 1}^{+\infty}
+		    \frac{2}{n}
+		    \exponential{\iunit n \varphi}.
+  		\end{equation*}
+  		Aplikací Dirichletova kritéria podobně jako výše dostáváme konvergenci pro $\varphi \in (0, 2\pi)$ a divergenci pro $\varphi = 0$.
+  		
+	  	\item $a = b < 0$
+  		
+  		Řada \eqref{eq:0} se redukuje na
+  		\begin{equation*}
+		    \sum_{n = 1}^{+\infty}
+		    \frac{2}{n} \parens{-1}^n
+		    \exponential{\iunit n \varphi}.
+  		\end{equation*}
+  		Aplikací Dirichletova kritéria podobně jako výše dostáváme konvergenci pro $\varphi \in [0, \pi) \cup (\pi, 2 \pi)$ a divergenci pro $\varphi = \pi$.
+  		
+	  	\item $a = -b \neq 0$
+  		
+  		Řada \eqref{eq:0} se redukuje na
+  		\begin{equation*}
+		    \sum_{n = 1}^{+\infty}
+		    \frac{1 + \parens{-1}^n}{n} 
+		    \exponential{\iunit n \varphi}.
+  		\end{equation*}
+  		Z aritmetiky řad a aplikace Dirichletova kritéria podobně jako výše dostáváme konvergenci pro $\varphi \in (0, \pi) \cup (\pi, 2 \pi)$ a divergenci pro $\varphi = 0$ a $\varphi =\pi$.
+  	\end{enumerate}
+  \end{solution}
+
+  \question Pro každé $z \in \C$ vyšetřete, zda mocninná řada
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+		\parens{1 + \frac{1}{n}}^{n^2} \parens{z - 1}^n
+  \end{equation*}
+  konverguje (absolutně či neabsolutně).
+  
+  \begin{solution}
+  	Označme si
+  	\begin{equation*}
+  		a_n
+  		:=
+  		\parens{1 + \frac{1}{n}}^{n^2}.
+  	\end{equation*}
+  	Protože
+  	\begin{equation*}
+  		\lim_{n\to+\infty}
+  		\sqrt[n]{\abs{a_n}}
+  		=
+  		\lim_{n\to+\infty}
+  		\parens{1 + \frac{1}{n}}^n
+  		=
+  		\exponential{},
+  	\end{equation*}
+  	dostáváme, že poloměr konvergence dané mocninné řady je $\frac{1}{\exponential{}}$. Řada tedy konverguje absolutně na množině $\set[\abs{z - 1} < \frac{1}{\exponential{}}]{z \in \C}$ a nekonverguje na $\set[\abs{z - 1} > \frac{1}{\exponential{}}]{z \in \C}$.
+  	
+  	Pro $z \in \C$ ležící na kružnici konvergence platí
+  	\begin{equation*}
+  		\abs{z - 1} = \frac{1}{\exponential{}}
+  		\iff
+  		z - 1 = \frac{\exponential{\iunit \varphi}}{\exponential{}},
+  	\end{equation*}
+  	kde $\varphi \in [0, 2\pi)$. Na kružnici konvergence tedy vyšetřujeme konvegenci řady
+  	\begin{equation*}
+	    \sum_{n = 1}^{+\infty}
+			\frac{\parens{1 + \frac{1}{n}}^{n^2}}{\exponential{n}} \exponential{\iunit n \varphi}.	
+  	\end{equation*}
+  	Ukažme, že není splněná nutná podmínka konvergence. Protože podmínka $\lim_{n \to+ \infty} b_n = 0$ je ekvivalentní $\lim_{n \to+ \infty} |b_n| = 0$ pro každou posloupnost $\{ b_n \}$, stačí hledat limitu
+		\begin{align*}
+			\lim_{n\to+\infty}
+			\frac{\parens{1 + \frac{1}{n}}^{n^2}}{\exponential{n}}
+			&=
+			\lim_{n\to+\infty}
+			\exponential{n^2 \ln \parens{1 + \frac{1}{n}} - n}
+			=
+			\exponential{\lim_{n\to+\infty} \parens{n^2 \ln \parens{1 + \frac{1}{n}} - n}}
+			=
+			\exponential{\lim_{n\to+\infty} \parens{n^2 \parens{\frac{1}{n} - \frac{1}{2 n^2} + o\parens{\frac{1}{n^2}}}-n}}
+			\\
+			&=
+			\exponential{\lim_{n\to+\infty} \parens{-\frac{1}{2} + o\parens{1}}}
+			=
+			\exponential{-\frac{1}{2}} \neq 0.
+		\end{align*}
+		
+		Závěr: Řada konverguje absolutně na množině $\set[\abs{z - 1} < \frac{1}{\exponential{}}]{z \in \C}$ a nekonverguje na $\set[\abs{z - 1} \ge \frac{1}{\exponential{}}]{z \in \C}$.
+  \end{solution}
+
+  \question
+  Pro každé $z \in \C$ vyšetřete, zda mocninná řada
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+		\frac{\parens{2n}!!}{\parens{2n + 1}!!}z^n
+  \end{equation*}
+  konverguje (absolutně či neabsolutně). Zde
+  \begin{align*}
+  	\parens{2n}!! &= 2n \cdot \parens{2n-2} \cdots 4\cdot 2,
+  	\\
+  	\parens{2n+1}!! &= \parens{2n+1} \cdot \parens{2n-1} \cdots 3 \cdot 1.
+  \end{align*}
+  
+  \emph{Nápověda:} Využijte Stirlingův vzorec.
+  
+  \begin{solution}
+  	Označme si
+  	\begin{equation*}
+  		a_n
+  		:=
+  		\frac{\parens{2n}!!}{\parens{2n + 1}!!}.
+  	\end{equation*}
+  	Protože
+  	\begin{equation*}
+  		\lim_{n\to+\infty}
+  		\abs{\frac{a_n}{a_{n+1}}}
+  		=
+  		\lim_{n\to+\infty}
+  		\frac{\parens{2n}!! \parens{2n+3}!!}{\parens{2n+1}!! \parens{2n+2}!!}
+  		=
+  		\lim_{n\to+\infty} \frac{2n+3}{2n+2}
+  		=
+  		1,
+  	\end{equation*}
+  	dostáváme, že poloměr konvergence dané mocninné řady je $1$. Řada tedy konverguje absolutně na množině $\set[\abs{z} < 1]{z \in \C}$ a nekonverguje na $\set[\abs{z} > 1]{z \in \C}$.
+  	
+  	Pro $z \in \C$ ležící na kružnici konvergence platí
+  	\begin{equation*}
+  		\abs{z} = 1
+  		\iff
+  		z = \exponential{\iunit \varphi},
+  	\end{equation*}
+  	kde $\varphi \in [0, 2\pi)$. Na kružnici konvergence tedy vyšetřujeme konvegenci řady
+  	\begin{equation}
+  		\label{eq:1}
+	    \sum_{n = 1}^{+\infty}
+			\frac{\parens{2n}!!}{\parens{2n + 1}!!} 
+				\exponential{\iunit n \varphi}.	
+  	\end{equation}
+  	Pro $\varphi = 0$ nám Raabeho kritérium dá divergenci řady \eqref{eq:1}. Skutečně,
+  	\begin{equation*}
+  		\lim_{n \to+ \infty} n \parens{\frac{a_n}{a_{n+1}} - 1}
+  		=
+  		\lim_{n \to+ \infty} n \parens{\frac{2n + 3}{2n + 2} - 1}
+  		=
+  		\lim_{n \to+ \infty} \frac{n + 1}{2n + 2}
+  		=
+  		\frac{1}{2}
+  		< 
+  		1.
+  	\end{equation*}
+  	Z toho zároveň plyne, že pro $\varphi \in \parens{0, 2\pi}$ nemůže řada \eqref{eq:1} konvergovat absolutně a zbývá vyřešit, zda nekonverguje neabsolutně. Protože posloupnost $\{ \exponential{\iunit n \varphi} \}$ má pro $\varphi \in \parens{0, 2\pi}$ omezené částečné součty, stačí ukázat, že posloupnost $\{ a_n \}$ jde monotonně k nule a konvergenci řady \eqref{eq:1} nám pak dá Dirichletovo kritérium.
+ 
+  	Monotonie posloupnosti $\{ a_n \}$ plyne z nerovnosti
+  	\begin{equation*}
+  		\frac{a_n}{a_{n+1}} = \frac{2n + 3}{2n + 2} > 1.
+  	\end{equation*}  	
+  	Pro ověření, že $\lim_{n \to+ \infty} a_n = 0$, si nejprve uvědomme, že platí
+	  \begin{align*}
+	  	\parens{2n}!! &= 2n \cdot \parens{2n-2} \cdots 4\cdot 2 = 2^n \parens{n}!,
+	  	\\
+	  	\parens{2n+1}!! &= \parens{2n+1} \cdot \parens{2n-1} \cdots 3 \cdot 1 = \frac{\parens{2n + 1}!}{(2n)!!} = \frac{\parens{2n +1}!}{2^n \parens{n}!}.
+	  \end{align*}
+	  S využitím Stirlingova vzorce
+	  \begin{equation*}
+	  	\lim_{n\to+\infty} \frac{n!}{\sqrt{2 \pi n} \parens{\frac{n}{\exponential{}}}^n} = 1,
+	  \end{equation*}
+	  potom dostáváme
+	  \begin{align*}
+	  	\lim_{n \to+ \infty} a_n
+	  	&=
+	  	\lim_{n \to+ \infty}
+	  	\frac{\parens{2n}!!}{\parens{2n + 1}!!}
+	  	=
+	  	\lim_{n \to+ \infty}
+	  	\frac{2^{2n} \parens{n!}^2}{\parens{2n + 1}!}
+	  	=
+	  	\lim_{n \to +\infty}
+	  	\frac{2^{2n} \cdot 2 \pi n \parens{\frac{n}{\exponential{}}}^{2n}}{\sqrt{2 \pi \parens{2n + 1}} \parens{\frac{2n + 1}{\exponential{}}}^{2n + 1}}
+	  	\\
+	  	&=
+	  	\lim_{n \to +\infty}
+	  	\exponential{} \sqrt{\frac{\pi}{2}} \frac{1}{\sqrt{2n + 1}} \parens{\frac{n}{2n + 1}}^{2n + 1}
+	  	=
+	  	0,
+	  \end{align*}
+	  kde jsme ještě v poslední rovnosti využili toho, že
+	  \begin{equation*}
+	  	\lim_{n \to +\infty}
+	  	\parens{\frac{n}{2n + 1}}^{2n + 1}
+	  	=
+	  	\lim_{n \to +\infty}
+	  	\parens{1 - \frac{1}{2n + 1}}^{2n + 1}
+	  	=
+	  	\frac{1}{\exponential{}},
+	  \end{equation*}
+	  což plyne jednoduše z Heineho věty a l'H\^{o}spitalova pravidla.
+	  
+	  Závěr: Řada konverguje absolutně na množině $\set[\abs{z} < 1]{z \in \C}$, konverguje neabsolutně na $\set[\abs{z} = 1]{z \in \C} \setminus \set{1}$ a nekonverguje na $\set[\abs{z} > 1]{z \in \C} \cup \set{1}$.
+  \end{solution}
+
+  \question
+  S pomocí teorie mocninných řad vyšetřete konvergenci řady
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+		n^2 \parens{\frac{3x}{2 + x^2}}^n,
+		\quad
+		x \in \R.
+  \end{equation*}
+  
+  \begin{solution}
+		Polo\v zme $y:=\frac{3x}{2+x^2}$. \v Rada
+		\begin{equation}\label{rada zI}
+		\sum_{n=1}^{+\infty}n^2 y^n 
+		\end{equation}
+		m\'a polom\v er konvergence $R=1$, sta\v c\'i pou\v z\'it (podobn\v e jako v 5. \'ukolu z 1. sady D\'U na \v rady), \v ze 
+		\begin{equation}\label{lim}
+		\lim_{n\to+\infty}\sqrt[n]{n^2}=\lim_{n\to+\infty}e^{\frac{2\ln n}{n}}=e^{\lim_{n\to+\infty}\frac{2\ln n}{n}}=e^0=1. 
+		\end{equation}
+		D\'ale pro $y=\pm1$ nen\'i spln\v ena nutn\'a podm\'inka pro konvergenci, nebo\v t \v cleny \v rady (\ref{rada zI}) nekonverguj\'i k nule. Zb\'yv\'a tedy rozhodnout, pro kter\'a $x \in \R$ plat\'i
+		$$\bigg|\frac{3x}{2+x^2}\bigg|<1,
+		\quad
+		\iff
+		\quad -1<\frac{3x}{2+x^2}<1.$$
+		Tyto nerovnosti jsou ekvivalentn\'i nerovnostem:
+		$$x^2+3x+2>0,\ x^2-3x+2>0.$$
+		Vy\v re\v sen\'i t\v echto nerovnost\'i je ji\v z snadn\'e, vyjde $x\in(-\infty,-2)\cup(-1,1)\cup(2,+\infty)$.  
+		
+		Závěr: Řada konverguje absolutně pro $x\in(-\infty,-2)\cup(-1,1)\cup(2,+\infty)$.
+  \end{solution}
+  
+  \question
+  Sečtěte číselnou řadu
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+		\frac{n^2}{n!}.
+  \end{equation*}
+  
+  \begin{solution}
+		Uva\v zujme mocninnou \v radu
+		\begin{equation}\label{rada xxx}
+		\sum_{n=1}^{+\infty}\frac{n}{(n-1)!}x^{n-1}. 
+		\end{equation}
+		Z limitn\'iho pod\'ilov\'eho krit\'eria plyne, \v ze (\ref{rada xxx}) konverguje pro v\v sechna $x\in\mathbb R$. Skute\v cn\v e,
+		$$\lim_{n\to+\infty}\frac{\frac{n+1}{n!}}{\frac{n}{(n-1)!}}=\lim_{n\to+\infty}\frac{n+1}{n^2}=0,$$
+		a poloměr konvergence příslušné mocninné řady je tedy $+\infty$.
+		
+		Protože každá mocninná řada na svém kruhu konvergence definuje nekonečněkrát spojitě diferencovatelnou funkci a navíc platí, že můžeme zaměňovat pořadí sumy a derivace, postupně dostáváme
+		\begin{align*}
+		\sum_{n=1}^{+\infty}\frac{n}{(n-1)!}x^{n-1}&=\sum_{n=1}^{+\infty}\left(\frac{x^{n}}{(n-1)!}\right)'\\
+		&=\bigg( x\sum_{n=1}^{+\infty}\frac{x^{n-1}}{(n-1)!}\bigg)'\\
+		&=\bigg( x\sum_{n=0}^{+\infty}\frac{x^{n}}{n!}\bigg)'\\
+		&=(xe^x)'=e^x(x+1).
+		\end{align*}
+		To znamen\'a, \v ze 
+		$$\sum_{n=1}^{+\infty}\frac{n^2}{n!}=\sum_{n=1}^{+\infty}\frac{n}{(n-1)!}x^{n-1}\bigg|_{x=1}=2e.$$  	
+  \end{solution}
+  
+  \question
+  Sečtěte číselnou řadu
+  \begin{equation*}
+    \sum_{n = 1}^{+\infty}
+		\frac{(-1)^n}{n \parens{n+1}}.
+  \end{equation*}
+  
+  \begin{solution}
+		Uva\v zujme mocninnou řadu
+		\begin{equation}\label{rada xy}
+		\sum_{n=1}^{+\infty}\frac{(-1)^n}{n(n+1)}x^{n+1}. 
+		\end{equation}
+		Podobn\v e jako v (\ref{lim}), plat\'i 
+		$$\lim_{n\to+\infty}\sqrt[n]{\frac{1}{n(n+1)}}=e^{\lim_{n\to+\infty}\frac{-\ln(n)-\ln(n+1)}{n}}=e^0=1.$$
+		Z limitn\'iho pod\'ilov\'eho krit\'eria tedy plyne, \v ze \v rada (\ref{rada xy}) konverguje pro $|x|<1$. Z Dirichletova krit\'eria plyne, \v ze konverguje i pro $x=1$, zjevn\v e $\frac{1}{n(n+1)}\searrow 0$ pro $n\to+\infty$ a $\sum_{n=1}^{+\infty}(-1)^n$ m\'a omezen\'e \v c\'aste\v cn\'e sou\v cty. Pro $|x|<1$ platí
+		\begin{align*}
+		\left(\sum_{n=1}^{+\infty}\frac{(-1)^n}{n(n+1)}x^{n+1}
+		\right)''&=\left(\sum_{n=1}^{+\infty}\frac{(-1)^n}{n}x^{n}\right)'\\
+		&=\sum_{n=1}^{+\infty}(-1)^nx^{n-1}\\
+		&=-\sum_{n=1}^{+\infty}(-x)^{n-1}\\
+		&=-\sum_{n=0}^{+\infty}(-x)^{n}\\
+		&=-\frac{1}{1+x}.
+		\end{align*}
+		Funkci $\frac{1}{1+x}$ nyn\'i dvakr\'at zintegrujeme a dostaneme
+		\begin{align*}
+		\int\frac{dx}{1+x}&=\ln(1+x)+c,\ x\in(-1,1)\\
+		\int\ln(1+x)\ dx&=x\ln(1+x)-\int\frac{x\ dx}{1+x}\\
+		&=x\ln(1+x)+\int\frac{dx}{1+x}-\int\ dx\\
+		&=x\ln(1+x)+\ln(1+x)-x+d,\ x\in(-1,1).
+		\end{align*}
+		Tud\'i\v z
+		\begin{equation}\label{rovnost}
+		\sum_{n=1}^{+\infty}\frac{(-1)^n}{n(n+1)}x^{n+1}=-(x+1)\ln(1+x)+x-cx-d,\ x\in(-1,1). 
+		\end{equation}
+		Dosad\'ime za $x=0$ a vid\'ime, \v ze $d=0$. K ur\v cen\'i konstanty $c$ zderivujeme ob\v e strany (\ref{rovnost})  a porovn\'ame v bod\v e $x=0$, dostaneme $0=-1+1-c=-c$. Tedy i $c=0$. Podle Abelovy věty nakonec dostáváme
+		\begin{equation*}
+		\sum_{n=1}^{+\infty}\frac{(-1)^n}{n(n+1)}=\lim_{x\to1^-}\sum_{n=1}^{+\infty}\frac{(-1)^n}{n(n+1)}x^{n+1}=-\lim_{x\to1^-}\big((x+1)\ln(1+x)-x\big)=1-2\ln 2=1-\ln 4.
+		\end{equation*}  	
+  \end{solution}
+   
+\end{questions}
+
+\end{document}
