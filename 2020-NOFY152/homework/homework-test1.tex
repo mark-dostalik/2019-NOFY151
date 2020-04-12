@@ -1,0 +1,448 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+\definecolor{GraphColor}{HTML}{1d7ad1}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+\usepackage{enumitem}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\input{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza II (NOFY152) – DÚ 4}
+\author{Taylorův polynom, určitý integrál, ODR se separovanými proměnnými}
+\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+
+\begin{questions}
+  \question Pomocí Taylorova polynomu spočtěte
+	\begin{enumerate}[label=(\roman*)]
+		\item
+		  \begin{equation*}
+		    \lim_{x \to 0}
+		    \frac{\cos x - 1 + \frac{1}{2} x \sin x}{\ln^4 \parens{1 + x}},
+		  \end{equation*}
+		\item
+		  \begin{equation*}
+		    \lim_{x \to 0}
+		    \frac{1 - \parens{\cos x}^{\sin x}}{x^3}.
+		  \end{equation*}
+	\end{enumerate}
+
+  Při výpočtu nepoužívejte l'H\^{o}spitalovo pravidlo ani znalost základních limit.
+  
+  \begin{solution}
+		\begin{enumerate}[label=(\roman*)]
+			\item
+		  	Uvažujme následující Taylorovy rozvoje v počátku (tj. pro $x \to 0$)
+		  	\begin{align*}
+		  		\sin x 
+		  		&= 
+		  		x - \frac{x^3}{3!} + o(x^4),
+		  		\\
+		  		\cos x
+		  		&=
+		  		1 - \frac{x^2}{2} + \frac{x^4}{4!} + o(x^5),
+		  		\\
+		  		\ln (1 + x)
+		  		&=
+		  		x + o(x).	
+		  	\end{align*}
+		  	Po dosazení dostáváme
+		  	\begin{align*}
+		    \lim_{x \to 0}
+		    \frac{\cos x - 1 + \frac{1}{2} x \sin x}{\ln^4 \parens{1 + x}}
+		    &=
+		    \lim_{x \to 0}
+		    \frac{1 - \frac{x^2}{2} + \frac{x^4}{4!} + o(x^5) - 1 + \frac{1}{2}x\parens{x - \frac{x^3}{3!} + o(x^4)}}{\parens{x + o(x)}^4}
+		    \\
+		    &=
+		    \lim_{x \to 0}
+		    \frac{\parens{\frac{1}{4!} - \frac{1}{2 \cdot 3!}} x^4 + o(x^5)}{x^4 + o(x^4)} 
+		    =
+		    \lim_{x \to 0}
+		    \frac{-\frac{1}{24}x^4}{x^4 + o(x^4)}
+		    +
+		    \lim_{x \to 0}
+		    \frac{o(x^4)}{x^4 + o(x^4)}
+		    \\
+		    &=
+		    \lim_{x \to 0}
+		    \frac{-\frac{1}{24}}{1 + \frac{o(x^4)}{x^4}}
+		    +
+		    \lim_{x \to 0}
+		    \frac{\frac{o(x^4)}{x^4}}{1 + \frac{o(x^4)}{x^4}}   
+		    =
+		    -\frac{1}{24},
+		  	\end{align*}  
+		  	kde jsme při výpočtu využili aritmetiku limit.
+			\item
+		  	Užitím následujících Taylorových rozvojů v počátku (tj. pro $x \to 0$)
+		  	\begin{align*}
+		  		\sin x 
+		  		&= 
+		  		x - \frac{x^3}{3!} + o(x^4),
+		  		\\
+		  		\cos x
+		  		&=
+		  		1 - \frac{x^2}{2} + o(x^3),
+		  		\\
+		  		\ln (1 + x)
+		  		&=
+		  		x + o(x),
+		  		\\
+		  		\exponential{x}
+		  		&=
+		  		1 + x + o(x),
+		  	\end{align*}
+		  	postupně dostáváme
+		  	\begin{align*}
+		  		\parens{\cos x}^{\sin x}
+		  		&=
+		  		\exponential{\sin x \ln \parens{\cos x}}
+		  		=
+		  		\exponential{\parens{x - \frac{x^3}{3!} + o(x^4)} \ln \parens{1 - \frac{x^2}{2} + o(x^3)}}
+		  		=
+		  		\exponential{\parens{x - \frac{x^3}{3!} + o(x^4)} \parens{-\frac{x^2}{2} + o(x^2)}}
+		  		\\
+		  		&=
+		  		\exponential{-\frac{x^3}{2} + o(x^3)}
+		  		=
+		  		1 - \frac{x^3}{2} + o(x^3).
+		  	\end{align*}
+		  	Po dosazení tedy máme
+		  	\begin{align*}
+		    \lim_{x \to 0}
+		    \frac{1 - \parens{\cos x}^{\sin x}}{x^3}
+		    =
+		    \lim_{x \to 0}
+		    \frac{1 - 1 + \frac{x^3}{2} + o(x^3)}{x^3}
+		    =
+		    \frac{1}{2}.
+		  	\end{align*}
+		\end{enumerate}
+
+  \end{solution}
+
+  \question Spočtěte objem tělesa, které vznikne rotací oblasti 
+  \begin{equation*}
+  	\set[
+  		0 \le x \le 1, \, 0 \le y \le \frac{\ln \frac{1}{x}}{\parens{1 + x^2}^2}
+  	]{
+  		\parens{x, y} \in \R^2
+  	}
+  \end{equation*}
+  kolem osy $y$.
+  
+  \begin{solution}
+  	Pro hledaný objem $V$ platí 
+  	\begin{equation*}
+  		V 
+  		= 
+  		2 \pi \int_{0}^{1} \frac{x \ln \frac{1}{x}}{\parens{1 + x^2}^2} \, \diff x.
+  	\end{equation*}
+  	Označme si primitivní funkci integrandu
+  	\begin{equation*}
+  		F(x)
+  		\defeq
+  		\int \frac{x \ln \frac{1}{x}}{\parens{1 + x^2}^2} \, \diff x,
+  	\end{equation*}
+  	a metodou per partes počítejme (integrační konstanta není důležitá, tak ji nepíšeme)
+  	\begin{align*}
+  		F(x)
+  		&=
+      \left| 
+        \begin{aligned}
+          u &= \ln \frac{1}{x} & v &= \frac{-1}{2\parens{1 + x^2}}
+          \\
+          u' &= -\frac{1}{x} & v' &= \frac{x}{\parens{1 + x^2}^2}
+        \end{aligned}
+      \right|
+      =
+      \frac{\ln x}{2 \parens{1 + x^2}}
+      -
+      \frac{1}{2} \int \frac{1}{x \parens{1 + x^2}} \, \diff x
+      \\
+      &=
+      \frac{\ln x}{2 \parens{1 + x^2}}
+      -
+      \frac{1}{2}
+      \int
+      	\parens{\frac{1}{x} - \frac{x}{1 + x^2}}
+      \diff x
+      =
+      \frac{\ln x}{2 \parens{1 + x^2}}
+      -
+      \frac{1}{2}
+      \parens{\ln x - \frac{1}{2} \ln \parens{1 + x^2}}
+      \\
+      &=
+      \frac{1}{4} \ln \parens{1 + x^2}
+      -
+      \frac{x^2 \ln x}{2 \parens{1 + x^2}}.
+  	\end{align*}
+  	Všimněte si, že v tomto příkladě nelze využít metodu per partes pro Newtonův integrál, neboť pro první výraz za druhým rovnítkem výše platí
+  	\begin{equation*}
+  		\lim_{x \to 0+} 
+  		\frac{\ln x}{2 \parens{1 + x^2}} = -\infty.
+  	\end{equation*}
+  	(Podívejte se na přesné znění příslušné věty.)
+  	
+  	Limity primitivní funkce $F$ v krajních bodech vychází následovně
+  	\begin{align*}
+  		\lim_{x \to 1-} F(x)
+  		&=
+  		\lim_{x \to 1-}
+  		\parens{
+	  		\frac{1}{4} \ln \parens{1 + x^2}
+	  		-
+	  		\frac{x^2 \ln x}{2 \parens{1 + x^2}}
+  		}
+  		=
+  		\frac{1}{4} \ln 2,
+  		\\
+  		\lim_{x \to 0+} F(x)
+  		&=
+  		\lim_{x \to 0+}
+  		\parens{
+	  		\frac{1}{4} \ln \parens{1 + x^2}
+	  		-
+	  		\frac{x^2 \ln x}{2 \parens{1 + x^2}}
+  		}
+  		=
+  		\frac{1}{2} \lim_{x \to 0+}
+  		\frac{\ln x}{1 + \frac{1}{x^2}}
+  		\texteq{l'H}
+  		\frac{1}{2} \lim_{x \to 0+}
+  		\frac{\frac{1}{x}}{-\frac{2}{x^3}}  
+  		=
+  		0,		
+  	\end{align*}
+    kde jsme v předposlední rovnosti využili l'Hôspitalova pravidla pro výpočet limity typu ``$\frac{\textrm{něco}}{\infty}$''.  
+    	
+  	Nakonec tedy dostáváme
+  	\begin{equation*}
+  		V 
+  		= 
+  		2 \pi \parens{ \lim_{x \to 1-} F(x) - \lim_{x \to 0+} F(x)}
+  		=
+  		2 \pi \parens{\frac{1}{4} \ln 2 - 0}
+  		=
+  		\frac{\pi}{2} \ln 2.
+  	\end{equation*}
+  \end{solution}
+
+  \question Pro diferenciální rovnici
+  \begin{equation*}
+    \dd{y}{x}
+    =
+    2 \exponential{-x} \sqrt{1 - y},
+  \end{equation*}
+  nalezněte
+	\begin{enumerate}[label=(\roman*)]
+		\item všechna maximální řešení,
+		\item všechna maximální řešení splňující $y(0) = 1$.
+	\end{enumerate}
+  
+  \begin{solution}
+	\begin{enumerate}[label=(\roman*)]
+		\item
+	  	Diferenciální rovnice je ve tvaru
+	  	\begin{equation*}
+	    \dd{y}{x}
+	    =
+	    f(x) g(y), 	
+	  	\end{equation*}
+	  	kde $f(x) = \exponential{-x}$, $g(y) = 2 \sqrt{1 - y}$ a můžeme ji tedy řešit metodou separace proměnných. Rovnice má smysl pro $x$ z intervalu $I = \R$. Na celé reálné ose máme stacionární řešení $y \equiv 1$. Zbylá řešení $y$ hledáme z intervalu $J = \parens{-\infty, 1}$, kde je $g$ spojitá a nenulová.
+	  	
+	  	Spočtěme primitivní funkce
+	  	\begin{align*}
+	  		F(x)
+	  		&\defeq
+	  		\int f(x) \, \diff x
+	  		=
+	  		\int \exponential{-x} \, \diff x
+	  		=
+	  		- \exponential{-x} - c, \quad c \in \R,
+	  		\\
+	  		G(y)
+	  		&\defeq
+	  		\int \frac{1}{g(y)} \, \diff y
+	  		=
+	  		\int \frac{1}{2 \sqrt{1 - y}} \, \diff y
+	  		=
+	      - \sqrt{1 - y}.
+	  	\end{align*}
+	  	Z jejich rovnosti
+	  	\begin{equation*}
+	  		\sqrt{1 - y}
+	  		=
+	  		\exponential{-x} + c,
+	  	\end{equation*}
+	  	a nezápornosti levé strany potom dostáváme
+	  	\begin{itemize}
+	  		\item $c \ge 0 \implies x \in \R$,
+	  		\item $c < 0 \implies x \in \parens{-\infty, -\ln\parens{-c}}$.
+	  	\end{itemize}
+	  	
+	  	Všechna maximální řešení tedy jsou
+	  	\begin{align*}
+	  		y(x) &= 1, \quad x \in \R
+	  		\\
+	  		y(x) &= 1 - \parens{\exponential{-x} + c}^2, \quad x \in \R, \quad c \ge 0,
+	  		\\
+	  		y(x) &=
+	  		\begin{cases}
+	  			1 - \parens{\exponential{-x} + c}^2, \quad &x \in \parens{-\infty, -\ln\parens{-c}},
+	  			\\
+	  			1, \quad &x \in \left[-\ln\parens{-c}, +\infty \right),
+	  		\end{cases}
+	  		\quad c < 0,
+	  	\end{align*}
+	  	kde jsme v posledním případě navíc slepili nalezené řešení se stacionárním.
+	  \item 
+	  	Všimněme si nejdřív, že stacionární řešení $y \equiv 1$ splňuje počáteční podmínku $y(0) = 1$. Dále najděme hodnotu konstanty $c$, pro kterou bude i netriviální řešení splňovat počáteční podmínku
+	  	\begin{equation*}
+	  		1 = y(0) = 1 - \parens{1 +c}^2 \implies c = -1.
+	  	\end{equation*}
+	  	Díky napojování na stacionární řešení pak dostáváme, že i všechna netriviální řešení s $c \le -1$ splňují počáteční podmínku.
+	  	
+	  	Maximální řešení splňující počáteční podmínku $y(0) = 1$ tedy jsou
+	  	\begin{align*}
+	  		y(x) &= 1, \quad x \in \R
+	  		\\
+	  		y(x) &=
+	  		\begin{cases}
+	  			1 - \parens{\exponential{-x} + c}^2, \quad &x \in \parens{-\infty, -\ln\parens{-c}},
+	  			\\
+	  			1, \quad &x \in \left[-\ln\parens{-c}, +\infty \right),
+	  		\end{cases}
+	  		\quad c \le -1.
+	  	\end{align*}
+
+	\end{enumerate}  
+	
+	\begin{center}
+     \begin{tikzpicture}
+       \begin{axis}[
+  	      width=0.85\textwidth,
+  	      height=0.635\textwidth,
+        	samples=500,
+        	domain=-3:3,
+        	restrict y to domain =-1:1.25,
+         xlabel=$x$, 
+         xmin=-1,
+         xmax=1,
+         xtick pos=bottom,
+         xtick={-1,-0.693147, -0.405465, 0, 0.693147, 1},
+         xticklabels={$-1$, $-\ln2$, $-\ln\frac{3}{2}$, $0$, $-\ln\frac{1}{2}$, $1$},
+         ylabel style={rotate=-90, xshift=7pt},
+         ylabel=$y(x)$,
+         ymin=-1,
+         ymax=1.25,
+         ytick pos=left,
+         ytick={-1, 0, 1},
+         yticklabels={$-1$,$0$,$1$},]
+          \addplot[blue, samples=1000, smooth, color=GraphColor, line width=0.8pt, domain=-3:3] coordinates {(-4,1) (3,1)};	        
+         \addplot[
+           blue, samples=1000, smooth, color=GraphColor, line width=0.8pt, domain=-3:3
+         ]{1-(exp(-x)+0.5)^2};	 
+         \addplot[
+           blue, samples=1000, smooth, color=GraphColor, line width=0.8pt, domain=-3:3
+         ]{1-(exp(-x))^2};	
+         \addplot[
+           blue, samples=1000, smooth, color=GraphColor, line width=0.8pt, domain=-3:0.693147
+         ]{1-(exp(-x)-0.5)^2};	                                       
+         \addplot[
+           blue, samples=1000, smooth, color=GraphColor, line width=0.8pt, domain=-4:-0.0001
+         ]{1-(exp(-x)-1)^2};
+         \addplot[
+           blue, samples=1000, smooth, color=GraphColor, line width=0.8pt, domain=-4:-0.405465
+         ]{1-(exp(-x)-1.5)^2};	          
+         \addplot[
+           blue, samples=1000, smooth, color=GraphColor, line width=0.8pt, domain=-4:-0.693147
+         ]{1-(exp(-x)-2)^2};
+         \addplot[
+           only marks, mark size=1.5pt, color=GraphColor, samples at = {0.693147}
+         ]{1-(exp(-x)-0.5)^2};	          
+         \addplot[
+           only marks, mark size=1.5pt, color=GraphColor, samples at = {0}
+         ]{1-(exp(-x)-1)^2};
+         \addplot[
+           only marks, mark size=1.5pt, color=GraphColor, samples at = {-0.405465}
+         ]{1-(exp(-x)-1.5)^2};
+         \addplot[
+           only marks, mark size=1.5pt, color=GraphColor, samples at = {-0.693147}
+         ]{1-(exp(-x)-2)^2};	
+         \addplot[dotted] coordinates {(-0.693147,-1) (-0.693147,1)};
+         \addplot[dotted] coordinates {(-0.405465,-1) (-0.405465,1)};
+         \addplot[dotted] coordinates {(0,-1) (0,1)};
+         \addplot[dotted] coordinates {(0.693147,-1) (0.693147,1)};
+         \node[] at (axis cs: 0.55,-0.4) {$c=\frac{1}{2}$}; 
+         \node[] at (axis cs: 0.08,-0.08) {$c=0$}; 
+         \node[] at (axis cs: -0.22,0.065) {$c=-\frac{1}{2}$};
+         \node[] at (axis cs: -0.47,0.3) {$c=-1$}; 
+         \node[] at (axis cs: -0.63,0.6) {$c=-\frac{3}{2}$};
+         \node[] at (axis cs: -0.79,0.8) {$c=-2$};   	             
+       \end{axis}
+     \end{tikzpicture}		
+	\end{center}
+
+  \end{solution}
+   
+\end{questions}
+
+\end{document}
