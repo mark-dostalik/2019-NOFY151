@@ -1,0 +1,412 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+\definecolor{GraphColor}{HTML}{1d7ad1}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+\usepackage{enumitem}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\input{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza II (NOFY152) – DÚ 5}
+\author{Integrační faktor, lineární ODR s konstantními koeficienty}
+\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+
+Nalezněte maximální řešení rovnic
+
+\begin{questions}	
+	\question
+	\begin{equation*}
+	(1-x^2)y'+xy=1,\quad y(0)=1
+	\end{equation*}
+	
+	\begin{solution}
+		Nejprve p\v repi\v sme rovnici do tvaru
+		\begin{equation}\label{ODR 1a}
+		y'+\frac{xy}{1-x^2}=\frac{1}{1-x^2},\quad x\ne\pm1.
+		\end{equation}
+		V dalším se omezíme na $x \in \parens{-1, 1}$, neboť na tomto intervalu se nachazí počáteční podmínka. Máme
+		\begin{align*}
+		\int\frac{x}{1-x^2}\, \diff x=-\frac{1}{2}\ln|1-x^2|+c=\ln\frac{1}{\sqrt{1-x^2}}+c.
+		\end{align*}
+		Rovnici (\ref{ODR 1a}) p\v ren\'asob\'ime funkc\'i $e^{\ln\frac{1}{\sqrt{1-x^2}}}=\frac{1}{\sqrt{1-x^2}}$ a dostaneme
+		\begin{equation}
+		\label{eq:9}
+		\left(y\frac{1}{\sqrt{1-x^2}}\right)'=\frac{1}{\sqrt{1-x^2}}y'+\frac{xy}{(1-x^2)^{\frac{3}{2}}}=\frac{1}{(1-x^2)^{\frac{3}{2}}}. 
+		\end{equation}
+		Protože platí
+		\begin{align*}
+			\int \! 
+				\frac{1}{\sqrt{1 - x^2}} 
+			\, \diff x
+			&=
+	    \left| 
+	      \begin{aligned}
+	        u &= \frac{1}{\sqrt{1-x^2}} & v &= x
+	        \\
+	        u' &= \frac{x}{\parens{1 - x^2}^{\frac{3}{2}}} & v' &= 1
+	      \end{aligned}
+	    \right|
+	    =
+	    \frac{x}{\sqrt{1 - x^2}}
+	    -
+	    \int \!
+		    \frac{x^2}{\parens{1 - x^2}^{\frac{3}{2}}}
+		  \, \diff x
+		  \\
+	    &=
+	    \frac{x}{\sqrt{1 - x^2}}
+	    +
+	    \int \! 
+	    	\frac{1}{\sqrt{1 - x^2}} 
+	    \, \diff x
+	    -
+	    \int \! 
+	    	\frac{1}{\parens{1 - x^2}^{\frac{3}{2}}} 
+	   	\, \diff x,
+		\end{align*}
+		dostáváme odsud, že
+		\begin{equation*}
+		\int\frac{1}{(1-x^2)^{\frac{3}{2}}}\,\diff x
+		=
+		\frac{x}{\sqrt{1-x^2}}+d,
+		\end{equation*}
+		a tud\'i\v z 
+		\begin{align*}
+		y(x)&=\sqrt{1-x^2}\big(\frac{x}{\sqrt{1-x^2}}+d\big)=d\sqrt{1-x^2}+x. 
+		\end{align*}
+		Jeliko\v z $1=y(0)=d$, pak funkce
+		\begin{equation}\label{reseni1}
+		y(x)=\sqrt{1-x^2}+x,\ x\in(-1,1)
+		\end{equation}
+		\v re\v s\'i zadanou počáteční úlohu. Jeliko\v z $\lim_{x \to -1+}y'(x)=+\infty$ a $\lim_{x \to 1-} y'(x)=-\infty$, pak (\ref{reseni1}) nelze roz\v s\'i\v rit jako $\mathcal C^1$ funkci na \v z\'adn\'y v\v et\v s\'i otevřený interval. Tud\'i\v z (\ref{reseni1}) je maxim\'aln\'i \v re\v sen\'i.
+		
+		Alternativně můžeme rovnici \eqref{eq:9} přímo integrovat od $0$ do $x$ s využitím počáteční podmínky
+		\begin{equation*}
+			\frac{y(x)}{\sqrt{1 - x^2}} - y(0)
+			=
+			\int_0^x \! \frac{1}{\parens{1 - s^2}^{\frac{3}{2}}} \, \diff s
+			=
+			\brackets{\frac{s}{\sqrt{1 - s^2}}}_0^x
+			=
+			\frac{x}{\sqrt{1 - x^2}},
+		\end{equation*}
+		což implikuje \eqref{reseni1}.
+	\end{solution}
+	
+	\question
+	\begin{equation*}
+		x(x-1)y'=y-1
+	\end{equation*}
+	
+	\begin{solution}
+		(Lze zav\'est novou funkci $z=y-1$, pak se rovnice zjednodu\v s\v s\'i na $x(x-1)z'=z$.) 
+		
+		Ze zadání je zřejmé, že $y(x) = 1$ je stacionárním řešením úlohy pro $x \in \R$. Pro nalezení netriviálních řešení nejprve p\v repi\v sme rovnici do tvaru
+		\begin{equation}\label{ODR 2a}
+		y'-\frac{y}{x(x-1)}=-\frac{1}{x(x-1)},
+		\end{equation}
+		kterou řešíme na intervalech, kde $x \neq 0, 1$. M\'ame
+		\begin{align*}
+		-\int\frac{1}{x(x-1)} \, \diff x&=-\int\bigg(\frac{-1}{x}+\frac{1}{x-1}\bigg) \, \diff x \\
+		&=\int\bigg(\frac{1}{x}-\frac{1}{x-1}\bigg)\, \diff x =\ln|x|-\ln|x-1|+c=\ln\left|\frac{x}{x-1}\right|+c. 
+		\end{align*}
+		Nyn\'i rozli\v sujme dva p\v r\'ipady, a to 
+		\begin{enumerate}[label=(\alph*)]
+		 \item  $x\in(-\infty,0)\cup(1,+\infty)$, pak $\frac{x}{x-1}>0$, a 
+		 \item  $x\in(0,1)$, kde $\frac{x}{x-1}<0$.
+		\end{enumerate}
+		
+		Jestli\v ze plat\'i (a), pak rovnici (\ref{ODR 2a}) p\v ren\'asob\'ime funkc\'i $e^{\ln\frac{x}{x-1}}=\frac{x}{x-1}$ a dostaneme
+		\begin{align*}
+		\left(y\frac{x}{x-1}\right)'=\frac{x}{x-1}y'-\frac{y}{(x-1)^2}=-\frac{1}{(x-1)^2}. 
+		\end{align*}
+		D\'ale
+		\begin{align*}
+		-\int\frac{1}{(x-1)^2} \, \diff x&=\frac{1}{x-1}+d,
+		\end{align*}
+		a tud\'i\v z 
+		\begin{align*}
+		y(x)&=\frac{x-1}{x}\left(\frac{1}{x-1}+d\right)=d\frac{x-1}{x}+\frac{1}{x}=d+\frac{1-d}{x},\quad d\in\mathbb R. 
+		\end{align*}
+		
+		Jestli\v ze plat\'i (b), pak rovnici (\ref{ODR 2a}) p\v ren\'asob\'ime funkc\'i $e^{\ln\frac{-x}{x-1}}=\frac{-x}{x-1}$. Pak ale dostaneme rovnici, kter\'a se od t\'e v (a) li\v s\'i jen o znam\'enko, jedn\'a se tud\'i\v z o stejnou diferenci\'aln\'i rovnici. \v Re\v sen\'i (\ref{ODR 2a}) je tedy na intervalech $\parens{-\infty, 0}$, $\parens{0, 1}$ a $\parens{1, +\infty}$ dáno předpisem
+		\begin{equation}\label{reseni2}
+		y(x)=d+\frac{1-d}{x},\quad d\in\mathbb R.
+		\end{equation}
+		Řešení (\ref{reseni2}) se dají napojit v $x=1$, je-li nav\'ic $d=1$, pak dokonce i v $x=0$. Maxim\'aln\'i \v re\v sen\'i zadané rovnice jsou tedy 
+		\begin{align*}\label{reseni2a}
+		y(x)&=d+\frac{1-d}{x},\quad d\in\mathbb R\setminus\{1\},\, x\in \parens{-\infty,0} \lor x \in \parens{0, + \infty} ,\\
+		y(x)&=1,\quad x\in\mathbb R.
+		\end{align*}		
+	\end{solution}
+	
+  \question
+  \begin{equation*}
+    y'' - \frac{1 + \ln^2 2}{\ln 2}y' + y 
+    = 
+    2^x
+  \end{equation*}
+    
+  \begin{solution}
+  	Charakteristický polynom má tvar
+  	\begin{equation*}
+  		\lambda^2 - \frac{1 + \ln^2 2}{\ln 2} \lambda + 1
+  		=
+  		\parens{\lambda - \ln 2} \parens{\lambda - \frac{1}{\ln 2}}.
+  	\end{equation*}
+  	Jednonásobné kořeny $\ln 2$, $\frac{1}{\ln 2}$ dávají fundamentální systém
+  	\begin{equation*}
+  		\set{\exponential{\parens{\ln 2}x}, \exponential{\frac{x}{\ln 2}}}
+  		=
+  		\set{2^x, \exponential{\frac{x}{\ln 2}}}.
+  	\end{equation*}
+  	
+  	Pravou stranu zadané rovnice si přepíšeme do tvaru $\exponential{x \ln 2}$, což už má tvar speciální pravé strany. Protože $\ln 2$ je jednonásobný kořen charakteristického polynomu, partikulární řešení $y_p$ hledáme ve tvaru
+  	\begin{equation*}
+  		y_p(x)
+  		=
+  		A x \exponential{\parens{\ln 2} x}
+  		=
+  		A x 2^x.
+  	\end{equation*}
+  	První a druhá derivace partikulárního řešení vychází
+  	\begin{align*}
+  		y_p'(x) &= A 2^x + A \parens{\ln 2} x 2^x,
+  		\\
+  		y_p''(x) &= 2 A \parens{\ln 2} 2^x + A \parens{\ln^2 2} x 2^x.
+  	\end{align*}
+  	Po dosazení do zadané rovnice pak dostáváme, že musí platit
+  	\begin{equation*}
+  		A = \frac{\ln 2}{\ln^2 2 - 1}.
+  	\end{equation*}
+  	Obecné řešení definované pro $x \in \R$ je tedy
+  	\begin{equation*}
+  		y(x) = C_1 2^x + C_2 \exponential{\frac{x}{\ln 2}} + \frac{\ln 2}{\ln^2 2 - 1} x 2^x,
+  	\end{equation*}
+  	kde $C_1, C_2 \in \R$.
+  \end{solution}
+
+  \question
+  \begin{equation*}
+    y''' - y'' + 4y' - 4y
+    =
+    40 \cos^2 x
+  \end{equation*}
+  
+  \begin{solution}
+  	Charakteristický polynom $p$ má tvar
+  	\begin{equation*}
+  		p(\lambda) = \lambda^3 - \lambda^2 + 4 \lambda - 4.
+  	\end{equation*}
+  	Uhádneme, že jeden z kořenů je $1$. Dělením mnohočlenu mnohočlenem pak dostaneme
+  	\begin{equation*}
+  		p(\lambda) = \parens{\lambda - 1} \parens{\lambda^2 + 4}.
+  	\end{equation*}
+  	Jednonásobné kořeny $1$, $\pm 2\iunit$ dávají fundamentální systém
+  	\begin{equation*}
+  		\set{\exponential{x}, \cos 2x, \sin 2x}.
+  	\end{equation*}
+  	
+  	Pravou stranu zadané rovnice si přepíšeme pomocí identity $\cos^2 x = \frac{1 + \cos 2x}{2}$ do tvaru
+  	\begin{equation*}
+  		20 + 20 \cos 2x.
+  	\end{equation*}
+  	Pravá strana je tedy součtem dvou funkcí, které mají tvar speciální pravé strany, a partikulární řešení budeme tudíž hledat jako součet partikulárních příslušejících jednotlivým sčítancům. Partikulární řešení $y_{p, 1}$ odpovídající pravé straně $20$ se dá jednoduše uhádnout
+  	\begin{equation*}
+  		y_{p, 1}(x) = -5.
+  	\end{equation*}
+  	Protože $2\iunit$ je jednonásobný kořen charakteristického polynomu, partikulární řešení $y_{p, 2}$ odpovídající pravé straně $20 \cos 2x$ budeme hledat ve tvaru
+  	\begin{equation*}
+  	 y_{p, 2}(x)
+  	 =
+  	 x \parens{A \cos 2x + B \sin 2x}.
+  	\end{equation*}
+  	První, druhá a třetí derivace $y_{p, 2}$ vychází
+  	\begin{align*}
+  		y_{p, 2}'(x) &= A \cos 2x + B \sin 2x + x \parens{-2 A \sin 2x + 2 B \cos 2x},
+  		\\
+  		y_{p, 2}''(x) &= - 4 A \sin 2x + 4 B \cos 2x + x \parens{- 4 A \cos 2x - 4 B \sin 2x},
+  		\\
+  		y_{p, 2}'''(x) &= - 12 A \cos 2x - 12 B \sin 2x + x \parens{8 A \sin 2x - 8 B \cos 2x}.
+   	\end{align*}
+  	Po dosazení do zadané rovnice pak dostáváme, že musí platit
+  	\begin{equation*}
+  		A = -1, \quad B = -2.
+  	\end{equation*}
+  	Obecné řešení definované pro $x \in \R$ je tedy
+  	\begin{equation*}
+  		y(x) = C_1 \exponential{x} + C_2 \cos 2x + C_3 \sin 2x - x \parens{2 \cos 2x + \sin 2x} - 5, 
+  	\end{equation*}
+  	kde $C_1, C_2, C_3 \in \R$.
+  \end{solution}
+
+  \question
+  \begin{equation*}
+    y'' + 2y' + 2y = \frac{\exponential{-x}}{\sin x}
+  \end{equation*}
+  
+  \begin{solution}
+  	Kořeny charakteristického polynomu
+  	\begin{equation*}
+  		\lambda^2 + 2 \lambda + 2
+  	\end{equation*}
+  	jsou $1 \pm \iunit$. Fundamentální systém je tedy
+  	\begin{equation*}
+	  	\set{\exponential{-x} \cos x, \exponential{-x} \sin x}.
+  	\end{equation*}
+  	Pravá strana zadané rovnice nemá speciální tvar (ani ji na něj nemůžeme převést), takže budeme úlohu řešit variací konstant, tj. partikulární řešení hledáme ve tvaru
+  	\begin{equation*}
+  		y_p(x) = c_1(x) \exponential{-x} \cos x + c_2(x) \exponential{-x} \sin x,
+  	\end{equation*}
+  	kde funkce $c_1$, $c_2$ dostaneme vyřešením soustavy
+  	\begin{equation}
+  		\label{eq:1}
+  		\begin{bmatrix}
+	  		\exponential{-x} \cos x & \exponential{-x} \sin x
+	  		\\
+	  		- \exponential{-x} \parens{\cos x + \sin x} & \exponential{-x} \parens{- \sin x + \cos x}
+  		\end{bmatrix}
+  		\begin{bmatrix}
+  			c_1'(x)
+  			\\
+  			c_2'(x)
+  		\end{bmatrix}
+  		=
+  		\begin{bmatrix}
+  			0
+  			\\
+  			\frac{\exponential{-x}}{\sin x}
+  		\end{bmatrix},
+  	\end{equation}
+  	a následnou integrací nalezených $c_1'$, $c_2'$. Rovnici \eqref{eq:1} můžeme přenásobit $\exponential{x}$ a dostaneme
+  	\begin{equation*}
+  		\begin{bmatrix}
+	  		\cos x & \sin x
+	  		\\
+	  		- \cos x - \sin x & - \sin x + \cos x
+  		\end{bmatrix}
+  		\begin{bmatrix}
+  			c_1'(x)
+  			\\
+  			c_2'(x)
+  		\end{bmatrix}
+  		=
+  		\begin{bmatrix}
+  			0
+  			\\
+  			\frac{1}{\sin x}
+  		\end{bmatrix}.
+  	\end{equation*}
+  	Protože
+  	\begin{equation*}
+  		\det 
+  		\begin{bmatrix}
+	  		\cos x & \sin x
+	  		\\
+	  		- \cos x - \sin x & - \sin x + \cos x
+  		\end{bmatrix}
+  		=
+  		- \sin x \cos x + \cos^2 x + \sin x \cos x + \sin^2 x = 1,
+  	\end{equation*}
+  	podle Cramerova pravidla dostáváme
+  	\begin{align*}
+  		c_1'(x)
+  		&=
+  		\det
+  		\begin{bmatrix}
+	  		0 & \sin x
+	  		\\
+	  		\frac{1}{\sin x} & - \sin x + \cos x
+  		\end{bmatrix}
+  		=
+  		- 1,
+  		&
+  		\implies
+  		&&
+  		c_1(x)
+  		&=
+  		-x,
+  		\\
+  		c_2'(x)
+  		&=
+  		\det
+  		\begin{bmatrix}
+	  		\cos x & 0
+	  		\\
+	  		- \cos x - \sin x & \frac{1}{\sin x}
+  		\end{bmatrix} 
+  		=
+  		\frac{\cos x}{\sin x},
+  		&
+  		\implies
+  		&&
+  		c_2(x)
+  		&=
+  		\ln \abs{\sin x}.
+  	\end{align*}
+  	Obecné řešení definované na intervalech $\parens{k \pi, \parens{k + 1} \pi}$, kde $k \in \Z$, je tedy
+  	\begin{equation*}
+  		y(x) = C_1 \exponential{-x} \cos x + C_2 \exponential{-x} \sin x - x \exponential{-x} \cos x + \ln \abs{\sin x} \exponential{-x} \sin x,
+  	\end{equation*}
+  	kde $C_1, C_2 \in \R$.
+  \end{solution}
+   
+\end{questions}
+
+\end{document}
