@@ -1,0 +1,470 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+\definecolor{GraphColor}{HTML}{1d7ad1}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+\usepackage{enumitem}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\input{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza II (NOFY152) – DÚ 6}
+\author{ODR se separovanými proměnnými, speciální typy rovnic}
+\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+
+\begin{questions}	
+  \question Pro diferenciální rovnici
+  \begin{equation*}
+    x y'
+    =
+    - \arccos y \sqrt{1 - y^2},
+  \end{equation*}
+  nalezněte
+	\begin{enumerate}[label=(\roman*)]
+		\item všechna maximální řešení,
+		\item všechna maximální řešení splňující $y(\pi) = 0$.
+	\end{enumerate}
+	
+  \begin{solution}
+	\begin{enumerate}[label=(\roman*)]
+		\item
+			Nejprve si všimněme, že zadaná rovnice degeneruje pro $x = 0$ a že na celé reálné ose máme dvě stacionární řešení $y \equiv \pm1$. Zbylá řešení budeme hledat metodou separace proměnných převedením zadané diferenciální rovnice do tvaru
+	  	\begin{equation*}
+	    y'
+	    =
+	    f(x) g(y), 	
+	  	\end{equation*}
+	  	kde $f(x) = \frac{1}{x}$, $g(y) = - \arccos y \sqrt{1 - y^2}$. Rovnice má smysl pro $x$ z intervalů $I_1 = \parens{-\infty, 0}$ a $I_2 = \parens{0, +\infty}$.  Funkce $g$ je spojitá a nenulová na intervalu $J = \parens{-1, 1}$.
+	  	
+	  	Spočtěme primitivní funkce
+	  	\begin{align*}
+	  		F(x)
+	  		&\defeq
+	  		\int f(x) \, \diff x
+	  		=
+	  		\int \frac{1}{x} \, \diff x
+	  		=
+	  		\ln \parens{c \abs{x}}, \quad c > 0,
+	  		\\
+	  		G(y)
+	  		&\defeq
+	  		\int \frac{1}{g(y)} \, \diff y
+	  		=
+	  		\int \frac{-1}{\arccos y \sqrt{1 - y^2}} \, \diff y
+	  		=
+	      \left| 
+	        \begin{aligned}
+	          t &= \arccos y
+	          \\
+	          \diff t &= \frac{-1}{\sqrt{1 - y^2}} \diff y
+	        \end{aligned}
+	      \right|	  		
+	  		=
+	      \int \frac{1}{t} \diff t
+	      =
+	      \ln \abs{t}
+	      =
+	      \ln \parens{\arccos y},
+	  	\end{align*}
+	  	kde v posledním výrazu nepíšeme absolutní hodnotu argumentu logaritmu, neboť $\arccos y > 0$ pro $y \in \parens{-1, 1}$.
+	  	
+	  	Rovnost primitivních funkcí
+	  	\begin{equation*}
+	  		\ln \parens{\arccos y}
+	  		=
+	  		\ln \parens{c \abs{x}},
+	  	\end{equation*}
+	  	je ekvivalentní
+	  	\begin{equation*}
+	  		\arccos y
+	  		=
+	  		c \abs{x}.
+	  	\end{equation*}
+	  	Protože levá strana nabývá hodnot z intervalu $\parens{0, \pi}$ dostáváme podmínky
+	  	\begin{align*}
+	  		x > 0 &\implies c x \in \parens{0, \pi} \iff x \in \parens{0, \frac{\pi}{c}},
+	  		\\
+	  		x < 0 &\implies - c x \in \parens{0, \pi} \iff x \in \parens{-\frac{\pi}{c}, 0}.
+	  	\end{align*}
+	  	Na těchto intervalech potom máme netriviální řešení $y(x) = \cos\parens{cx}$, kde jsme využili sudosti funkce $\cos$. Tato řešení lze slepit v počátku (vzpomeňte si, že původní rovnici má smysl uvažovat pro všechna $x \in \R$). Navíc je možné v krajních bodech intervalů $\parens{0, \frac{\pi}{c}}$, $\parens{-\frac{\pi}{c}, 0}$ napojovat získaná řešení na stacionární řešení $y \equiv \pm1$.
+	  	
+	  	Všechna maximální řešení potom tedy jsou ($c > 0$)
+	  	\begin{align*}
+	  		y(x) &= \pm1, \quad x \in \R
+	  		\\
+	  		y(x) &=
+	  		\begin{cases}
+	  			-1, \quad &x \in \left( -\infty, -\frac{\pi}{c} \right],
+	  			\\
+	  			\cos \parens{cx}, &x \in \parens{-\frac{\pi}{c}, \frac{\pi}{c}},
+	  			\\
+	  			-1, \quad &x \in \left[\frac{\pi}{c}, +\infty \right),
+	  		\end{cases}
+	  		\\
+	  		y(x) &=
+	  		\begin{cases}
+	  			-1, \quad &x \in \left( -\infty, -\frac{\pi}{c} \right],
+	  			\\
+	  			\cos \parens{cx}, &x \in \parens{-\frac{\pi}{c}, 0},
+	  			\\
+	  			1, \quad &x \in \left[0, +\infty \right),
+	  		\end{cases}	  		
+	  		\\
+	  		y(x) &=
+	  		\begin{cases}
+	  			1, \quad &x \in \left( -\infty, 0 \right],
+	  			\\
+	  			\cos \parens{cx}, &x \in \parens{0, \frac{\pi}{c}},
+	  			\\
+	  			- 1, \quad &x \in \left[\frac{\pi}{c}, +\infty \right).
+	  		\end{cases}	 	  		
+	  	\end{align*}
+	  \item 
+	  	Všimněme si nejdřív, že stacionární řešení $y \equiv \pm1$ nemůžou splňovat počáteční podmínku $y(\pi) = 0$. Hledejme proto hodnotu konstanty $c > 0$, pro kterou bude netriviální řešení splňovat počáteční podmínku
+	  	\begin{equation*}
+	  		0 = y(\pi) = \cos \parens{c \pi} \implies c = \frac{1}{2},
+	  	\end{equation*}
+	  	neboť musí platit $\pi \in \parens{0, \frac{\pi}{c}}$.
+	  	
+	  	Maximální řešení splňující počáteční podmínku $y(\pi) = 0$ tedy jsou
+	  	\begin{align*}
+	  		y(x) &=
+	  		\begin{cases}
+	  			-1, \quad &x \in \left( -\infty, -2\pi \right],
+	  			\\
+	  			\cos \parens{\frac{x}{2}}, &x \in \parens{-2\pi, 2\pi},
+	  			\\
+	  			-1, \quad &x \in \left[2\pi, +\infty \right),
+	  		\end{cases}
+	  		\\
+	  		y(x) &=
+	  		\begin{cases}
+	  			1, \quad &x \in \left( -\infty, 0 \right],
+	  			\\
+	  			\cos \parens{\frac{x}{2}}, &x \in \parens{0, 2\pi},
+	  			\\
+	  			- 1, \quad &x \in \left[2\pi, +\infty \right).
+	  		\end{cases}	 	  		
+	  	\end{align*}
+
+	\end{enumerate}  
+	
+  \end{solution}
+  
+  \question
+  Najd\v ete  maxim\'aln\'i \v re\v sen\'i počáteční úlohy
+  \begin{equation*}
+  y^2y'=x^2,
+  \quad 
+  y(1)=2. 
+  \end{equation*}
+  
+  \begin{solution}
+		Jedn\'a se o homogenn\'i rovnici 1. \v r\'adu, kter\'a nikde nedegeneruje. Je-li $y\ne0$, pak m\r u\v zeme vyd\v elit $y^2$ a z\'isk\'ame rovnici
+		\begin{equation}\label{ODR 1a}
+		y'=\frac{x^2}{y^2}. 
+		\end{equation}
+		Zavedeme $z=\frac{y}{x}$ pro $x\ne0$, pak (\ref{ODR 1a}) p\v rejde na rovnici se separovan\'ymi prom\v enn\'ymi
+		\begin{align}\label{ODR 1 sep}
+		z'x+z&=z^{-2}\nonumber\\
+		z'&=\frac{1}{x}\frac{1-z^3}{z^2}.
+		\end{align}	
+		Vid\'ime, \v ze $z(x)=1$ je stacion\'arn\'i \v re\v sen\'i, tj. $y(x)=x,\ x\in\R$. Pro $z(x)\ne1$ plat\'i
+		\begin{align*}
+		\int\frac{z^2}{1-z^3}\, \diff z=-\frac{1}{3}\ln|1-z^3|+c_1,\quad \int\frac{1}{x}\,\diff x=\ln|x|+c_2. 
+		\end{align*}
+		\v Re\v sen\'i (\ref{ODR 1 sep}) tedy vyhovuje vztahu
+		\begin{align*}
+		-\frac{1}{3}\ln|1-z^3(x)|&=\ln|x|+c\\ 
+		\ln|1-z^3(x)|&=-3\ln|x|-3c\\ 
+		|1-z^3(x)|&=e^{-3c}|x|^{-1}\\
+		|1-\big(\frac{y(x)}{x}\big)^3|&=e^{-3c}|x|^{-3}\\
+		|x^3-y^3(x)|&=e^{-3c}|x|^{-3}|x^3|\\
+		|x^3-y^3(x)|&=e^{-3c}\\
+		y^3(x)&=x^3\pm e^{-3c}\\
+		y(x)&=\sqrt[3]{x^3+\alpha},\quad \alpha=\pm e^{-3c}.
+		\end{align*}
+		Protože jsme uvažovali, že $y \neq 0$, můžeme se nyní pokusit slepit nalezená řešení v bodě $x = - \sqrt[3]{\alpha}$. To se nám ale nepovede, neboť
+		\begin{equation*}
+			y'(x)
+			=
+			\frac{x^2}{\sqrt[3]{\parens{x^3 + \alpha}^2}},
+		\end{equation*} 
+		a vidíme, že derivace nemá v bodě $x = - \sqrt[3]{\alpha}$ konečnou hodnotu. Maximální řešení tedy dostáváme na intervalech $\parens{-\infty, -\sqrt[3]{\alpha}}$ a $\parens{-\sqrt[3]{\alpha}, +\infty}$.
+		
+		Jestli\v ze $2=y(1)=\sqrt[3]{1+\alpha},$ pak $\alpha=2^3-1=7.$
+		
+		Z\'av\v er: Maxim\'aln\'i \v re\v sen\'i počáteční úlohy je 
+		\begin{equation*}\label{reseni 7}
+		y=\sqrt[3]{x^3+7},\quad x\in \parens{-\sqrt[3]{7}, +\infty} 
+		\end{equation*}
+  \end{solution}
+  
+  \question
+  Najd\v ete v\v sechna maxim\'aln\'i \v re\v sen\'i rovnice
+  \begin{equation*}
+  xyy'=3x^2-y^2.
+  \end{equation*}
+	
+	\begin{solution}
+		Jedn\'a se o homogenn\'i rovnici 1. \v r\'adu, kter\'a degeneruje v bod\v e $x=0$.
+		
+		Nechť d\'ale $y,x\ne0$, pak m\r u\v zeme vyd\v elit $xy$ a z\'isk\'ame rovnici
+		\begin{equation}\label{ODR 2a}
+		y'=\frac{3x^2-y^2}{xy}. 
+		\end{equation}
+		Polo\v z\'ime $z=\frac{y}{x}$, pak (\ref{ODR 2a}) p\v rejde na rovnici se separovan\'ymi prom\v enn\'ymi
+		\begin{align}\label{ODR 2 sep}
+		z'x+z&=\frac{3-y^2/x^2}{y/x}=\frac{3-z^2}{z}\nonumber\\
+		z'&=\frac{1}{x}\frac{3-2z^2}{z}.
+		\end{align}
+		Vid\'ime, \v ze $z=\pm\sqrt{\frac{3}{2}}$ jsou stacion\'arn\'i \v re\v sen\'i, tj. $y=\pm\sqrt{\frac{3}{2}}x,\ x\in\R$. Je-li nyn\'i $z\ne\pm\sqrt{\frac{3}{2}}$, pak
+		\begin{align*}
+		\int\frac{z}{3-2z^2}\,\diff z=-\frac{1}{4}\ln|3-2z^2|+c_1,\quad \int\frac{1}{x}\,\diff x=\ln|x|+c_2. 
+		\end{align*}
+		\v Re\v sen\'i (\ref{ODR 2 sep}) tedy vyhovuje vztahu
+		\begin{align*}
+		-\frac{1}{4}\ln|3-2z^2|&=\ln|x|+c\\ 
+		\ln|3-2z^2|&=-4\ln|x|-4c\\ 
+		|3-2z^2|&=|x|^{-4}e^{-4c}\\ 
+		|3-2(\frac{y}{x}\big)^2|&=e^{-4c}|x|^{-4}\\
+		|3x^2-2y^2|&=e^{-3c}|x|^{-4}|x^2|\\
+		|3x^2-2y^2|&=e^{-3c}x^{-2}\\
+		2y^2&=3x^2\pm e^{-3c}x^{-2}=\frac{3x^4+\alpha}{x^2},\quad \alpha=\pm e^{-3c}.
+		\end{align*}
+		Lev\'a strana je kladná, tud\'i\v z mus\'i platit $3x^4+\alpha>0$. Je-li $\alpha\ge0$, pak tato podm\'inka je pr\'azdn\'a. Je-li $\alpha<0$, pak mus\'i platit $|x|>\sqrt[4]{-\alpha/3}$, tedy
+		$$x\in(-\infty,-\sqrt[4]{-\alpha/3})\vee\ x\in(\sqrt[4]{-\alpha/3},\infty).$$
+		Kone\v cn\v e vid\'ime, \v ze nen\'i mo\v zn\'e v po\v c\'atku navazovat \v re\v sen\'i.
+			
+		Z\'av\v er: Maxim\'aln\'i \v re\v sen\'i jsou tvaru
+		\begin{equation*}
+			y=\pm\sqrt{\frac{3}{2}}x,\quad x\in\R,
+		\end{equation*}
+		nebo
+		\begin{equation*}
+		y=\pm\sqrt{\frac{3x^4+\alpha}{2x^2}},
+		\end{equation*}
+		kde 
+		\begin{align*}
+		x&\in(-\infty,0)\ \vee \ x\in(0,\infty)\ \ \mathrm{pro}\ \ \alpha>0\ \mathrm{nebo}\\
+		x&\in\big(-\infty,-\sqrt[4]{-\alpha/3}\big)\vee\ x\in\big(\sqrt[4]{-\alpha/3},\infty\big) \ \ \mathrm{pro}\ \ \alpha<0.
+		\end{align*}
+	\end{solution}
+	
+	\question
+	Najd\v ete v\v sechna maxim\'aln\'i \v re\v sen\'i rovnice
+	\begin{equation*}
+		x^2 y' + 2 \left( \sqrt{y} + y \right) = 0.
+	\end{equation*}
+	
+	\begin{solution}
+		Nejprve si všimněme, že zadaná rovnice degeneruje pro $x = 0$ a že na celé reálné ose máme stacionární řešení $y \equiv 0$. Zbylá řešení budeme hledat převedením zadané diferenciální rovnice do tvaru Bernoulliho rovnice
+  	\begin{equation}
+  		\label{eq:1}
+			y'
+			+
+			\frac{2}{x^2}
+			y
+			=
+			-
+			\frac{2}{x^2} \sqrt{y}, 	
+  	\end{equation}
+  	kterou budeme řešit na množinách $\parens{-\infty, 0} \times \parens{0, +\infty}$ a $\parens{0, +\infty} \times \parens{0, +\infty}$. Položme $z := \sqrt{y}$. Rovnice \eqref{eq:1} potom přejde do tvaru
+  	\begin{equation*}
+  		z'
+  		+
+  		\frac{1}{x^2} z
+  		=
+  		-
+  		\frac{1}{x^2},
+  	\end{equation*}
+  	kterou vyřešíme pomocí integračního faktoru $\exponential{\int \frac{1}{x^2} \, \diff x} = \exponential{-\frac{1}{x}}$. Dostáváme
+  	\begin{equation*}
+  		z(x) 
+  		= 
+  		- 
+  		\exponential{\frac{1}{x}} \int \exponential{-\frac{1}{x}} \frac{1}{x^2} \, \diff x
+  		=
+  		-
+  		\exponential{\frac{1}{x}}
+  		\left(
+  			\exponential{-\frac{1}{x}} - c
+  		\right)
+  		=
+  		c \exponential{\frac{1}{x}} - 1.
+  	\end{equation*}
+  	Protože $z = \sqrt{y}$, dostáváme $y(x) = \parens{c \exponential{\frac{1}{x}} - 1}^2$. Zároveň ovšem musí platit $z > 0$ (a tedy nutně $c > 0$), tj.
+  	\begin{equation}
+  		\label{eq:2}
+  		c \exponential{\frac{1}{x}} - 1 > 0,
+  		\quad \iff \quad 
+  		\frac{1}{x} > - \ln c.
+  	\end{equation}
+  	Pro $x \in \parens{0, +\infty}$:
+  	\begin{itemize}
+  		\item $c \in \parens{0, 1}$: Podmínka \eqref{eq:2} je ekvivalentní $x < -\frac{1}{\ln c}$, kde $-\frac{1}{\ln c} > 0$, a tedy $x \in \parens{0, -\frac{1}{\ln c}}$.
+  		\item $c \in \left[ 1, +\infty \right)$: Podmínka \eqref{eq:2} je ekvivalentní $x > -\frac{1}{\ln c}$, kde $-\frac{1}{\ln c} < 0$,  a tedy $x \in \parens{0, +\infty}$.
+  	\end{itemize}
+  	Pro $x \in \parens{-\infty, 0}$:
+  	\begin{itemize}
+  		\item $c \in \left( 0, 1 \right]$: Výraz $-\ln c$ na pravé straně podmínky \eqref{eq:2} je kladný, a tedy $x \in \emptyset$.
+  		\item $c \in \left( 1, +\infty \right)$: Podmínka \eqref{eq:2} je ekvivalentní $x < -\frac{1}{\ln c}$, kde $-\frac{1}{\ln c} < 0$,  a tedy $x \in \parens{-\infty, -\frac{1}{\ln c}}$.
+  	\end{itemize}
+  	Pro $x \to 0$ nalezené řešení nemá konečnou limitu, takže lepení řešení v počátku je vyloučené. V bodě $-\frac{1}{\ln c}$ ale lze slepit řešení se stacionárním.
+  	
+  	Všechna maximální řešení tedy jsou
+  	\begin{align*}
+  		y(x)
+  		&=
+  		0,
+  		\quad x \in \R,
+  		\\
+  		y(x)
+  		&=
+  		\begin{cases}
+  			\parens{c \exponential{\frac{1}{x}} - 1}^2, &\quad x \in \parens{0, -\frac{1}{\ln c}},
+  			\\
+  			0, &\quad x \in \left[ -\frac{1}{\ln c}, +\infty \right),
+  		\end{cases}
+  		\quad c \in (0, 1),
+  		\\
+  		y(x) 
+  		&=
+  		\parens{c \exponential{\frac{1}{x}} - 1}^2, \quad x \in \parens{0, +\infty}, \quad c \in \left[ 1, +\infty \right),
+  		\\
+  		y(x)
+  		&=
+  		\begin{cases}
+  			\parens{c \exponential{\frac{1}{x}} - 1}^2, &\quad x \in \parens{-\infty, -\frac{1}{\ln c}},
+  			\\
+  			0, &\quad x \in \left[ -\frac{1}{\ln c}, 0 \right),
+  		\end{cases}
+  		\quad c \in (1, +\infty).
+  	\end{align*} 
+	\end{solution}
+	
+  \question
+  Najd\v ete v\v sechna maxim\'aln\'i \v re\v sen\'i rovnice
+  \begin{equation*}
+    y' + \parens{\operatorname{cotg}x}y
+    =
+    \frac{\cos x}{2 y}.
+  \end{equation*}
+	    
+  \begin{solution}
+  	Jedná se o Bernoulliho rovnici, kterou budeme řešit na intervalech $\parens{k\pi, \parens{k+1}\pi}$, $k \in \Z$.  Žádná stacionární řešení zřejmě neexistují. Po zavedení pomocné proměnné $z:=y^2$ zadaná rovnice přechází do tvaru
+	 	\begin{equation*}
+	 		z'
+	 		+
+	 		2 \parens{\operatorname{cotg}x} z
+	 		=
+	 		\cos x,
+	 	\end{equation*}
+	 	kterou vyřešíme pomocí integračního faktoru $\exponential{\int 2 \operatorname{cotg}x \, \diff x} = \exponential{2 \ln \abs{\sin x}} = \sin^2 x$. Dostáváme
+	 	\begin{equation*}
+	 		z(x) 
+	 		= 
+	 		\frac{1}{\sin^2 x} \int \sin^2 x \cos x \, \diff x
+	 		=
+	 		\frac{1}{\sin^2 x} \parens{ \frac{\sin^3 x}{3} - \frac{c}{3}}
+	 		=
+	 		\frac{\sin^3 x - c}{3 \sin^2 x}.
+	 	\end{equation*}
+  	Protože $z = y^2$, dostáváme $y(x) = \pm \sqrt{\frac{\sin^3 x - c}{3 \sin^2 x}}$. Zároveň ovšem musí platit $z > 0$, tj.
+  	\begin{equation}
+  		\label{eq:3}
+  		\sin^3 x - c > 0.
+  	\end{equation}
+  	Pro $x \in \parens{2k\pi, \parens{2k+1}\pi}$, $k \in \Z$:
+  	
+  	(Na těchto intervalech je $\sin x$ kladný.)
+  	\begin{itemize}
+  		\item $c \in \left( -\infty, 0 \right]$: Nerovnost \eqref{eq:3} je splněna pro všechna $x \in \parens{2k\pi, \parens{2k+1}\pi}$, $k \in \Z$.
+  		\item $c \in \left( 0, 1 \right)$: Nerovnost \eqref{eq:3} je ekvivalentní podmínce $x \in \parens{2k\pi + \arcsin\parens{\sqrt[3]{c}}, \parens{2k+1}\pi - \arcsin\parens{\sqrt[3]{c}}}$, $k \in \Z$.
+  		\item $c \in \left[ 1, +\infty \right)$: Nerovnost \eqref{eq:3} zřejmě nemůže být splněna.
+  	\end{itemize}
+  	
+  	Pro $x \in \parens{\parens{2k-1}\pi, 2k\pi}$, $k \in \Z$:
+  	
+  	(Na těchto intervalech je $\sin x$ záporný.)
+  	\begin{itemize}
+  		\item $c \in \left( -\infty, -1 \right)$: Nerovnost \eqref{eq:3} je splněna pro všechna $x \in \parens{\parens{2k-1}\pi, 2k\pi}$, $k \in \Z$.
+  		\item $c \in \left[ -1, 0 \right)$: Nerovnost \eqref{eq:3} je ekvivalentní podmínce $x \in \parens{\parens{2k-1}\pi, \parens{2k-1}\pi - \arcsin\parens{\sqrt[3]{c}}}$, $k \in \Z$ nebo $x \in \parens{2k\pi + \arcsin\parens{\sqrt[3]{c}}, 2k\pi}$, $k \in \Z$.
+  		\item $c \in \left[ 0, +\infty \right)$: Nerovnost \eqref{eq:3} zřejmě nemůže být splněna.
+  	\end{itemize}
+  	
+  	Všechna maximální řešení jsou tedy dána předpisem
+  	\begin{equation*}
+  		y(x)
+  		=
+  		\pm \sqrt{\frac{\sin^3 x - c}{3 \sin^2 x}},
+  	\end{equation*}
+  	kde pro $k \in \Z$
+  	\begin{align*}
+  		x &\in \parens{2k\pi, \parens{2k+1}\pi}, &&c \in \left( -\infty, 0 \right],
+  		\\
+  		x &\in \parens{2k\pi + \arcsin\parens{\sqrt[3]{c}}, \parens{2k+1}\pi - \arcsin\parens{\sqrt[3]{c}}}, &&c \in \left( 0, 1 \right),
+  		\\
+  		x &\in \parens{\parens{2k-1}\pi, 2k\pi}, &&c \in \left( -\infty, -1 \right),
+  		\\
+  		x &\in \parens{\parens{2k-1}\pi, \parens{2k-1}\pi - \arcsin\parens{\sqrt[3]{c}}} \lor x \in \parens{2k\pi + \arcsin\parens{\sqrt[3]{c}}, 2k\pi}, &&c \in \left[ -1, 0 \right).
+  	\end{align*}
+  \end{solution}
+\end{questions}
+
+\end{document}
