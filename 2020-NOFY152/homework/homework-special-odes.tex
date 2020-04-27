@@ -141,26 +141,28 @@
 	  		\\
 	  		x < 0 &\implies - c x \in \parens{0, \pi} \iff x \in \parens{-\frac{\pi}{c}, 0}.
 	  	\end{align*}
-	  	Na těchto intervalech potom máme netriviální řešení $y(x) = \cos\parens{cx}$, kde jsme využili sudosti funkce $\cos$. Tato řešení lze slepit v počátku (vzpomeňte si, že původní rovnici má smysl uvažovat pro všechna $x \in \R$). Navíc je možné v krajních bodech intervalů $\parens{0, \frac{\pi}{c}}$, $\parens{-\frac{\pi}{c}, 0}$ napojovat získaná řešení na stacionární řešení $y \equiv \pm1$.
+	  	Na těchto intervalech potom máme netriviální řešení $y(x) = \cos\parens{cx}$, kde jsme využili sudosti funkce $\cos$. Tato řešení lze slepit v počátku (vzpomeňte si, že původní rovnici má smysl uvažovat pro všechna $x \in \R$). Navíc volný parametr řešení může mít jinou hodnotu pro záporné $x$ než pro kladné. (Používáme tedy v dalším symboly $\alpha$, $\beta$ pro konstantu $c$ na příslušných intervalech.) V krajních bodech intervalů $\parens{-\frac{\pi}{\alpha}, 0}$, $\parens{0, \frac{\pi}{\beta}}$ můžeme dále napojovat získaná řešení na stacionární řešení $y \equiv \pm1$.
 	  	
-	  	Všechna maximální řešení potom tedy jsou ($c > 0$)
+	  	Všechna maximální řešení potom tedy jsou ($\alpha, \beta > 0$)
 	  	\begin{align*}
 	  		y(x) &= \pm1, \quad x \in \R
 	  		\\
 	  		y(x) &=
 	  		\begin{cases}
-	  			-1, \quad &x \in \left( -\infty, -\frac{\pi}{c} \right],
+	  			-1, \quad &x \in \left( -\infty, -\frac{\pi}{\alpha} \right],
 	  			\\
-	  			\cos \parens{cx}, &x \in \parens{-\frac{\pi}{c}, \frac{\pi}{c}},
+	  			\cos \parens{\alpha x}, &x \in \parens{-\frac{\pi}{\alpha}, 0},
 	  			\\
-	  			-1, \quad &x \in \left[\frac{\pi}{c}, +\infty \right),
+	  			\cos \parens{\beta x}, &x \in \left[ 0, \frac{\pi}{\beta} \right),
+	  			\\
+	  			-1, \quad &x \in \left[\frac{\pi}{\beta}, +\infty \right),
 	  		\end{cases}
 	  		\\
 	  		y(x) &=
 	  		\begin{cases}
-	  			-1, \quad &x \in \left( -\infty, -\frac{\pi}{c} \right],
+	  			-1, \quad &x \in \left( -\infty, -\frac{\pi}{\alpha} \right],
 	  			\\
-	  			\cos \parens{cx}, &x \in \parens{-\frac{\pi}{c}, 0},
+	  			\cos \parens{\alpha x}, &x \in \parens{-\frac{\pi}{\alpha}, 0},
 	  			\\
 	  			1, \quad &x \in \left[0, +\infty \right),
 	  		\end{cases}	  		
@@ -169,17 +171,17 @@
 	  		\begin{cases}
 	  			1, \quad &x \in \left( -\infty, 0 \right],
 	  			\\
-	  			\cos \parens{cx}, &x \in \parens{0, \frac{\pi}{c}},
+	  			\cos \parens{\beta x}, &x \in \parens{0, \frac{\pi}{\beta}},
 	  			\\
-	  			- 1, \quad &x \in \left[\frac{\pi}{c}, +\infty \right).
+	  			- 1, \quad &x \in \left[\frac{\pi}{\beta}, +\infty \right).
 	  		\end{cases}	 	  		
 	  	\end{align*}
 	  \item 
-	  	Všimněme si nejdřív, že stacionární řešení $y \equiv \pm1$ nemůžou splňovat počáteční podmínku $y(\pi) = 0$. Hledejme proto hodnotu konstanty $c > 0$, pro kterou bude netriviální řešení splňovat počáteční podmínku
+	  	Všimněme si nejdřív, že stacionární řešení $y \equiv \pm1$ nemůžou splňovat počáteční podmínku $y(\pi) = 0$. Hledejme proto hodnotu konstanty $\beta > 0$, pro kterou bude netriviální řešení splňovat počáteční podmínku
 	  	\begin{equation*}
-	  		0 = y(\pi) = \cos \parens{c \pi} \implies c = \frac{1}{2},
+	  		0 = y(\pi) = \cos \parens{\beta \pi} \implies \beta = \frac{1}{2},
 	  	\end{equation*}
-	  	neboť musí platit $\pi \in \parens{0, \frac{\pi}{c}}$.
+	  	neboť musí platit $\pi \in \parens{0, \frac{\pi}{\beta}}$.
 	  	
 	  	Maximální řešení splňující počáteční podmínku $y(\pi) = 0$ tedy jsou
 	  	\begin{align*}
@@ -187,7 +189,9 @@
 	  		\begin{cases}
 	  			-1, \quad &x \in \left( -\infty, -2\pi \right],
 	  			\\
-	  			\cos \parens{\frac{x}{2}}, &x \in \parens{-2\pi, 2\pi},
+	  			\cos \parens{\alpha x}, &x \in \parens{-\frac{\pi}{\alpha}, 0}
+	  			\\
+	  			\cos \parens{\frac{x}{2}}, &x \in \left[ 0, 2\pi \right),
 	  			\\
 	  			-1, \quad &x \in \left[2\pi, +\infty \right),
 	  		\end{cases}
