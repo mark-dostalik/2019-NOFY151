@@ -1,0 +1,387 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+\definecolor{GraphColor}{HTML}{1d7ad1}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+\usepackage{enumitem}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\input{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza II (NOFY152) – DÚ 7}
+\author{Topologické pojmy v $\R^d$, funkce více proměnných}
+\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+
+\begin{questions}	
+  \question Najděte vnitřek, uzávěr a hranici množiny $A \defeq M \setminus K$, kde
+  \begin{align*}
+  M &\defeq \set[|x| \le 1,\ 0 < y \le 2]{(x,y)\in \R^2},
+  \\
+  K &\defeq \set[x^2 + \parens{y-1}^2 = 1]{(x,y)\in \R^2}.
+  \end{align*}
+	
+  \begin{solution}
+		Platí
+		\begin{align*}
+		A^\circ&= \{(x,y)\in \R^2:\ |x|<1,\ 0<y<2\}\setminus K,\\
+		\overline A&= \{(x,y)\in \R^2:\ |x|\le 1,\ 0\le y\le2\},\\
+		\partial A&=\{(\pm1,y)\in \R^2:\ 0\le y\le2\}\cup\{(x,0)\in \R^2:\ |x|\le1\}\cup\{(x,2)\in \R^2:\ |x|\le1\}\cup K.
+		\end{align*}
+		Pozorujeme, že $A^\circ \cup \partial A = \overline{A}$.
+  \end{solution}
+  
+  \question
+  Pro kter\'e hodnoty parametru $\alpha\in\R$ plat\'i, \v ze po\v c\'atek le\v z\'i v uz\'av\v eru mno\v ziny
+  \begin{equation*}
+  	M
+  	\defeq
+  	\set[k\in\mathbb Z\setminus\{0\}]{(k^\alpha\cos k,k^\alpha\sin k)}?
+  \end{equation*}
+  Zdůvodněte.
+  
+  \begin{solution}
+		Nejprve p\v ripome\v nme definici. 
+		\begin{enumerate}
+		 \item \label{1} Je-li $\alpha=\frac{p}{q}$ racion\'aln\'i, kde $p,q$ jsou nesoud\v eln\'e a $q$ lich\'e, pak $k^\alpha=k^{\frac{p}{q}}$ je definov\'ano pro ka\v zd\'e $k\in\mathbb Z\setminus\{0\}$,
+		 \item Nen\'i-li $\alpha$ tvaru jako v \ref{1}, pak  $k^{\alpha}=e^{\alpha\ln k}$ je definov\'ano jen pro $k>0,\ k\in\mathbb Z$. V tomto p\v r\'ipad\v e  m\r u\v zeme uva\v zovat jen $k>0$. 
+		\end{enumerate}
+		
+		M\'ame naj\'it v\v sechna $\alpha$ tak, aby pro ka\v zd\'e $\varepsilon>0$ platilo $U_\varepsilon((0,0))\cap M\ne\emptyset$. Zde 
+		$$U_{\varepsilon}((0,0))=\{(x,y)\in\mathbb R^2:\ \|(x,y)\|=\sqrt{x^2+y^2}<\varepsilon\},$$
+		je otev\v ren\'a koule o polom\v eru $\varepsilon>0$ se st\v redem v po\v c\'atku. Plat\'i 
+		$$\|(k^\alpha\cos k,k^\alpha\sin k)\|=|k^\alpha|=|k|^{\alpha}.$$
+		Je-li $\alpha\ge0$, pak $|k|^\alpha\ge1$ a tedy $U_\frac{1}{2}((0,0))\cap M=\emptyset$. Je-li naopak $\alpha<0$, pak $|k|^\alpha$ kles\'a pro $k\to+\infty$ monotonn\v e k nule, existuje tedy $k_0\in\mathbb N$ tak, \v ze pro $k\ge k_0$ plat\'i $|k|^\alpha<\varepsilon$. Tedy $U_\varepsilon((0,0))\cap M\ne\emptyset$ pro ka\v zd\'e $\varepsilon>0$.
+		
+		Alternativně lze argumentovat přes hromadné body, což jsou v tomto případě body, které dostaneme pro $k \to +\infty$ nebo $k \to -\infty$. Podobné úvahy jako výše pak vedou k závěru, že $\parens{0, 0}$ je hromadný bod dané množiny, jen pokud $\alpha < 0$. 
+		
+		Z\'av\v er: Bod $(0,0)$ le\v z\'i v uz\'av\v eru mno\v ziny $M$ jen pro $\alpha<0$.
+		
+  \end{solution}
+  
+  \question
+  Je množina 
+  \begin{equation*}
+  	M = \set[x^2+y^2-z^2>1,\ |x|\le1,\ |y|\le1]{(x,y,z)\in \R^3}
+  \end{equation*}
+  omezená? Zdůvodněte.
+	
+	\begin{solution}
+		Z definice $M$ plyne omezen\'i $x^2+y^2>z^2+1$. D\'ale pro $(x,y,z)\in M$ plat\'i  
+		\begin{align*}
+		|x|+|y|\le2,\qquad 4=2^2\ge (|x|+|y|)^2=|x|^2+|y|^2+2|x||y|\ge x^2+y^2>z^2+1.
+		\end{align*}
+		Tud\'i\v z $z^2<3$ a $|z|<\sqrt3$. Mno\v zina $M$ le\v z\'i uvnit\v r omezen\'e mno\v ziny 
+		$$\{(x,y,z):\ |z|<\sqrt3,\ |x|\le1,\ |y|\le1\},$$
+		která je podmnožinou krychle se středem v počátku a délkou strany $2\sqrt{3}$, tj. 
+		\begin{equation*}
+			M \subset B_{\sqrt{3}}\parens{0} = \set[{\abs{\vec{x}}}_{\infty} < \sqrt{3}]{\vec{x} = \parens{x, y, z} \in \R^3}.
+		\end{equation*}
+		$M$ je tedy omezená.
+	\end{solution}
+	
+	\question
+	Nechť $A,B\subset \R^n$. Rozhodn\v ete, zda plat\'i n\'asleduj\'ic\'i rovnosti nebo alespo\v n jedna inkluze, tj. doka\v zte nebo najd\v ete protip\v r\'iklady,
+	\begin{enumerate}[label=(\roman*)]
+		\item $\overline{\partial A}=\partial \overline{A}$
+		\item $\partial (A\cup B)=\partial A\cup\partial B$
+		\item $\overline{A\cap B}=\overline A\cap\overline B$
+	\end{enumerate}
+	
+	\begin{solution}
+		\begin{enumerate}[label=(\roman*)]
+			\item 
+				Inkluze $\overline{\partial A}\subseteq{\partial \overline A}$ neplat\'i. Sta\v c\'i vz\'it $A=\Q$. Pak $\overline{\partial A}=\overline\R=\R$ a $\partial\overline\Q=\partial\R=\emptyset$.
+				
+				Zkusme nyn\'i $\supseteq$. Je-li $x\in\partial\overline A$ a $\varepsilon>0$, pak $U_\varepsilon(x)\cap\overline A\ne\emptyset$ a $U_\varepsilon(x)\cap(\R^n\setminus\overline A)\ne\emptyset$. Jeliko\v z $(\R^n\setminus{\overline A})\subseteq (\R^n\setminus A)$, pak i $U_\varepsilon(x)\cap (\R^n\setminus A)\ne\emptyset$. Zvolme $x'\in U_\varepsilon(x)\cap\overline A$. Pak $U_\varepsilon(x)$ je otev\v ren\'e okol\'i $x'$ a jeliko\v z $x'\in\overline A$, pak $U_\varepsilon(x)$ mus\'i obsahovat bod z $A$. Tedy pro ka\v zd\'e $\varepsilon>0$ plat\'i $U_\varepsilon(x)\cap A\ne\emptyset$. Ka\v zd\'e otev\v ren\'e okol\'i bodu $x$ tedy protne $A$ i $\R^n\setminus A$. To ale z definice znamen\'a, \v ze $x\in\partial A$ a tedy i $x\in\overline{\partial A}$. Dok\'azali jsme $\overline{\partial A}\supseteq{\partial \overline A}$.
+				
+			\item 
+				Inkluze $\partial (A\cup B)\supseteq\partial A\cup\partial B$ neplat\'i. Sta\v c\'i vz\'it otev\v ren\'e intervaly $A=(-1,1)$ a $B=(0,2)$. Pak $\partial({A\cup B})=\partial(-1,2)=\{-1,2\}$ a $\partial A\cup\partial B=\{-1,1\}\cup\{0,2\}=\{-1,1,0,2\}$.
+				
+				Obr\'acen\'a inkluze $\partial (A\cup B)\subseteq\partial A\cup\partial B$ plat\'i a nyn\'i ji dok\'a\v zeme nep\v r\'imo. Nen\'i-li $x\in\partial A\cup\partial B$, pak $x\not\in\partial A$ a $x\not\in\partial B$. Pak ale $x$ je vnit\v rn\'i bod $A$ nebo $\R^n\setminus A$ a sou\v casn\v e je to vnit\v rn\'i bod $B$ nebo $\R^n\setminus B$. Je-li $x\in A^o$ nebo $x\in B^o$, pak m\'ame vyhr\'ano, nebo\v t pak je $x$ nutn\v e i vnit\v rn\'im bodem $A\cup B$. Zb\'yv\'a tedy probrat p\v r\'ipad, kde $x$ je vnit\v rn\'im bodem $\R^n\setminus A$ i $\R^n\setminus B$. Najdeme $\varepsilon_1,\varepsilon_2$ tak, aby $U_{\varepsilon_1}(x)\subseteq(\R^n\setminus A) $ a $U_{\varepsilon_2}(x)\subseteq(\R^n\setminus B)$. Pak ale $U_\varepsilon(x)\subset \R^n\setminus(A\cup B)$, kde $\varepsilon=\min\{\varepsilon_1,\varepsilon_2\}$. Tud\'i\v z $x$ je vnit\v rn\'i bodem $\R^n\setminus(A\cup B)$ a nem\r u\v ze tedy le\v zet na hranici t\'eto mno\v ziny. Uk\'azali jsme implikaci $x\not\in\partial A\cup\partial B\Rightarrow x\not\in \partial (A\cup B)$ a t\'im i $x\in(\partial A\cup\partial B)\Rightarrow x\in\partial A\cup\partial B$. D\r ukaz je hotov.
+				
+			\item 
+				Inkluze $\overline{A\cap B}\supseteq\overline A\cap\overline B$ neplat\'i. Sta\v c\'i vz\'it otev\v ren\'e intervaly $A=(-1,0)$ a $B=(0,1)$. Pak $\overline{A\cap B}=\overline\emptyset=\emptyset$ a sou\v casn\v e $\overline{A}\cap\overline B=[-1,0]\cap[0,1]=\{0\}$.
+			
+				Dok\'a\v zeme $\subseteq$. Je-li $x\in\overline {A \cap B}$, pak pro ka\v zd\'e $\varepsilon>0$ plat\'i $U_\varepsilon(x)\cap (A \cap B)\ne\emptyset$. Speci\'aln\v e $U_\varepsilon(x)\cap A\ne\emptyset$ a $U_\varepsilon(x)\cap B\ne\emptyset$.   Uk\'azali jsme, \v ze libovoln\'e otev\v ren\'e okol\'i $x$ m\'a netrivi\'aln\'i pr\r unik s $A$ i s $B$. Tedy $x\in\overline A$ a $x\in\overline B$, nutn\v e tedy $x\in\overline A\cap\overline B$.
+		\end{enumerate}
+	\end{solution}
+	
+	\question
+	Spo\v ct\v ete limity (pokud existuj\'i)
+	\begin{enumerate}[label=(\roman*)]
+		\item $\lim\limits_{(x,y)\to(0,0)}\frac{x^2-y^2+xy}{|x|+|y|}$, 
+		\item $\lim\limits_{(x,y)\to(0,0)}(\cos(x+y))^{\frac{1}{x^2+y^2}}$.
+	\end{enumerate}
+	
+	\begin{solution}
+	\begin{enumerate}[label=(\roman*)]
+		\item \label{i}
+			Pomocí Youngovy nerovnosti dostáváme
+			\begin{equation*}
+				0
+				\le
+				\abs{\frac{x^2 - y^2 + xy}{\abs{x} + \abs{y}}}
+				\le
+				\frac{x^2 + y^2 + \abs{xy}}{\abs{x} + \abs{y}}
+				\le
+				\frac{3}{2} \frac{x^2 + y^2}{\abs{x} + \abs{y}}
+				\le
+				\frac{3}{2} \sqrt{x^2 + y^2}
+				=
+				\frac{3}{2} {\abs{\parens{x, y}}}_{\mathrm{2}},
+			\end{equation*}
+			odkud vidíme, že zadaná limita je rovna 0. V poslední nerovnosti jsme navíc využili
+			\begin{equation*}
+				\frac{\sqrt{x^2 + y^2}}{\abs{x} + \abs{y}}
+				\le
+				1
+				\quad \iff \quad
+				x^2 + y^2
+				\le
+				\parens{\abs{x} + \abs{y}}^2
+				\quad \iff \quad
+				0
+				\le
+				\abs{xy}.
+			\end{equation*}
+			
+			Alternativně můžeme postupovat takto
+			\begin{equation*}
+				0
+				\le
+				\abs{\frac{x^2 - y^2 + xy}{\abs{x} + \abs{y}}}
+				\le
+				\frac{x^2 + y^2 + \abs{xy}}{\abs{x} + \abs{y}}
+				\le
+				\frac{\abs{x}^2 + \abs{y}^2 + 2 \abs{xy}}{\abs{x} + \abs{y}}
+				=
+				\frac{\parens{\abs{x} + \abs{y}}^2}{\abs{x} + \abs{y}}
+				=
+				\abs{x} + \abs{y}
+				=
+				{\abs{\parens{x, y}}}_{\mathrm{1}}.
+			\end{equation*}			
+		\item \label{ii}
+			Ukažme, že limita neexistuje. Na paprsku $y = x$ dostáváme
+			\begin{equation*}
+				\lim_{x \to 0} \parens{\cos 2x}^{\frac{1}{2 x^2}}
+				=
+				\lim_{x \to 0} \exponential{\frac{\ln \parens{\cos 2x}}{2 x^2}}
+				=
+				\exponential{\lim_{x \to 0} \frac{\ln \parens{\cos 2x}}{2 x^2}}
+				=
+				\exponential{\lim_{x \to 0} \frac{\cos 2x - 1}{2x^2}}
+				=
+				\exponential{-1},
+			\end{equation*}
+			kde jsme využili věty o limitě složené funkce a limitě součinu a znalost základních limit
+			\begin{equation*}
+				\lim_{x \to 0} \frac{\ln \parens{1 + x}}{x} = 0,
+				\qquad
+				\lim_{x \to 0} \frac{1 - \cos x}{x} = \frac{1}{2}.
+			\end{equation*}
+			Na druhou stranu na paprsku $y = -x$ máme
+			\begin{equation*}
+				\lim_{x \to 0} \parens{\cos 0}^{\frac{1}{2 x^2}}
+				=
+				\lim_{x \to 0} 1^{\frac{1}{2 x^2}}
+				=
+				1.
+			\end{equation*}
+			Protože se limity neshodují, zadaná limita neexistuje.
+	\end{enumerate}	
+	\end{solution}
+	
+	\question
+	Jestli\v ze dodefinujeme funkce z p\v redchoz\'iho p\v r\'ikladu v po\v c\'atku nulou, rozhodn\v ete, zda jsou takto definované funkce spojit\'e nebo omezen\'e na n\v ejak\'em okol\'i po\v c\'atku.
+	
+	\begin{solution}
+		\begin{enumerate}[label=(\roman*)]
+			\item
+				Podle Příkladu 5\ref{i} víme, že funkce
+				\begin{equation*}
+					f\parens{x,y}
+					\defeq
+					\begin{cases}
+						\frac{x^2 - y^2 + xy}{\abs{x} + \abs{y}} &(x, y) \neq (0, 0),
+						\\
+						0 &(x, y) = \parens{0, 0},
+					\end{cases}
+				\end{equation*}
+				je spojitá v počátku, a tudíž je i omezená na nějakém okolí počátku (podle věty o nabývání extrémů pro spojitou funkci na kompaktní množině).
+				
+			\item 
+				Podle Příkladu 5\ref{ii} není funkce
+				\begin{equation*}
+					f\parens{x,y}
+					\defeq
+					\begin{cases}
+						(\cos(x+y))^{\frac{1}{x^2+y^2}} &(x, y) \neq (0, 0),
+						\\
+						0 &(x, y) = \parens{0, 0},
+					\end{cases}
+				\end{equation*}
+				spojitá v počátku. V dalším uvažujme funkci $f$ na množině
+				\begin{equation*}
+					M \defeq \set[\abs{x + y} < \frac{\pi}{2}]{\parens{x, y} \in \R^2},
+				\end{equation*}
+				neboť na takové množině je $f$ definovaná a zároveň obsahuje počátek. Pro $\parens{0, 0} \neq \parens{x, y} \in M$ je z definice funkce $f$ omezená zdola, neboť
+				\begin{equation*}
+					(\cos(x+y))^{\frac{1}{x^2+y^2}}
+					=
+					\exponential{\frac{\ln \parens{\cos(x+y)}}{x^2+y^2}}
+					>
+					0.
+				\end{equation*}
+				Dále platí
+				\begin{equation*}
+					\exponential{\frac{\ln \parens{\cos(x+y)}}{x^2+y^2}} \le 1
+					\quad \iff \quad
+					\frac{\ln \parens{\cos(x+y)}}{x^2+y^2} \le 0
+					\quad \iff \quad
+					\cos \parens{x + y} \le 1,
+				\end{equation*}
+				což je splněno pro všechna $\parens{x, y} \in M$, a tedy $f$ je na této množině omezená i shora. Existuje tedy okolí počátku, na kterém je funkce $f$ omezená.
+		\end{enumerate}		
+	\end{solution}	
+	
+  \question
+	Určete definiční obor n\'asleduj\'ic\'ich funkc\'i a spo\v ct\v ete jejich první parci\'aln\'i derivace
+	\begin{enumerate}[label=(\roman*)]
+		\item $f(x,y,z)=\cos (x+y)\sin (x-y+z)$,
+		\item $f(x,y)=\exponential{{\operatorname{tg} \parens{xy}}}$.
+	\end{enumerate}
+	    
+  \begin{solution}
+	  \begin{enumerate}[label=(\roman*)]
+	  \item 
+	  	Zřejmě platí $D_f = \R^3$. S využitím součtového vzorce $\cos\parens{x \pm y} = \cos x \cos y \mp \sin x \sin y$, potom pro první parciální derivace na celém $D_f$ dostáváme
+	  	\begin{align*}
+	  		\pd{f}{x}\parens{x,y,z}
+	  		&=
+	  		-\sin\parens{x+y}\sin\parens{x-y+z} + \cos\parens{x+y}\cos\parens{x-y+z}
+	  		=
+	  		\cos\parens{2x+z},
+	  		\\
+	  		\pd{f}{y}\parens{x,y,z}
+	  		&=
+	  		-\sin\parens{x+y}\sin\parens{x-y+z} - \cos\parens{x+y}\cos\parens{x-y+z}
+	  		=
+	  		-\cos\parens{2y-z},
+	  		\\
+	  		\pd{f}{z}\parens{x,y,z}
+	  		&=
+	  		\cos\parens{x+y}\cos\parens{x-y+z}.
+	  	\end{align*}
+	  
+	  \item 
+	  	Z podmínky $xy \neq \frac{\parens{2k+1}\pi}{2}$ dostáváme
+	  	\begin{equation*}
+	  		D_f = \R^2 \setminus \set[x \in \R \setminus \set{0}, k \in \Z]{\parens{x, \frac{\parens{2k+1}\pi}{2x}}}.
+	  	\end{equation*}
+	  	Na $D_f$ potom máme
+	  	\begin{align*}
+	  		\pd{f}{x}\parens{x,y}
+	  		&=
+	  		\frac{y \exponential{{\operatorname{tg} \parens{xy}}}}{\cos^2 \parens{xy}},
+	  		\\
+	  		\pd{f}{y}\parens{x,y}
+	  		&=
+	  		\frac{x \exponential{{\operatorname{tg} \parens{xy}}}}{\cos^2 \parens{xy}}.
+	  	\end{align*}
+		\end{enumerate}
+  \end{solution}
+  
+ 	\question
+ 	Najd\v ete směrovou derivaci funkce 
+ 	\begin{equation*}
+ 	f(x,y)
+ 	=
+ 	\begin{cases}
+ 		\frac{x^4+2x^2y+y^3}{x^2+y^2} &(x,y)\ne \parens{0, 0},
+ 		\\
+ 		0 &\parens{x,y}=\parens{0,0},
+ 	\end{cases}
+ 	\end{equation*}
+ 	v po\v c\'atku v obecn\'em sm\v eru $(u,v)\in\R^2$, $u^2 + v^2 = 1$.
+ 	
+ 	\begin{solution}
+ 	Označme si $\vec{v} \defeq \parens{u, v}$. Podle definice derivace ve směru máme
+ 	\begin{equation*}
+ 		\pd{f}{\vec{v}}\parens{\parens{0, 0}}
+ 		=
+ 		\lim_{h \to 0} \frac{f\parens{\parens{0,0} + h \parens{u, v}} - f\parens{\parens{0,0}}}{h}
+ 		=
+ 		\lim_{h \to 0} \frac{f\parens{\parens{hu, hv}}}{h}
+ 		=
+ 		\lim_{h \to 0} \frac{\frac{h^4 u^4 + 2h^3 u^2 v + h^3 v^3}{h^2 u^2 + h^2 v^2}}{h}.
+ 	\end{equation*}
+ 	S využitím $u^2 + v^2 = 1$, pak dostáváme
+ 	\begin{equation*}
+ 		\pd{f}{\vec{v}}\parens{\parens{0, 0}}
+ 		=
+ 		\lim_{h \to 0}
+ 		\parens{h u^4 + 2 u^2 v + v^3}
+ 		=
+ 		2 u^2 v + v^3.
+ 	\end{equation*}
+ 	\end{solution}
+  
+\end{questions}
+
+\end{document}
