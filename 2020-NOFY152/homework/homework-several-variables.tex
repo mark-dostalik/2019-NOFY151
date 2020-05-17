@@ -1,0 +1,504 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+\definecolor{GraphColor}{HTML}{1d7ad1}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+\usepackage{enumitem}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\input{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza II (NOFY152) – DÚ 8}
+\author{Totální diferenciál, lokální a vázané extrémy funkcí více proměnných}
+\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+
+\begin{questions}	
+  \question U následujících funkcí zjistěte, ve kterých bodech existuje totální diferenciál (a určete ho).
+	\begin{enumerate}[label=(\roman*)]
+		\item $f\parens{x, y, z} = \cos x \cosh y$
+		\item $f\parens{x, y} = \abs{x} \abs{y}$
+		\item $f\parens{x, y, z} = x^{\frac{y}{z}}$
+	\end{enumerate}
+	
+  \begin{solution}
+	\begin{enumerate}[label=(\roman*)]
+		\item 
+		
+			Zřejmě platí $D_f = \R^3$. Na celém definičním oboru existují parciální derivace
+			\begin{align*}
+				\pd{f}{x}\parens{x,y,z} &= - \sin x \cosh y,
+				\\
+				\pd{f}{y}\parens{x,y,z} &= \cos x \sinh y,
+				\\
+				\pd{f}{z}\parens{x,y,z} &= 0,
+			\end{align*}
+			které jsou zde navíc spojité. Funkce $f$ má tedy totální diferenciál na celém $\R^3$, který je pro každé $\vec{h} \in \R^3$ dán předpisem
+			\begin{equation*}
+				\diff f \parens{x, y, z} \parens{\vec{h}}
+				=
+				\nabla f \parens{x,y,z} \cdot \vec{h}
+				=
+				- 
+				\parens{\sin x \cosh y} h_1
+				+
+				\parens{\cos x \sinh y} h_2.
+			\end{equation*}
+		
+		\item 
+		
+			Zřejmě platí $D_f = \R^2$. Mimo osový kříž, tj. pro $xy \neq 0$, platí
+			\begin{align*}
+				\pd{f}{x}\parens{x,y} &= \parens{\sign x} \abs{y},
+				\\
+				\pd{f}{y}\parens{x,y} &= \parens{\sign y} \abs{x}.
+			\end{align*}
+			Protože jsou zde parciální derivace spojité, funkce $f$ má mimo osový kříž totální diferenciál.
+			
+			Na osovém kříži mimo počátek, tj. na množině $\set[xy = 0, \parens{x, y} \neq \parens{0, 0}]{\parens{x,y} \in \R^2}$, vždy jedna z parciálních derivací neexistuje. Skutečně, pro $y \neq 0$ máme podle definice
+			\begin{equation*}
+				\pd{f}{x}\parens{0, y} 
+				= 
+				\lim_{h \to 0} \frac{\abs{h} \abs{y} - 0 \abs{y}}{h}
+				=
+				\lim_{h \to 0} \parens{\sign h} \abs{y},
+			\end{equation*}
+			a parciální derivace $f$ podle $x$ zde tedy neexistuje. Analogicky postupujeme na ose $x$ mimo počátek, kde neexistuje parciální derivace $f$ podle $y$.
+			
+			V počátku podle definice parciální derivace platí
+			\begin{align*}
+				\pd{f}{x}\parens{0,0} &= 0,
+				\\
+				\pd{f}{y}\parens{0,0} &= 0,
+			\end{align*}
+			a tedy, pokud zde funkce $f$ má totální diferenciál, musí se jednat o nulové zobrazení. Ověřme, zda platí
+			\begin{equation*}
+				\lim_{\vec{h} \to \vec{0}}
+				\frac{f\parens{h_1, h_2} - f\parens{0,0} - 0}{\norm{\vec{h}}}
+				=
+				0.
+			\end{equation*}
+			To je ovšem jednoduchý důsledek nerovností
+			\begin{equation*}
+				0
+				\le
+				\frac{f\parens{h_1, h_2} - f\parens{0,0} - 0}{{\norm{\vec{h}}}_{\infty}}
+				=
+				\frac{\abs{h_1} \abs{h_2}}{\max \parens{\abs{h_1}, \abs{h_2}}}
+				=
+				\min \parens{\abs{h_1}, \abs{h_2}}
+				\le
+				\max \parens{\abs{h_1}, \abs{h_2}}
+				=
+				{\norm{\vec{h}}}_{\infty},
+			\end{equation*}
+			kde jsme použili maximovou normu. (Na konečně dimenzionálním prostoru jsou všechny normy ekvivalentní, takže je jedno, kterou zvolíme v definici totálního diferenciálu.)
+			
+			Konečně tedy dostáváme, že na množině $\set[xy \neq 0 \lor \parens{x, y} = \parens{0, 0}]{\parens{x, y} \in \R^2}$ má funkce totální diferenciál daný pro každé $\vec{h} \in \R^2$ předpisem
+			\begin{equation*}
+				\diff f \parens{x, y, z} \parens{\vec{h}}
+				=
+				\nabla f \parens{x,y,z} \cdot \vec{h}
+				=
+				\parens{\sign x} \abs{y} h_1
+				+
+				\parens{\sign y} \abs{x} h_2.			
+			\end{equation*}
+			
+		\item 
+		
+			Pro definiční obor zadané funkce platí
+			\begin{equation*}
+				D_f
+				=
+				\set[z \neq 0 \land \parens{x > 0 \lor \parens{x = 0 \land yz > 0}}]{\parens{x, y, z} \in \R^3}
+			\end{equation*}
+			Na množině $\set[z \neq 0, x > 0]{\parens{x, y, z} \in \R^3}$ máme
+			\begin{align*}
+				\pd{f}{x}\parens{x,y,z} &= \frac{y}{xz} x^{\frac{y}{z}}
+				\\
+				\pd{f}{y}\parens{x,y,z} &= \frac{\ln x}{z} x^{\frac{y}{z}},
+				\\
+				\pd{f}{z}\parens{x,y,z} &= - \frac{y \ln x}{z^2} x^{\frac{y}{z}},
+			\end{align*}
+			a ze spojitosti příslušných parciálních derivací zde proto dostáváme existenci totálního diferenciálu.
+			
+			Na množině $\set[z \neq 0, x = 0, yz > 0]{\parens{x, y, z} \in \R^3}$ neexistuje parciální derivace $f$ podle $x$ (funkce není definovaná pro $x < 0$), a proto zde nemůže mít ani totální diferenciál.
+			
+			Funkce $f$ má tedy totální diferenciál na množině $\set[z \neq 0, x > 0]{\parens{x, y, z} \in \R^3}$, který je pro každé $\vec{h} \in \R^3$ dán předpisem
+				\begin{equation*}
+					\diff f \parens{x, y, z} \parens{\vec{h}}
+					=
+					\nabla f \parens{x,y,z} \cdot \vec{h}
+					=
+					x^{\frac{y}{z}}
+					\parens{\frac{y}{xz} h_1 + \frac{\ln x}{z} h_2 - \frac{y \ln x}{z^2} h_3}.
+				\end{equation*}
+	\end{enumerate}
+  \end{solution}
+  
+  \question
+  Najděte lokální extrémy následujících funkcí.
+	\begin{enumerate}[label=(\roman*)]
+		\item $f\parens{x, y} = \parens{x^2 + y^2} \exponential{- x^2 - y^2}$
+		\item $f\parens{x, y} = \begin{cases}
+		xy \ln \parens{x^2 + y^2} \quad &\parens{x, y} \neq \parens{0, 0}
+		\\
+		0 \quad &\parens{x, y} = \parens{0, 0}
+		\end{cases}$
+		\item $f\parens{x, y} = x - 2y + \ln \sqrt{x^2 + y^2} + 3 \operatorname{arctg}\frac{y}{x}$
+	\end{enumerate}
+  
+  \begin{solution}
+		\begin{enumerate}[label=(\roman*)]
+			\item 
+				
+				Všimněme si, že použití polárních souřadnic vede na zkoumání lokálních extrémů funkce
+				\begin{equation*}
+					g(r)
+					\defeq
+					r^2 \exponential{-r^2},
+				\end{equation*}
+				kde $r \in \parens{0, +\infty}$. Protože $g$ je funkcí jedné reálné proměnné, stačí použít nástroje známé ze zimního semestru. Platí
+				\begin{equation*}
+					\dd{g}{r}\parens{r}
+					=
+					2r \parens{1 - r^2} \exponential{-r^2},
+				\end{equation*}
+				a tedy ze znaménka první derivace dostáváme, že $g$ je rostoucí pro $r \in \parens{0, 1}$ a klesající pro $r \in \parens{1, +\infty}$. V bodě $r = 1$ je tedy lokální maximum funkce $g$, z čehož plyne, že funkce $f$ má lokální maxima na jednotkové kružnici, tj. na množině $\set[x^2 + y^2 = 1]{\parens{x, y} \in \R^2}$. Navíc vidíme, že v počátku má funkce $f$ lokální minimum.
+			
+			\item 
+				
+				Mimo bod $(0,0)$ se jedn\'a o nekone\v cn\v ekr\'at diferencovatelnou funkci. D\'ale okam\v zit\v e vid\'ime, \v ze $(0,0)$ nen\'i lok\'aln\'i extr\'em, nebo\v t
+				\begin{align*}
+				f(x,x)&=x^2\ln(2x^2)<0,\quad x\in\parens{0,\frac{1}{\sqrt2}},\\
+				f(x,-x)&=-x^2\ln(2x^2)>0,\quad x\in\parens{0,\frac{1}{\sqrt2}}.
+				\end{align*}
+				Jedn\'a se tedy o tzv. sedlov\'y bod.
+				
+				Mimo po\v c\'atek hledáme stacionární body, tj. body, které řeší rovnice
+				\begin{align*}
+				\frac{\partial f}{\partial x} \parens{x, y}= y\ln(x^2+y^2)+xy\frac{2x}{x^2+y^2}=0,\\
+				\frac{\partial f}{\partial y} \parens{x, y}= x\ln(x^2+y^2)+xy\frac{2y}{x^2+y^2}=0.
+				\end{align*}
+				Je-li $y=0$, pak prvn\'i rovnice se nuluje a v druh\'e zbyde $x\ln x^2=0.$ Dostáváme  stacionární body $(\pm1,0)$. Analogicky pro $x=0$, dostaneme podez\v rel\'e body $(0,\pm1)$. Všechny tyto body m\r u\v zeme ale rovnou vylou\v cit, nebo\v t  $f(1,0)=0$ a $f(1,y)>0$ pro $y>0$ a $f(1,y)<0$ pro $y<0$. Analogicky pro ostatn\'i body $(-1,0)$ a $(0,\pm1)$.
+				
+				Je-li $xy\ne0$, pak m\r u\v zeme vyd\v elit prvn\'i rovnici $y$, druhou $x$ a dostaneme rovnice
+				\begin{align*}
+				 \ln(x^2+y^2)+\frac{2x^2}{x^2+y^2}=0,\\
+				 \ln(x^2+y^2)+\frac{2y^2}{x^2+y^2}=0.
+				\end{align*}
+				Tud\'i\v z 
+				$$\frac{2x^2}{x^2+y^2}=\frac{2y^2}{x^2+y^2}\Leftrightarrow|x|=|y|.$$
+				Je-li $x=\pm y$, pak
+				$$0= \ln(2x^2)+\frac{2x^2}{2x^2}=\ln (2x^2)+1,$$
+				a tedy dost\'av\'ame 4 stacionární body
+				$$\parens{\pm\sqrt{\frac{1}{2e}},\pm\sqrt{\frac{1}{2e}}}.$$
+				
+				V\v simněme si, že platí n\'asleduj\'ic\'i symetrie
+				$$f(x,y)=f(-x,-y)=-f(x,-y)=f(-x,y).$$
+				Odsud plyne, \v ze sta\v c\'i zkoumat chov\'an\'i funkce $f$ v bod\v e $\parens{\sqrt{\frac{1}{2e}},\sqrt{\frac{1}{2e}}}$. Protože
+				\begin{align*}
+				 \frac{\partial^2 f}{\partial x^2}\parens{x,y}&=\frac{2xy(x^2+3y^2)}{(x^2+y^2)^2},
+				 \\  
+				 \frac{\partial^2 f}{\partial y^2}\parens{x,y}&=\frac{2xy(3x^2+y^2)}{(x^2+y^2)^2},
+				 \\
+				 \frac{\partial^2 f}{\partial y\partial x}\parens{x,y}&=\ln(x^2+y^2)+\frac{2(x^4+y^4)}{(x^2+y^2)^2},
+				\end{align*}
+				dostáváme, že v bodě $(x,y)=\parens{\sqrt{\frac{1}{2e}},\sqrt{\frac{1}{2e}}}$ je Hessova matice $\mathbb{H}_f$ rovna
+				$$
+				\mathbb{H}_f \parens{\parens{\sqrt{\frac{1}{2e}},\sqrt{\frac{1}{2e}}}}
+				=
+				\begin{pmatrix}
+				2&0\\
+				0&2\\
+				\end{pmatrix}
+				.$$
+				Jedn\'a se evidentn\v e o positivn\v e definitn\'i matici a tedy $f$ m\'a v bod\v e $\parens{\sqrt{\frac{1}{2e}},\sqrt{\frac{1}{2e}}}$ lok\'aln\'i minimum. To sam\'e pak plat\'i i pro bod $\parens{-\sqrt{\frac{1}{2e}},-\sqrt{\frac{1}{2e}}}$. Naopak body $\pm\parens{\sqrt{\frac{1}{2e}},-\sqrt{\frac{1}{2e}}}$ jsou lok\'aln\'i maxima.
+				
+			\item
+			
+				Zřejmě platí $D_f = \set[x \neq 0]{\parens{x, y} \in \R^2}$. Na $D_f$ máme
+				\begin{align*}
+					\pd{f}{x}\parens{x, y}
+					&=
+					\frac{x^2 + y^2 + x - 3y}{x^2 + y^2},
+					\\
+					\pd{f}{y}\parens{x, y}
+					&=
+					\frac{-2x^2 - 2y^2 + y + 3x}{x^2 + y^2},
+				\end{align*}
+				a stacionární body tedy dostaneme vyřešením rovnic
+				\begin{align*}
+					x^2 + y^2 + x - 3y &= 0,
+					\\
+					-2x^2 - 2y^2 + y + 3x &= 0.
+				\end{align*}
+				Vynásobením první rovnice $2$ a následným sečtením s druhou rovnicí dostáváme podmínku $x = y$. Po dosazení do první rovnice pak dostáváme
+				\begin{equation*}
+					2 x^2 - 2x = 0 \quad \iff \quad x = 0 \lor x = 1.
+				\end{equation*}
+				Řešením soustavy výše jsou tak body $\parens{0, 0}$ a $\parens{1, 1}$. Počátek ale můžeme rovnou vyloučit, protože v něm není funkce $f$ definována.
+				
+				Pro druhé parciální derivace $f$ platí
+				\begin{align*}
+					 \frac{\partial^2 f}{\partial x^2}\parens{x,y}&=\frac{-x^2 + 6xy + y^2}{(x^2+y^2)^2},
+					 \\  
+					 \frac{\partial^2 f}{\partial y^2}\parens{x,y}&=\frac{x^2 - 6xy - y^2}{(x^2+y^2)^2},
+					 \\
+					 \frac{\partial^2 f}{\partial y\partial x}\parens{x,y}&=\frac{-3x^2 - 2xy + 3y^2}{(x^2+y^2)^2},
+				\end{align*}
+				a Hessova matice $\mathbb{H}_f$ je proto v bodě $\parens{1, 1}$ rovna
+				\begin{equation*}
+					\mathbb{H}_f \parens{\parens{1, 1}}
+					=
+					\begin{pmatrix}
+						\frac{3}{2} & -\frac{1}{2}
+						\\
+						-\frac{1}{2} & -\frac{3}{2}
+					\end{pmatrix}.
+				\end{equation*}
+				Protože $\det \mathbb{H}_f \parens{\parens{1, 1}} = -\frac{9}{4} - \frac{1}{4} = -\frac{5}{2} < 0$, je matice indefinitní a v bodě $\parens{1, 1}$ je tedy sedlový bod. (Determinant matice je roven součinu jejích vlastních čísel, což v našem případě znamená, že $\det \mathbb{H}_f \parens{\parens{1, 1}}$ má dvě nenulová vlastní čísla s opačnými znaménky.)
+		\end{enumerate}
+  \end{solution}
+  
+  \question
+  Najděte extrémy daných funkcí vzhledem k příslušné vazbě.
+	\begin{enumerate}[label=(\roman*)]
+		\item $f\parens{x, y} = \frac{x}{a} + \frac{y}{b}$; \quad $x^2 + y^2 = 1$
+		\item $f\parens{x, y, z} = \sin x \sin y \sin z$; \quad $x + y + z = \frac{\pi}{2}$, \quad $x, y, z > 0$
+	\end{enumerate}
+	
+	\begin{solution}
+		\begin{enumerate}[label=(\roman*)]
+			\item 
+			
+				Jednotkov\'a kru\v znice $\{(x,y):\ x^2+y^2-1\}$ je kompaktn\'i. D\'ale funkce $f$ je spojit\'a a nab\'yv\'a tedy na $K$ sv\'eho maxima i minima. Polo\v zme $g:\mathbb R^2\to\mathbb R,\ g(x,y)=x^2+y^2-1$.
+				
+				Nyn\'i spo\v cteme gradienty
+				$$\nabla f(x,y)=\bigg(\frac{1}{a},\frac{1}{b}\bigg),\ \ \nabla g(x,y)=(2x,2y).$$
+				Podle v\v ety o Lagrangeov\'ych multiplik\'atorech mus\'i v bod\v e extr\'emu $(x_0,y_0)\in K$ platit
+				$$(\nabla f)(x_0,y_0)=\lambda(\nabla g)(x_0,y_0)$$
+				pro n\v ejak\'e $\lambda\in\R$. To vede na soustavu line\'arn\'ich rovnic:
+				\begin{align*}
+				2\lambda x_0&=\frac{1}{a},\ 2\lambda y_0=\frac{1}{b}.
+				\end{align*}
+				Vid\'ime, \v ze nutn\v e $x_0\ne0$ a $y_0\ne0$. Z prvn\'i rovnice tedy plyne $\lambda=\frac{1}{2ax_0}$ a dosazen\'im do druh\'e rovnice dostaneme:
+				$$y_0=\frac{1}{2\lambda b}=\frac{2ax_0}{2b}=\frac{ax_0}{b}.$$
+				D\'ale mus\'i platit $x_0^2+y_0^2=1$ a tedy
+				\begin{align*}
+				1= x_0^2+\bigg(\frac{ax_0}{b}\bigg)^2=&x_0^2(1+\frac{a^2}{b^2})=\frac{x_0^2}{b^2}(a^2+b^2)\Leftrightarrow x_0=\frac{\pm b}{\sqrt{a^2+b^2}},\ y=\frac{\pm a}{\sqrt{a^2+b^2}}.
+				\end{align*}
+				Ozna\v cme
+				$$A:=\mathrm{sign}(ab)\bigg(\frac{b}{\sqrt{a^2+b^2}},\ \frac{a}{\sqrt{a^2+b^2}}\bigg).$$
+				Pak
+				\begin{align*}
+				f(\pm A)&=\frac{\mathrm{sign}(ab)}{\sqrt{a^2+b^2}}\bigg(\frac{\pm b}{a}+\frac{\pm a}{b}\bigg)\\
+				&=\frac{\mathrm{sign}(ab)}{\sqrt{a^2+b^2}}\bigg(\frac{\pm (b^2+ a^2)}{ab}\bigg)\\
+				&=\sqrt{a^2+b^2}\bigg(\frac{\pm 1}{|ab|}\bigg).
+				\end{align*}
+				
+				Z\'av\v er: $f$ nab\'yv\'a glob\'aln\'iho maxima v bod\v e $A$ a glob\'aln\'iho minima v bod\v e $-A$.
+				
+			\item 
+				
+				Funkce $f$ m\'a z\v rejm\v e n\'asleduj\'ic\'i symetrie:
+				\begin{align*}
+				f(x,y,z)=f(\sigma(x),\sigma(y),\sigma(z))=f(x+2k_1\pi,y+2k_2\pi,z+2k_3\pi), 
+				\end{align*}
+				kde $\sigma$ je libovoln\'a permutace na t\v rech prvc\'ich a $k_i\in\mathbb Z,\ i=1,2,3$. D\'ale na mno\v zin\v e 
+				$$M:=\{(x,y,z) \in \R^3:\ x+y+z=\frac{\pi}{2},\ x,y,z>0\}$$
+				plat\'i $0<x,y,z<\frac{\pi}{2}$.
+				Tud\'i\v z $0<f(x,y,z)<1.$
+				
+				Mno\v zina $M$ nen\'i kompaktn\'i, nebo\v t nen\'i uzav\v ren\'a. Nicm\'en\v e 
+				$$\overline M:=\{(x,y,z) \in \R^3:\ x+y+z=\frac{\pi}{2},\ x,y,z\ge0\}$$
+				je kompaktn\'i mno\v zina s hranic\'i 
+				$$\partial M=\{(x,y,z) \in \R^3:\ x+y+z=\frac{\pi}{2},\ xyz=0,\ x,y,z\ge0\}.$$
+				
+				Nejprve najdeme glob\'aln\'i extr\'emy $f$ na $\overline M$. Vid\'ime, \v ze $f=0$ na $\partial M$ a $0\le f(x,y,z)\le 1$ na $\overline M$. Jeliko\v z $f>0$ na $M$, pak nutn\v e $0=\inf_{M} f$ a tedy $f$ na $M$ nenab\'yv\'a glob\'aln\'iho minima. Zb\'yv\'a naj\'it bod z $\overline M$, kde $f$ nab\'yv\'a  glob\'aln\'iho maxima. Jeliko\v z $f>0$ na $M$ a $f=0$ na $\partial M$, pak glob\'aln\'i maximum mus\'i le\v zet v $M$.
+				
+				Polo\v zme $g(x,y,z)=x+y+z-\frac{\pi}{2}$. M\'ame:
+				\begin{align*}
+				\nabla f=(\cos x\sin y\sin z,\sin x\cos y\sin z,\sin x\sin y\cos z),\ \nabla g=(1,1,1). 
+				\end{align*}
+				V bod\v e glob\'aln\'iho extr\'emu $(x,y,z)$ tedy mus\'i platit
+				\begin{align*}
+				 \cos x\sin y\sin z&=\lambda,\\
+				 \sin x\cos y\sin z&=\lambda,\\
+				 \sin x\sin y\cos z&=\lambda,
+				\end{align*}
+				pro n\v ejak\'e $\lambda\in\R$. V\'ime, \v ze pro $(x,y,z)\in M$ mus\'i b\'yt v\'yrazy
+				$$\sin x,\sin y,\sin z,\cos x,\cos y,\cos z$$
+				kladn\'e. Z prvn\'i a druh\'e rovnice dostaneme 
+				$$\cos x\sin y=\sin x\cos y\Leftrightarrow\sin(x-y)=0\Leftrightarrow y-x=k\pi,\ k\in\mathbb Z. $$
+				Z prvn\'i a t\v ret\'i rovnice dostaneme analogick\'ym postupem $z-x=\ell\pi,\ \ell\in\mathbb Z$, a kone\v cn\v e z druh\'e a t\v ret\'i rovnice plyne $z-y=n\pi,\ n\in\mathbb Z$. Celkem m\'ame, \v ze
+				$$y=x+k\pi,\ z=x+\ell\pi,\ k,\ell\in\mathbb Z.$$
+				Jeliko\v z $\frac{\pi}{2}\ge x,y,z\ge0$ na $\overline M$, pak nutn\v e $x=y=z=\frac{\pi}{6}$. V\'ice podez\v rel\'ych bod\r u jsme nena\v sli, to znamen\'a, \v ze $(\frac{\pi}{6},\frac{\pi}{6},\frac{\pi}{6})$ je bod maxima. Kone\v cn\v e
+				$f((\frac{\pi}{6},\frac{\pi}{6},\frac{\pi}{6}))=(\sin\frac{\pi}{6})^3=(\frac{1}{2})^3 = \frac{1}{8}.$
+		\end{enumerate}
+	\end{solution}
+	
+  \question
+  Nalezněte největší a nejmenší hodnotu daných funkcí na příslušné množině.
+	\begin{enumerate}[label=(\roman*)]
+		\item $f\parens{x, y} = x^2 + y^2 - 12x + 16y$; \quad $x^2 + y^2 \le 25$
+		\item $f\parens{x, y, z} = x + y + z$; \quad $x^2 + y^2 \le z \le 1$
+	\end{enumerate}
+	
+	\begin{solution}
+		\begin{enumerate}[label=(\roman*)]
+			\item 
+				Mno\v zina
+				$$K:=\{(x,y)\in\mathbb R^2:\ x^2+y^2\le25\}$$
+				je omezen\'a a uzav\v ren\'a. Jedn\'a se tedy o kompaktn\'i mno\v zinu. Z\v rejm\v e plat\'i
+				$$K^o=\{(x,y)\in\mathbb R^2:\ x^2+y^2<25\},\ \ \partial K=\{(x,y)\in\mathbb R^2:\ x^2+y^2=25\}.$$
+				Funkce $f$ je spojit\'a na $K$ a nab\'yv\'a tud\'i\v z na $K$ sv\'eho maxima i minima. Nejprve najdeme podez\v rel\'e body uvnit\v r $K$, tj. na $K^o$.
+				
+				Spo\v cteme gradient
+				$$\nabla f(x,y)=(2x-12,2y+16).$$
+				Vid\'ime, \v ze $\nabla f=\parens{0,0}$ jen v bod\v e $(6,8)$. Tento bod ale nele\v z\'i v $K^o$. To znamen\'a, \v ze $f$ mus\'i nab\'yvat maxima a minima na hranici $\partial K$. 
+				
+				Plat\'i
+				$$\partial K:=\{(x,y):\ g(x,y)=0\},\ \ g(x,y)=x^2+y^2-25,\ \ \nabla g(x,y)=(2x,2y).$$
+				Podle Lagrangeovy v\v ety o vaz\'an\'ych extr\'emech mus\'i v bod\v e extr\'emu $(x_0,y_0)\in\partial K$ platit:
+				$$\nabla f (x_0,y_0)=\lambda\nabla g(x_0,y_0),\ \lambda\in\mathbb R.$$
+				To vede na soustavu rovnic
+				\begin{align*}
+				2x-12=2\lambda x,\ \ 2y+16=2\lambda y. 
+				\end{align*}
+				Z prvn\'i rovnice dostaneme $x\ne0$ a $\lambda=\frac{x-6}{x}=1-\frac{6}{x}$. Dosad\'ime do druh\'e rovnice  a z\'isk\'ame 
+				$$y+8=y-\frac{6y}{x}\Leftrightarrow 8x=-6y\Leftrightarrow y=-\frac{4}{3}x.$$
+				Tento vztah dosad\'ime do vazby a dostaneme 
+				$$x^2+\frac{16}{9}x^2=\frac{25}{9}x^2=25\Rightarrow x=\pm 3,\ y=\mp 4.$$
+				Kone\v cn\v e 
+				$$f(3,-4)=-75,\ \ f(-3,4)=125.$$
+				
+				Z\'av\v er: $f$ nab\'yv\'a maxima v bod\v e $(-3,4)$ a maxima v bod\v e $(3,-4)$.
+				
+			\item
+				
+				Mno\v zina
+				$$K:=\{(x,y,z)\in\mathbb R^3:\ x^2+y^2\le z\le 1\}$$
+				je omezen\'a a uzav\v ren\'a. Je tedy kompaktn\'i. D\'ale plat\'i
+				\begin{align*}
+				K^o&=\{(x,y,z)\in\mathbb R^2:\ x^2+y^2<z<1\},\\
+				\partial K&=\{(x,y,z)\in\mathbb R^3:\ x^2+y^2\le z=1\ \vee \ x^2+y^2=z\le 1\}.
+				\end{align*}
+				Funkce $f$ je spojit\'a na $K$ a nab\'yv\'a tud\'i\v z na $K$ sv\'eho maxima i minima. 
+				
+				Nejprve najdeme podez\v rel\'e body uvnit\v r $K$, tj. na $K^o$. Plat\'i 
+				$$\nabla f=(1,1,1).$$
+				Jeliko\v z $\nabla f\ne \parens{0,0,0}$ na $\R^3$, pak v $K^o$ nele\v z\'i \v z\'adn\'y podez\v rel\'y bod. Sta\v c\'i tedy hledat extr\'emy na $\partial K$.
+				
+				Hranici $\partial K$ rozd\v el\'ime je\v st\v e na dv\v e \v c\'asti, a to na
+				\begin{align*}
+				\partial K_0=\{(x,y,x^2+y^2)\in\mathbb R^3:\ x^2+y^2\le 1 \}\ \ \mathrm{a}\ \  \partial K_1=\{(x,y,1)\in\mathbb R^3:\ x^2+y^2\le 1\}.
+				\end{align*}
+				Pak plat\'i $\partial K=\partial K_0\cup\partial K_1$ a ob\v e mno\v ziny $\partial K_0,\ \partial K_1$ jsou kompaktn\'i. Nejprve najdeme extr\'emy $f$ na $\partial K_0$ a pak na $\partial K_1$. Pak tyto extr\'emy mezi sebou porovn\'ame. Je\v st\v e si v\v simneme, \v ze 
+				\begin{equation}\label{kruznice}
+				\partial K_0\cap\partial K_1=\{(x,y,1)\in\mathbb R^3:\ x^2+y^2=1\} 
+				\end{equation}
+				je kru\v znice v $\mathbb R^3$.
+				
+				Nyn\'i najdeme extr\'emy $f$ na $\partial K_0$. Definujme pomocnou funkci 
+				$$g_0:\mathbb R^3\to\mathbb R,\ g_0(x,y,z)=z-x^2-y^2.$$
+				Jestli\v ze extr\'em le\v z\'i na podmno\v zin\v e
+				$$H_0:=\{(x,y,x^2+y^2)\in\mathbb R^3:\ x^2+y^2<1\}=\{(x,y,z)\in\mathbb R^3:\ g_0(x,y,z)=0,\ x^2+y^2<1\},$$
+				pak v takov\'em bod\v e mus\'i platit:
+				$$\nabla f=\lambda\nabla g_0=\lambda (-2x,-2y,1).$$
+				To vede na soustavu rovnic
+				$$1=-2\lambda x=-2\lambda y=\lambda.$$
+				M\'ame $\lambda=1,\ x=y=-\frac{1}{2}$ a z\'iskali jsme podez\v rel\'y bod $A=(-\frac{1}{2},-\frac{1}{2},\frac{1}{2})\in\partial K_0$. Ostatn\'i podez\v rel\'e body na $\partial K_0$ mus\'i le\v zet na kru\v znici (\ref{kruznice}) a tyto body najdeme pozd\v eji.
+				
+				Analogicky postupujeme na $\partial K_1$. Definujme pomocnou funkci 
+				$$g_1:\mathbb R^3\to\mathbb R,\ g_0(x,y,z)=z-1.$$
+				Jestli\v ze extr\'em le\v z\'i na podmno\v zin\v e
+				$$H_1:=\{(x,y,1)\in\mathbb R^3:\ x^2+y^2<1\}=\{(x,y,z)\in\mathbb R^3:\ g_1(x,y,z)=0,\ x^2+y^2<1\},$$
+				pak v takov\'em bod\v e mus\'i platit:
+				$$\nabla f=\lambda\nabla g_1=\lambda (0,0,1).$$
+				Dost\'av\'ame soustavu rovnic $1=0, 1=\lambda$, kter\'a nem\'a \v resen\'i. To znamen\'a, \v ze na $H_1$ \v z\'adn\'y podez\v rel\'y bod nen\'i. Zbývá naj\'it podez\v rel\'e body na kru\v znici (\ref{kruznice}) a porovnat hodnoty v t\v echto bodech s $f(A)$.
+				
+				M\'ame
+				$$\partial K_0\cap\partial K_1=\{(x,y,z)\in\mathbb R^3:\ g_0(x,y,z)=g_1(x,y,z)=0\}.$$ 
+				V bod\v e extr\'emu na t\'eto mno\v zin\v e mus\'i platit
+				$$\nabla f=\lambda_0\nabla g_0+\lambda_1 \nabla g_1,\ \lambda_i\in\mathbb R,\ i=0,1.$$
+				To vede na soustavu rovnic
+				$$
+				\left(
+				\begin{array}{cc|c}
+				-2x&0&1\\
+				-2y&0&1\\
+				1&1&1
+				\end{array}
+				\right)
+				$$
+				pro nezn\'am\'e $\lambda_0$ a $\lambda_1$. Tato soustava m\'a \v re\v sen\'i jen pro $x=y$. Jeliko\v z mus\'i platit $x^2+y^2=1$, pak $x=y=\pm\frac{1}{\sqrt2}$.
+				
+				Celkem existuj\'i pouze t\v ri podez\v rel\'e body:
+				$$A=\parens{-\frac{1}{2},-\frac{1}{2},\frac{1}{2}},\ \pm B=\parens{\pm\frac{1}{\sqrt2},\pm\frac{1}{\sqrt2},1}.$$
+				Plat\'i 
+				$$f(A)=-\frac{1}{2},\ f(\pm B)=1\pm\frac{2}{\sqrt2}=1\pm\sqrt2.$$
+				Jeliko\v z $-\frac{1}{2} < 1-\sqrt 2< 1 + \sqrt{2}$, pak jsme uk\'azali
+				
+				Z\'av\v er: $f$ nab\'yv\'a maxima v bod\v e $B$ a minima v bod\v e $A$. 
+		\end{enumerate}	
+	\end{solution}
+  
+\end{questions}
+
+\end{document}
