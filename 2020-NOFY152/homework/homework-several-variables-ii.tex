@@ -1,0 +1,484 @@
+\documentclass[answers]{exam}
+
+% encoding, language
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+% geometry
+\usepackage[a4paper]{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm}
+
+% mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text appearence
+\usepackage{libertine}
+\usepackage{microtype}  % better general appearence of text
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+
+% colors
+\definecolor{LightBlue}{HTML}{42bbed}
+\definecolor{LightGray}{HTML}{616a6b}
+\definecolor{GraphColor}{HTML}{1d7ad1}
+
+% hypertext
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=LightBlue
+}
+
+% bibliography
+\usepackage{natbib}
+
+% miscellaneous
+\usepackage[parfill]{parskip}
+\usepackage{nopageno}
+\pagestyle{plain}
+\usepackage{titling}
+\usepackage{enumitem}
+
+% exam class parameters
+\bracketedpoints
+\pointpoints{b}{b}
+\renewcommand{\solutiontitle}{\noindent\textbf{Řešení: }}
+
+% custom macros
+\input{../../macros}
+
+% title
+\title{\vspace{-3ex}Matematická analýza II (NOFY152) – DÚ 9}
+\author{Věta o implicitní funkci, ODR ve tvaru totálního diferenciálu}
+\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+
+\begin{questions}	
+	\question
+		Ukažte, že rovnice
+		\begin{equation*}
+			z^3 - xz + y = 0,
+		\end{equation*}
+		na jistém okolí bodu $\parens{x^0, y^0} = \parens{3, -2}$ jednoznačně určuje funkci $z\parens{x, y}$ a spočtěte hodnotu
+		\begin{equation*}
+			\pd[2]{z}{y}\parens{3, -2}.
+		\end{equation*}
+		
+	\begin{solution}
+		Označme si
+		\begin{equation*}
+			F(x, y, z) = z^3 - xz + y.
+		\end{equation*}
+		Nejprve najděme bod $z^0$, který spolu s $x^0 = 3$ a $y^0 = -2$ řeší rovnici $F\parens{x^0, y^0, z^0} = 0$. Dosazením za $x^0$, $y^0$ dostáváme rovnici
+		\begin{equation*}
+			\parens{z^0}^3 -3z^0 - 2 = 0,
+		\end{equation*}
+		která má dvě řešení $z^{0,1} = -1$ a $z^{0,2} = 2$.
+		
+		Dále platí
+		\begin{equation*}
+			\pd{F}{z}\parens{x, y, z} = 3z^2 - x,
+		\end{equation*}
+		odkud vidíme, že $\pd{F}{z}\parens{x^0, y^0, z^{0,1}} = 0$ a $\pd{F}{z}\parens{x^0, y^0, z^{0,2}} = 9 \neq 0$. Podle věty o implicitní funkci tedy zadaná rovnice na okolí bodu $\parens{x^0, y^0} = \parens{3, -2}$ jednoznačně určuje funkci $z\parens{x,y}$, pro kterou platí $z\parens{3, -2} = z^{0,2} = 2$. Funkce $z$ je navíc na daném okolí dostatečně hladká, neboť $F \in C^{\infty}\parens{\R^3}$.
+		
+		Na dostatečně malém okolí bodu $\parens{x^0, y^0} = \parens{3, -2}$ nyní derivujme rovnost
+		\begin{equation*}
+			z^3\parens{x,y} - x z\parens{x, y} + y = 0,
+		\end{equation*}
+		podle $y$. Dostáváme
+		\begin{equation}
+			\label{eq:1}
+			3 z^2\parens{x,y} \pd{z}{y}\parens{x,y} - x \pd{z}{y}\parens{x,y} + 1 = 0,
+		\end{equation}
+		odkud po dosazení za $\parens{x, y}$ bod $\parens{x^0, y^0} = \parens{3, -2}$ máme
+		\begin{equation}
+			\label{eq:2}
+			3 \cdot 2^2 \pd{z}{y} \parens{3, -2} - 3 \pd{z}{y} \parens{3, -2} + 1 = 0
+			\quad 
+			\implies
+			\quad
+			\pd{z}{y} \parens{3, -2}
+			=
+			-
+			\frac{1}{9}.
+		\end{equation}
+		Nyní zderivujeme rovnici \eqref{eq:1} opět podle $y$ a dostaneme
+		\begin{equation*}
+			6 z\parens{x,y} \parens{\pd{z}{y}\parens{x,y}}^2 + \parens{3z^2\parens{x,y} - x} \pd[2]{z}{y}\parens{x,y} = 0.
+		\end{equation*}
+		Po dosazení za $\parens{x, y}$ bod $\parens{x^0, y^0} = \parens{3, -2}$ pak s využitím \eqref{eq:2} konečně dostáváme
+		\begin{equation*}
+			6 \cdot 2 \parens{-\frac{1}{9}}^2 + \parens{3 \cdot 2^2 - 3} \pd[2]{z}{y}\parens{3, -2} = 0
+			\quad
+			\implies
+			\quad
+			\pd[2]{z}{y}\parens{3, -2} = -\frac{4}{243}.
+		\end{equation*}
+	\end{solution}
+	
+  \question 
+  	Ukažte, že rovnice 
+    \begin{align*}
+      x_1\exponential{y_2} + y_1 \ln x_2 - \exponential{} &= 0, \\
+      x_1 y_1 + x_2 \exponential{y_2} - (2 + \exponential{} )&=0,
+    \end{align*}
+    na jistém okolí bodu $\parens{x_1^0, x_2^0} = \parens{1, 1}$ jednoznačně určují funkce $y_1(x_1, x_2)$ a $y_2(x_1, x_2)$ a spočtěte hodnoty
+    \begin{equation*}
+    	\pd{y_1}{x_1} \parens{1, 1} \quad \text{a} \quad \pd{y_2}{x_1} \parens{1, 1}.
+    \end{equation*}
+	
+  \begin{solution}
+		Označme si
+    \begin{equation*}
+      \vec{x}
+      =
+      \begin{bmatrix}
+        x_1
+        \\
+        x_2
+      \end{bmatrix}
+      ,
+      \qquad
+      \vec{y}
+      =
+      \begin{bmatrix}
+        y_1
+        \\
+        y_2
+      \end{bmatrix},
+    \end{equation*}
+    a dále
+    \begin{equation*}
+      \vec{x}_0
+      =
+      \begin{bmatrix}
+        x_1^0
+        \\
+        x_2^0
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        1 \\
+        1
+      \end{bmatrix}
+      ,
+      \qquad
+      \vec{y}_0
+      =
+      \begin{bmatrix}
+        y_1^0
+        \\
+        y_2^0
+      \end{bmatrix},
+    \end{equation*}
+    a konečně
+    \begin{equation*}
+      \vec{F}(\vec{x}, \vec{y})
+      =
+      \begin{bmatrix}
+        F_1(\vec{x}, \vec{y}) \\
+        F_2(\vec{x}, \vec{y}) \\
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        x_1\exponential{y_2} + y_1 \ln x_2 - \exponential{} \\
+        x_1 y_1 + x_2 \exponential{y_2} - (2 + \exponential{})
+      \end{bmatrix}
+      .
+    \end{equation*}
+    Nejprve najdeme bod $\vec{y}_0$, který společně s $\vec{x}_0$ řeší rovnici
+    \begin{equation*}
+      \vec{F}(\vec{x}_0, \vec{y}_0) = \vec{0},
+    \end{equation*}
+    aneb chceme, aby platilo
+    \begin{equation*}
+      \begin{bmatrix}
+        x_1^0\exponential{y_2^0} + y_1^0 \ln x_2^0 - \exponential{}  \\
+        x_1^0 y_1^0 + x_2^0 \exponential{y_2^0} - (2 + \exponential{})
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        0 \\
+        0
+      \end{bmatrix}
+      ,
+    \end{equation*}
+    což po dosazení za $\vec{x}_0$ vede na soustavu rovnic
+    \begin{equation*}
+      \begin{bmatrix}
+        \exponential{y_2^0}  - \exponential{}  \\
+        y_1^0 + \exponential{y_2^0} - (2 + \exponential{})
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        0 \\
+        0
+      \end{bmatrix}
+      ,
+    \end{equation*} 
+    což dává
+    \begin{equation*}
+      \vec{y}_0
+      =
+      \begin{bmatrix}
+        y_1^0
+        \\
+        y_2^0
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        2 \\
+        1
+      \end{bmatrix}
+      .
+    \end{equation*}
+    Připomeneme si formální výpočet dle věty o implicitních funkcích. Je-li $\vec{F}(\vec{x}, \vec{y}(\vec{x})) = \vec{0}$, pak
+    \begin{equation*}
+      \pd{\vec{F}}{\vec{x}} + \pd{\vec{F}}{\vec{y}} \pd{\vec{y}}{\vec{x}} = \vec{0},
+    \end{equation*}
+    odkud
+    \begin{equation*}
+      \pd{\vec{y}}{\vec{x}}
+      =
+      -
+      \inverse{
+        \left[
+          \pd{\vec{F}}{\vec{y}}
+        \right]
+      }
+      \pd{\vec{F}}{\vec{x}}
+      ,
+    \end{equation*}
+    přičemž jsme použili značení
+    \begin{equation*}
+      \pd{\vec{F}}{\vec{x}}
+      =
+      \begin{bmatrix}
+        \pd{F_1}{x_1} & \pd{F_1}{x_2} \\
+        \pd{F_2}{x_1} & \pd{F_2}{x_2}
+      \end{bmatrix}
+      ,
+      \qquad
+      \pd{\vec{F}}{\vec{y}}
+      =
+      \begin{bmatrix}
+        \pd{F_1}{y_1} & \pd{F_1}{y_2} \\
+        \pd{F_2}{y_1} & \pd{F_2}{y_2}
+      \end{bmatrix}
+      ,
+      \qquad
+      \pd{\vec{y}}{\vec{x}}
+      =
+      \begin{bmatrix}
+        \pd{y_1}{x_1} & \pd{y_1}{x_2} \\
+        \pd{y_2}{x_1} & \pd{y_2}{x_2}
+      \end{bmatrix}
+      .
+    \end{equation*}
+    V našem konkrétním případě dostaneme
+    \begin{equation*}
+      \pd{\vec{F}}{\vec{x}}
+      =
+      \begin{bmatrix}
+        \exponential{y_2} &  \frac{y_1}{x_2} \\
+        y_1 & \exponential{y_2}
+      \end{bmatrix}
+      ,
+      \qquad
+      \pd{\vec{F}}{\vec{y}}
+      =
+      \begin{bmatrix}
+        \ln x_2 &  x_1\exponential{y_2} \\
+        x_1 &  x_2 \exponential{y_2}
+      \end{bmatrix}
+      .
+    \end{equation*}
+    Zajímají nás hodnoty v bodě $\vec{x}_0$. (Připomeňme si, že $\vec{y}(\vec{x}_0) = \vec{y}_0$.) Po dosazení dostaneme
+    \begin{equation*}
+      \pd{\vec{F}}{\vec{x}} \parens{\vec{x}_0}
+      =
+      \begin{bmatrix}
+        \exponential{} &  2 \\
+        2 & \exponential{}
+      \end{bmatrix}
+      ,
+      \qquad
+      \pd{\vec{F}}{\vec{y}} \parens{\vec{x}_0}
+      =
+      \begin{bmatrix}
+        0 &  \exponential{} \\
+        1 &  \exponential{}
+      \end{bmatrix}
+      ,
+      \qquad
+        \inverse{
+          \left[
+            \pd{\vec{F}}{\vec{y}}
+          \right]
+        }
+      \parens{\vec{x}_0}
+      =
+      -
+      \frac{1}{\exponential{}}
+      \begin{bmatrix}
+        \exponential{} &  -\exponential{} \\
+        -1 &  0
+      \end{bmatrix}
+      ,
+    \end{equation*}
+    kde jsme zároveň ověřili, že $\det \parens{\pd{\vec{F}}{\vec{y}} \parens{\vec{x}_0}} = - \exponential{} \neq 0$, a tedy na okolí bodu $\parens{x_1^0, x_2^0} = \parens{1, 1}$ skutečně zadané rovnice jednoznačně určují funkce $y_1(x_1, x_2)$ a $y_2(x_1, x_2)$, které jsou navíc dostatečně hladké.
+    
+    Požadované derivace najdeme dosazením do vztahu
+    \begin{equation*}
+      \pd{\vec{y}}{\vec{x}}
+      \parens{\vec{x}_0}
+      =
+      -
+      \inverse{
+        \left[
+          \pd{\vec{F}}{\vec{y}}
+        \right]
+      }
+			\parens{\vec{x}_0}
+      \pd{\vec{F}}{\vec{x}}
+      \parens{\vec{x}_0}
+    \end{equation*}
+    což dává
+    \begin{equation*}
+      \pd{\vec{y}}{\vec{x}}
+      \parens{\vec{x}_0}
+      =
+      \frac{1}{\exponential{}}
+      \begin{bmatrix}
+        \exponential{} &  -\exponential{} \\
+        -1 &  0
+      \end{bmatrix}
+      \begin{bmatrix}
+        \exponential{} &  2 \\
+        2 & \exponential{}
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        \exponential{} -2 &  2 - \exponential{} \\
+        -1 & - \frac{2}{\exponential{}}
+      \end{bmatrix}
+    \end{equation*}
+    a proto
+    \begin{align*}
+      \pd{y_1}{x_1}
+      \parens{\vec{x}_0}
+      &=
+        \exponential{} -2
+        ,
+      \\
+      \pd{y_2}{x_1}
+      \parens{\vec{x}_0}
+      &=
+        -1
+        .
+    \end{align*}  
+	\end{solution}
+	
+	\question
+		Najděte implicitní vztah pro obecné řešení rovnice
+		\begin{equation*}
+			x^2 y^3 + y + \parens{x^3 y^2 - x} y' = 0.
+		\end{equation*}
+		\emph{Nápověda:} Převeďte rovnici do rovnice ve tvaru totálního diferenciálu pomocí integračního faktoru $\mu = \mu\parens{xy}$.
+	
+	\begin{solution}
+		Zadanou rovnici můžeme přepsat do tvaru
+		\begin{equation*}
+			M\parens{x, y} \diff x + N\parens{x, y} \diff y = 0,
+		\end{equation*}
+		kde
+		\begin{align*}
+			M\parens{x, y} &= x^2 y^3 + y,
+			\\
+			N\parens{x, y} &= x^3 y^2 - x.
+		\end{align*}
+		Nejedná se přímo o rovnici ve tvaru totálního diferenciálu, neboť
+		\begin{equation*}
+			\pd{N}{x}\parens{x, y} - \pd{M}{y}\parens{x, y}
+			=
+			3 x^2 y^2  - 1 - 3 x^2 y^2 - 1
+			=
+			-2
+			\neq 
+			0.
+		\end{equation*}
+		Hledejme integrační faktor $\mu = \mu\parens{xy}$, který zajistí platnost
+		\begin{equation}
+			\label{eq:3}
+			\pd{}{x}\parens{\mu\parens{xy}N\parens{x,y}} = \pd{}{y}\parens{\mu\parens{x, y}M\parens{x,y}}.
+		\end{equation}
+		Rovnice \eqref{eq:3} vede na úlohu
+		\begin{equation*}
+			\frac{\mu'\parens{xy}}{\mu\parens{xy}}
+			=
+			\frac{\pd{N}{x}\parens{x,y} - \pd{M}{y}\parens{x,y}}{xM\parens{x,y} - yN\parens{x,y}}
+			=
+			\frac{-2}{x^3y^3 + xy - x^3y^3 + xy}
+			=
+			-\frac{1}{xy},
+		\end{equation*}
+		kde jsme dosadili za $M$ a $N$. Dostáváme tedy lineární diferenciální rovnici 1. řádu
+		\begin{equation*}
+			\frac{\mu'(z)}{\mu(z)} = -\frac{1}{z},
+		\end{equation*}
+		jejímž řešením je na intervalech $\parens{-\infty, 0}$ a $\parens{0, +\infty}$ funkce $\mu(z) = \frac{c}{\abs{z}}$, kde $c \in \R \setminus \set{0}$. Volme tedy nejjednoduší integrační faktor $\mu(xy) = \frac{1}{xy}$. (Multiplikativní konstanty nehrají roli.) V dalším tedy řešíme zadanou rovnici na čtyřech podoblastech $\R^2$ (mimo souřadné osy).
+		
+		Přenásobení zadané rovnice nalezeným integračním faktorem vede na rovnici ve tvaru totálního diferenciálu
+		\begin{equation*}
+			\parens{xy^2 + \frac{1}{x}} \diff x + \parens{x^2y-\frac{1}{y}} \diff y = 0,
+		\end{equation*}
+		odkud dostáváme pro její potenciál $U$
+		\begin{equation*}
+			U\parens{x,y}
+			=
+			\int
+				\parens{xy^2 + \frac{1}{x}}
+			\diff x
+			=
+			\frac{1}{2}x^2y^2 + \ln \abs{x} + \varphi(y),
+		\end{equation*}
+		a
+		\begin{equation*}
+			x^2y - \frac{1}{y}
+			=
+			\pd{U}{y}\parens{x,y}
+			=
+			x^2 y + \varphi'(y)
+			\quad
+			\implies
+			\quad
+			\varphi'(y) = - \frac{1}{y}
+			\quad
+			\implies
+			\quad
+			\varphi(y) = - \ln \abs{y} - C,
+		\end{equation*}
+		kde $C \in \R$. Celkově má tedy zadaná rovnice řešení dané implicitně předpisem
+		\begin{equation*}
+			\frac{1}{2} x^2 y^2 + \ln \abs{\frac{x}{y}} = C,
+		\end{equation*}
+		kde konstantu $C$ určíme z počáteční podmínky.
+	\end{solution}
+  
+\end{questions}
+
+\end{document}
